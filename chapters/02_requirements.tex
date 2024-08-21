@@ -1,0 +1,42 @@
+%!TEX root = ../main.tex
+
+\chapter{Requirements}
+\label{chp:Requirements}
+
+\section{Functional Requirements}
+\noindent
+The main features of the project must be:
+
+\begin{itemize}
+  \item \textbf{Show custom 3D model at runtime:} The software must be able to download 3D models in OBJ format and rendering them at runtime, with also show coloring made by a surgeon.
+  \item \textbf{Multiplayer functionality:} The software must recreate a 3D virtual classroom where a professor can show the 3D model to the students, all students and professor must be synchronized.
+  \item \textbf{Upload of 3D models:} There will be a web portal were a surgeon can upload and preview 3D models.
+  \item \textbf{Tutoring functionality:} The software will have some tools for learning such as lase pointers, and the possibility to change the position and dimension of the 3D model.
+  \item \textbf{Compatibility with Meta quest 2:} The system will need to run on the Meta quest 2.
+\end{itemize}
+
+\section{Data requirements}
+\noindent
+The system necessitates the following data (with the following characteristics) to fulfill its objectives:
+
+\begin{itemize}
+  \item \textbf{Required Data:} 
+  \begin{itemize}
+    \item 3D models in OBJ format.
+    \item Local \ac{IP} address for multiplayer.
+    \item Generating and managing codes for multiplayer sessions.
+  \end{itemize}
+  \item \textbf{Data Format:} All data must be respect its standard, other communication betwin clients and server must use \ac{JSON} format file.
+  These formats facilitate data exchange with external systems.
+\end{itemize}
+
+\section{Non-functional requirements}
+\noindent
+To ensure the development of an effective \ac{VR} software, the following non-functional requirements must be considered:
+
+\begin{itemize}
+  \item \textbf{Use of \ac{UE}:} \ac{UE} is a powerful 3D engine, used for big video games, with a lot of tools that will facilitate the development and the performance of the software.
+  \item \textbf{Simple Back end:} The backend must do the least things effectively because so that the IT department does not need to update the server that will host the services.
+  \item \textbf{Compliance with Internet standards:} The system will be compliance with \ac{HTTP} for all communication betwin server and client, the \ac{HMD} will use \ac{UE} session system for the multiplayer.
+\end{itemize}
+
