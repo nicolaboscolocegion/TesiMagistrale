@@ -41,9 +41,14 @@ Events are what start the execution of code inside a Blueprint. Each blueprint h
 But we can also create custom event with Blueprint or C++, they can be triggered whenever we want, they can also be replicated in clients in multiplayer sessions. 
 Like functions, events can have inputs but not outputs.
 
+\paragraph*{Multiplayer:}
+\ac{UE} just support a client-server configuration for manage multiplayer session, it has two main implementation: Stand-Alone server and listening server.\\
+Stand-Alone server consist in having a server that emulates the gaming session, it requires a server powerful enough to run the basic function of the game event if it does not need to render it.\\
+Listening Server does not need a Stand-Alone server, simply one device acts not only as a client but also as a server. Normally client-server is the best in performance and latency, but because this software is simple, the listening server is the right implementation.
+
 \section{Network Infrastructure}
 \noindent
-The Network Infrastructure [fig:\ref{fig:NetworkSchema}] it is simple, a server will be hosted in the IT department of the hospital that will host the REST server for managing 3D Models and multiplayer sessions,
+The Network Infrastructure [fig:\ref{fig:NetworkSchema}] it is simple, a server will be hosted in the IT department of the hospital that will host the \ac{REST} server for managing 3D Models and multiplayer sessions,
 and in the same server will host via NODEjs the Web Portal for managing the 3DModels.
 The multiplayer itself will be manage by the host \ac{HMD}
 
@@ -53,4 +58,21 @@ The multiplayer itself will be manage by the host \ac{HMD}
   \caption{Network Schema}
   \label{fig:NetworkSchema}
 \end{figure}
+
+
+\paragraph{The backend:}
+The backend is a simple Python program that it functions as a \ac{REST} server, were each 3D model is a resource.
+It also manages the multiplayer session by creating the session code, and save the \ac{IP} address of the listening server.
+The library used is called Flask\footnote{\url{https://flask.palletsprojects.com/en/3.0.x/}}, it simply let you run a function respect to a \ac{HTTP} response received.
+
+\paragraph{The WebUI}
+The WebUI is made with reactJS, a popular framework for website, the main reason of this choice is for faster development because its community is massive, in fact will be using a UI library called MUI\footnote{\url{https://mui.com/}}
+and a 3D library for rendering 3D models called React Three Fiber\footnote{\url{https://r3f.docs.pmnd.rs/getting-started/introduction}}.\\
+The main functionality of the WebUI will be:
+\begin{itemize}
+  \item previewing 3D models
+  \item upload 3D models
+  \item delete 3D models
+\end{itemize}
+
 
