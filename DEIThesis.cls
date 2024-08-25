@@ -209,6 +209,13 @@
 }
 
 
+\RequirePackage{relsize}
+\RequirePackage{xspace}
+
+
+\newcommand{\Rplus}{\protect\hspace{-.1em}\protect\raisebox{.35ex}{\smaller{\smaller\textbf{+}}}}
+\newcommand{\cpp}{\mbox{C\Rplus\Rplus}\xspace}
+
 
 % -- FRONTMATTER --
 
