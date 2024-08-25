@@ -1,16 +1,18 @@
 %!TEX root = ../main.tex
 
 \chapter{Preliminary project}
-
-\section{The game engine}
-
-\paragraph{What to choose?:} 
+\noindent
+The project is made by three main components: \ac{VR} APP, backend, webui. This chapter will talk about them.
+\section{The VR APP}
+\noindent
+This section will explain the main choices behind the \ac{VR} APP
+\paragraph{The development environment:} 
 There are three main way to develop on the Meta Quest 2:
 
 \begin{itemize}
   \item \textbf{Native:} By using native \ac{API} that Meta provides for the \ac{HMD}.
-  \item \textbf{Unity:} Is a famous game engine principally used for lightweight video games, It is pretty functional and easy to use, its programming language is C\#.
-  \item \textbf{Unreal Engine:} Is a famous game engine used for big games, its performance is the best in the market, it uses C++ and a graphical programming language called Blueprint.
+  \item \textbf{Unity:} Is a famous game engine principally used for lightweight video games, It is pretty functional and easy to use, its programming language is \verb|C#|. 
+  \item \textbf{Unreal Engine:} Is a famous game engine used for big games, its performance is the best in the market, it uses \cpp and a graphical programming language called Blueprint. 
 \end{itemize}
 \noindent
 As we said in the non-functional requirements we will use a game engine, I have opted for \ac{UE} because of its performance, the 3D models are pretty complex (\textasciitilde10MByte in size),
@@ -20,13 +22,13 @@ It has a lot of tools for multiplayer and a nice documentation other than a big 
 \section{Unreal Engine}
 \noindent
 Made by Epic Games, the project was born for the video game Unreal, now is one of the best engine that power a lot of important video games and 3D animation.
-For this project it will be used the 5.2.1 version for the best compatibility with the \ac{HMD}, still is not a very old version, the last one is 5.3. 
+For this project it will be used the 5.2.1 version for the best compatibility with the \ac{HMD}, still is not an old version, the last one is 5.3. 
 
 \paragraph{The fundamentals:}
 \ac{UE} has a 3D preview mode that let the user set the various 3D objects in the scene. 
 In unreal a scene is called "Level", each element in a level is called "Actor", Actors are made by multiple components.\\
-Each element of unreal can be build with a propriety system called Blueprint, a visual programming interface, or via C++, or by combine them.
-Principally Blueprint can make the developing of the project faster and easier at the cost of performance, C++ perform better, and it has a bigger range of tools.
+Each element of unreal can be build with a propriety system called Blueprint, a visual programming interface, or via \cpp, or by combine them.
+Principally Blueprint can make the developing of the project faster and easier at the cost of performance, \cpp perform better, and it has a bigger range of tools.
 So It is important to combine both languages for having the best performance and flexibility in the project.\\
 Like a lot of game engines, \ac{UE} tries to render as much frame as much as possible, each cycle of rendering is called tick.\\
 Its important that long actions must be asynchronous respect the game ticks, and if something must be runner in the so-called "game thread", it must be as fast as possible so that the frame rate does not drop to a certain level.
@@ -38,7 +40,7 @@ Events are what start the execution of code inside a Blueprint. Each blueprint h
   \item \textbf{On tick:} runs on every game tick.
 \end{itemize}
 \noindent
-But we can also create custom event with Blueprint or C++, they can be triggered whenever we want, they can also be replicated in clients in multiplayer sessions. 
+But we can also create custom event with Blueprint or \cpp, they can be triggered whenever we want, they can also be replicated in clients in multiplayer sessions. 
 Like functions, events can have inputs but not outputs.
 
 \paragraph*{Multiplayer:}
@@ -70,9 +72,10 @@ The WebUI is made with reactJS, a popular framework for website, the main reason
 and a 3D library for rendering 3D models called React Three Fiber\footnote{\url{https://r3f.docs.pmnd.rs/getting-started/introduction}}.\\
 The main functionality of the WebUI will be:
 \begin{itemize}
-  \item previewing 3D models
+  \item previewing 3D models with the right colors 
   \item upload 3D models
   \item delete 3D models
 \end{itemize}
+
 
 
