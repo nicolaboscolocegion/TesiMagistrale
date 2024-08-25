@@ -30,7 +30,6 @@
 % export in PDF/X, PDF/A, etc...
 \RequirePackage{etoolbox}
 \RequirePackage{colorprofiles}
-\RequirePackage[a-2b,mathxmp]{pdfx}[\today]
 
 % language, font and encodings
 \RequirePackage{newpxtext,newpxmath}
@@ -54,6 +53,8 @@
 % footnotes
 \RequirePackage{footnote}
 \RequirePackage[bottom]{footmisc}
+\RequirePackage[a-2b,mathxmp]{pdfx}[\today]
+
 
 % mathematics
 \RequirePackage{amsmath}
@@ -61,6 +62,7 @@
 % links
 \RequirePackage{hyperref}
 \RequirePackage{url}
+\RequirePackage{footnotebackref}
 
 % colors
 \RequirePackage{color}
