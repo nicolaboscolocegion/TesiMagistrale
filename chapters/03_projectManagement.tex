@@ -15,14 +15,13 @@ There are three main way to develop on the Meta Quest 2:
   \item \textbf{Unreal Engine:} Is a famous game engine used for big games, its performance is the best in the market, it uses \cpp and a graphical programming language called Blueprint. 
 \end{itemize}
 \noindent
-As we said in the non-functional requirements we will use a game engine, I have opted for \ac{UE} because of its performance, the 3D models are pretty complex (\textasciitilde10MByte in size),
-so we need good performance.
-It has a lot of tools for multiplayer and a nice documentation other than a big community of developers.
+As we said in the non-functional requirements we will use a game engine, I have opted for \ac{UE} because of its performance, the 3D models that will use are complex (\textasciitilde10MByte in size),
+so it will be used for its performance, also it has a lot of tools for multiplayer and a good documentation other than a big community of developers.
 
 \section{Unreal Engine}
 \noindent
 Made by Epic Games, the project was born for the video game Unreal, now is one of the best engine that power a lot of important video games and 3D animation.
-For this project it will be used the 5.2.1 version for the best compatibility with the \ac{HMD}, still is not an old version, the last one is 5.3. 
+For this project it will be used the 5.2.1 version for the best compatibility with the \ac{HMD}, still is not an old version, the last one is 5.4. 
 
 \paragraph{The fundamentals:}
 \ac{UE} has a 3D preview mode that let the user set the various 3D objects in the scene. 
@@ -51,7 +50,7 @@ Listening Server does not need a Stand-Alone server, simply one device acts not 
 \section{Network Infrastructure}
 \noindent
 The Network Infrastructure [fig:\ref{fig:NetworkSchema}] it is simple, a server will be hosted in the IT department of the hospital that will host the \ac{REST} server for managing 3D Models and multiplayer sessions,
-and in the same server will host via NODEjs the Web Portal for managing the 3DModels.
+and in the same server will host via NodeJS the Web Portal for managing the 3DModels.
 The multiplayer itself will be manage by the host \ac{HMD}
 
 \begin{figure}[h]
@@ -78,4 +77,28 @@ The main functionality of the WebUI will be:
 \end{itemize}
 
 
+\section{Development environment}
+\noindent
+It is important to set the right development environment for this project, even if for the webUI and backend it is a standard NodeJS and Python environment, 
+it is not that simple for \ac{UE}\\
+First the choosing the right version is very important because Meta does not always test all \ac{UE} version, at the start of the developing of the project, the last one was 5.2.1,
+we also need Visual Studio with the right components for compile in \cpp, we could use other text editor, but Visual Studio is the most completed one for unreal.
+For other information look at: \cite{UEvisualStudio}
+After we set up the basic \ac{UE} environment, we have to pick the right Android studio and \ac{SDK} for building for Android, the requirements are:
 
+\begin{itemize}
+  \item Android studio version 4.0
+  \item Command-line Tools version 8.0
+\end{itemize}
+\noindent
+Another important component is the Android \ac{NDK} that enables \ac{UE} to compile native \cpp code.
+But for installing there is a command line tool that \ac{UE} shipped with that can install the right version. 
+For more information look at Epic Games documentation: \cite{UEandroid}.\\
+Other than the configuration for Android, we also need to add the right components for building for the Meta Quest 2,
+There are two other components useful for developing:
+\begin{itemize}
+  \item \textbf{MetaXRPlugin:} plugin for: sideload, publish and setting the project for the \ac{HMD}
+  \item \textbf{MetaXRSimulator:} simulator for the \ac{HMD}, this is extremely important because the compile time of the \ac{APK} is slow. The simulator uses a PC instance of the game, and it overlays it.
+\end{itemize}
+\noindent
+For more information look at: \cite{MetaSetup}
