@@ -161,6 +161,17 @@
 
 % box for titles
 \RequirePackage{adjustbox}
+\RequirePackage{verbatimbox}
+\RequirePackage{tcolorbox}
+\RequirePackage{wrapfig}
+
+
+
+\newcommand{\infobox}[2]{
+    \begin{wrapfigure}{r}{0pt}
+        \begin{tcolorbox}[colframe=green!50!white,colback=white,width=#1]#2\end{tcolorbox}
+    \end{wrapfigure}
+}
 
 % style for chapters
 \titleformat{\chapter}[display]
