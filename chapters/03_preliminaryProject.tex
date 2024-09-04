@@ -2,7 +2,7 @@
 
 \chapter{Preliminary project}
 \noindent
-The project is made by three main components: \ac{VR} APP, backend, webui. This chapter will talk about them.
+The project is made by three main components: \ac{VR} APP, backend, Web \ac{UI}. This chapter will talk about them.
 \section{The VR APP}
 \noindent
 This section will explain the main choices behind the \ac{VR} APP
@@ -21,7 +21,8 @@ so it will be used for its performance, also it has a lot of tools for multiplay
 \section{Unreal Engine}
 \noindent
 Made by Epic Games, the project was born for the video game Unreal, now is one of the best engine that power a lot of important video games and 3D animation.
-For this project it will be used the 5.2.1 version for the best compatibility with the \ac{HMD}, still is not an old version, the last one is 5.4. 
+For this project it will be used the 5.2.1 version for the best compatibility with the \ac{HMD}, then for making the development experience faster, the unreal build was changed in 5.4.3 Meta fork.
+The main reason of this upgrade was for faster building time and more advanced \ac{API} of Meta.
 
 \paragraph{The fundamentals:}
 \ac{UE} has a 3D preview mode that let the user set the various 3D objects in the scene. 
@@ -42,7 +43,7 @@ Events are what start the execution of code inside a Blueprint. Each blueprint h
 But we can also create custom event with Blueprint or \cpp, they can be triggered whenever we want, they can also be replicated in clients in multiplayer sessions. 
 Like functions, events can have inputs but not outputs.
 
-\paragraph*{Multiplayer:}
+\paragraph{Multiplayer:}
 \ac{UE} just support a client-server configuration for manage multiplayer session, it has two main implementation: Stand-Alone server and listening server.\\
 Stand-Alone server consist in having a server that emulates the gaming session, it requires a server powerful enough to run the basic function of the game event if it does not need to render it.\\
 Listening Server does not need a Stand-Alone server, simply one device acts not only as a client but also as a server. Normally client-server is the best in performance and latency, but because this software is simple, the listening server is the right implementation.
@@ -66,10 +67,10 @@ The backend is a simple Python program that it functions as a \ac{REST} server, 
 It also manages the multiplayer session by creating the session code, and save the \ac{IP} address of the listening server.
 The library used is called Flask\footnote{\url{https://flask.palletsprojects.com/en/3.0.x/}}, it simply let you run a function respect to a \ac{HTTP} response received.
 
-\paragraph{The WebUI}
-The WebUI is made with reactJS, a popular framework for website, the main reason of this choice is for faster development because its community is massive, in fact will be using a UI library called MUI\footnote{\url{https://mui.com/}}
+\paragraph{The Web UI:}
+The Web \ac{UI} is made with ReactJS, a popular framework for website, the main reason of this choice is for faster development because its community is massive, in fact will be using a UI library called MUI\footnote{\url{https://mui.com/}}
 and a 3D library for rendering 3D models called React Three Fiber\footnote{\url{https://r3f.docs.pmnd.rs/getting-started/introduction}}.\\
-The main functionality of the WebUI will be:
+The main functionality of the Web \ac{UI} will be:
 \begin{itemize}
   \item previewing 3D models with the right colors 
   \item upload 3D models
@@ -79,26 +80,21 @@ The main functionality of the WebUI will be:
 
 \section{Development environment}
 \noindent
-It is important to set the right development environment for this project, even if for the webUI and backend it is a standard NodeJS and Python environment, 
+It is important to set the right development environment for this project, even if for the Web \ac{UI} and backend it is a standard NodeJS and Python environment, 
 it is not that simple for \ac{UE}\\
 First the choosing the right version is very important because Meta does not always test all \ac{UE} version, at the start of the developing of the project, the last one was 5.2.1,
 we also need Visual Studio with the right components for compile in \cpp, we could use other text editor, but Visual Studio is the most completed one for unreal.
 For other information look at: \cite{UEvisualStudio}
-After we set up the basic \ac{UE} environment, we have to pick the right Android studio and \ac{SDK} for building for Android, the requirements are:
-
-\begin{itemize}
-  \item Android studio version 4.0
-  \item Command-line Tools version 8.0
-\end{itemize}
-\noindent
+After we set up the basic \ac{UE} environment, we have to pick the right Android studio and \ac{SDK} for building for Android \\
 Another important component is the Android \ac{NDK} that enables \ac{UE} to compile native \cpp code.
 But for installing there is a command line tool that \ac{UE} shipped with that can install the right version. 
-For more information look at Epic Games documentation: \cite{UEandroid}.\\
+Because the requirements differs respect the version of \ac{UE} for more information look at Epic Games documentation: \cite{UEandroid}.\\
 Other than the configuration for Android, we also need to add the right components for building for the Meta Quest 2,
 There are two other components useful for developing:
 \begin{itemize}
-  \item \textbf{MetaXRPlugin:} plugin for: sideload, publish and setting the project for the \ac{HMD}
+  \item \textbf{MetaXRPlugin:} plugin for: sideload, publish and setting the project for the \ac{HMD}, this component is already implemented in the \ac{UE} fork of META.
   \item \textbf{MetaXRSimulator:} simulator for the \ac{HMD}, this is extremely important because the compile time of the \ac{APK} is slow. The simulator uses a PC instance of the game, and it overlays it.
 \end{itemize}
 \noindent
 For more information look at: \cite{MetaSetup}
+
