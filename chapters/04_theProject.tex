@@ -6,6 +6,9 @@
 This chapter will explain the development behind the project by starting from the fundamentals.
 \section{The 3D models}
 \noindent
+In this section will talk about how 3D models are saved and rendered on \ac{UE}
+\subsection{The OBJ file format}
+\noindent
 For understanding how \ac{UE} will show 3D models and how they will be stored, we must talk about their characteristics.
 
 \begin{itemize}
@@ -22,7 +25,7 @@ Unfortunately \ac{UE} does not have a OBJ file reader usable at runtime but just
 So there is the need to build a parser OBJ to \ac{UE} custom types.\\
 First we need to understand how the OBJ file format is compose of, here a general example code:\ref{code:OBJExample}
 
-\lstinputlisting[language=Octave, caption=OBJ file example, label={code:OBJExample}]{code/exampleOBJ.txt}
+\lstinputlisting[float=h, language=Octave, caption=OBJ file example, label={code:OBJExample}]{code/exampleOBJ.txt}
 \noindent
 The vertices, UV and normals are simply written, instead the faces have different formats, first not always they use triangles, but also quads, this depends on how the file was exported.
 For ease of use the parser will support both. The numbers of the face are the indices of vertex, indices starts from 1.
@@ -31,4 +34,23 @@ Sometime is useful to divide the 3D model in multiple objects the OBJ format rep
 OBJ can also divide the faces in groups by dividing them with a "\verb|g|".
 Here an example of how the division works: code:\ref{code:OBJgrouping}
 
-\lstinputlisting[language=Octave, caption=OBJ grouping, label={code:OBJgrouping}]{code/exampleOBJGrups.txt}
+\lstinputlisting[float=h, language=Octave, caption=OBJ grouping, label={code:OBJgrouping}]{code/exampleOBJGrups.txt}
+\noindent
+The software that the surgeons are using for exporting 3D models just support groups, so will implement those, and they will become useful for rendering the model in parts.
+
+\subsection{To unreal types}
+\noindent
+Unreal has a component called \verb|procedural mesh|, this component has the possibility to render a 3D model given vertices and triangles, it also has more data that you can feed to the rendered mesh such us: normals, tangents, UV, vertex colors.
+We can also add collisions and changing the material of the \verb|procedural mesh|.\\
+The \verb|procedural mesh| has also the possibility to load the mesh in parts, so the parser will save the different triangles in the various groups that are defined in the file.
+This will be important later for loading time.\\
+Vertices are directly read and saved in an array of \verb|FVector| and normals will be saved in the same way.
+Vertex colors just need to be read and put in a \verb|LinearColor| array, the object itself can be initialized with the data retrieved in the file.
+UV because are 2D vectors will be saved in an array of \verb|Vector2D|.
+Unfortunately there is a mismatch between how \ac{UE} manage correlation between vertices and normals respect the OBJ file standard.
+Unreal needs that two arrays that contains vertices and normals, so that the vertex in the array at the position \verb|i| must have its normal in the normal array at position \verb|i|. 
+This is still a trivial problem, because there's just the need to load all the normals in memory and then save them again in the correct order decided by the faces.\\
+UV are being manage in the same way.
+Another problem is that unreal just accept triangles and not quads, and because it is a common practice to use quads when exporting 3D models the program will convert quads in triangles, this is pretty trivial, for each quad we can divide it in two triangles.\\
+Unreal also works in \verb|Z|-up coordinates that means that the \verb|Z| axis points up, there is another standard called \verb|Y|-up were the \verb|Y| axis points up, unfortunately the OBJ file format does not have any ways to reference scale or if the file is saved in \verb|Z|-up or \verb|Y|-up,
+so it is important to export the file in \verb|Z|-up.
