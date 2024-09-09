@@ -32,15 +32,15 @@ Principally Blueprint can make the developing of the project faster and easier a
 So It is important to combine both languages for having the best performance and flexibility in the project.\\
 Like a lot of game engines, \ac{UE} tries to render as much frame as much as possible, each cycle of rendering is called tick.\\
 Its important that long actions must be asynchronous respect the game ticks, and if something must be runner in the so-called "game thread", it must be as fast as possible so that the frame rate does not drop to a certain level.\\
-Another important componet is the player contoller, this is the istance of a player inside a level, a player controller can posess a pawn actor or a character actor. 
+Another important component is the player controller, this is the instance of a player inside a level, a player controller can possess a pawn actor or a character actor. 
 
-\paragraph{Extermal library:}
-One challenge for this application is having a correctly multiplayer session between \ac{HMD}, unfortunately \ac{UE} does not provvide a VRpawn that have multiplayer functionality.
+\paragraph{External library:}
+One challenge for this application is having a correctly multiplayer session between \ac{HMD}, unfortunately \ac{UE} does not provide a \verb|VRpawn| that have multiplayer functionality.
 For having a faster developing experience, it will be used a library called VRexpansion\footnote{\url{https://vreue4.com/}}, the library is open source under MIT licensing.
 The main useful components are:
 \begin{itemize}
-  \item \textbf{VRcharacter:} a charater for \ac{VR} games, all its components can be replicated in a multiplayer session.
-  \item \textbf{Grippable Actor:} an actor that can be gripped by the \ac{HMD} components. It also can be replicated in a multiplayer session.
+  \item \textbf{VRcharacter:} a character for \ac{VR} games, all its components can be replicated in a multiplayer session.
+  \item \textbf{Graspable Actor:} an actor that can be gripped by the \ac{HMD} components. It also can be replicated in a multiplayer session.
 \end{itemize}
 
 \paragraph{Events:}
@@ -59,13 +59,13 @@ Stand-Alone server consist in having a server that emulates the gaming session, 
 Listening Server does not need a Stand-Alone server, simply one device acts not only as a client but also as a server. Normally client-server is the best in performance and latency, but because this software is simple, the listening server is the right implementation.\\
 For making a good multiplayer we have some blueprints that can help with the synchronization of the data:
 \begin{itemize}
-  \item \textbf{Game Mode:} runned only inside the server, as it is called it provvides the rules how the game should work, it is important for the log in and log out of the players.
-  \item \textbf{Game state:} it rappresent the state of the game, all \ac{HMD} has one, but it is always replicated by the server.
-  \item \textbf{Player controller:} runned in every \ac{HMD}, it rappresent the player using the \ac{HMD}.
+  \item \textbf{Game Mode:} runned only inside the server, as it is called it provides the rules how the game should work, it is important for the login and log out of the players.
+  \item \textbf{Game state:} it represents the state of the game, all \ac{HMD} has one, but it is always replicated by the server.
+  \item \textbf{Player controller:} runned in every \ac{HMD}, it represents the player using the \ac{HMD}.
   \item \textbf{Player state:} it has all the data of a player like the username, its replicated.
 \end{itemize}
 \noindent
-An important feture for syncronize events between client and server are \ac{RPCs}, \ac{RPCs} are events of actors that can per reproduce in multiple device at once by following one of this rules:
+An important feature for synchronize events between client and server are \ac{RPCs}, \ac{RPCs} are events of actors that can per reproduce in multiple device at once by following one of these rules:
 \begin{itemize}
   \item \textbf{Client} The \ac{RPCs} is executed on the owning client connection for this actor.
   \item \textbf{Server} The \ac{RPCs} is executed on the server, it must be called from the client that owns this actor.
