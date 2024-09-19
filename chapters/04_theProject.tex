@@ -58,3 +58,39 @@ Unreal also works in \verb|Z|-up coordinates that means that the \verb|Z| axis p
 so it is important to export the file in \verb|Z|-up.\\
 
 Because when loading a big procedural mesh it could create a big loss in \ac{FPS}, for reduce this problem the model will be rendered in parts, by using the different groups found on the file. After some testing I have decided to load groups every \verb|0.6ms|. 
+
+\section{The user experience}
+\noindent
+Thanks to VRExpansion plugin, we can use the standard \verb|VRCharater|, this \verb*|Character| has already implemented the online synchronization, and it also has the components for the controllers and camera management.
+The controllers can \verb|grip| any \verb|Actor| or \verb|Componet| that implement the interface \verb|VRGrip|, this will be used for  moving the 3D models.
+Other than that the \verb|VRCharater| is an empty blank, will need to implement some functions for making fully functional.\\
+Here are the main components to develop:
+
+\begin{itemize}
+    \item Input management
+    \item Widget Interaction
+    \item Interaction pointer
+    \item Side menu
+    \item Grip framework
+    \item 3D model size management    
+    \item Loading sphere
+\end{itemize}
+
+\subsection{Input management}
+\noindent
+Input in \ac{UE} is manage by two data files: \verb|Input Action |and\verb| Input Mapping Context|.
+In the next two paragraphs will be addressed how the input works, and then will be used in the various components of \verb|VRCharater|.
+
+\paragraph{Input Action}
+Are files that are used to identify a certain input of the controller, each file should be named after an action more than the input used for making clear what they serve.
+For example:\\
+For using the \verb|A| button find in the right controller,
+you need to have a file that represents the button,
+the necessary settings are: Consume input which allows you to take into account that the input has been served,
+and the type of value that in this case will be \verb|Digital (bool)|.
+
+\paragraph{Input Mapping Context}
+Each file represents all the inputs used by an actor, an actor could change its inputs, so they can be multiple files for different occasion,
+Here each \verb|Input Action| will be associated with the corresponding input.
+\verb|Input Mapping Context| can be used for other objects so that they can override the standard behavior of the \verb|Character|, for example by equipping a laser pointer and using the \verb|A| button for toggle it.
+For setting the \verb|Input Mapping Context| there is a function called \verb|Add Mapping Context|.
