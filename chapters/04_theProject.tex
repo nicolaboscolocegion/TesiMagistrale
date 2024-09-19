@@ -107,16 +107,16 @@ and the type of value that in this case will be \verb|Digital (bool)|.
 Each file represents all the inputs used by an actor, an actor could change its inputs, so they can be multiple files for different occasion,
 Here each \verb|Input Action| will be associated with the corresponding input.
 \verb|Input Mapping Context| can be used for other objects so that they can override the standard behavior of the \verb|Character|, for example by equipping a laser pointer and using the \verb|A| button for toggle it.
-Each \verb|Input Mapping Context| can be bind with differents controllers, this can be usefol if will be porting the app for another \ac{HMD}.
+Each \verb|Input Mapping Context| can be bind with different controllers, this can be useful if we will be porting the app for another \ac{HMD}.
 For setting the \verb|Input Mapping Context| there is a function called \verb|Add Mapping Context|.
 
 \subsection{Widget Interaction}
 \noindent 
-In a normal application we are used to managing input mainly via mouse or touch screens, in \ac{VR} we can not have that, so its important to create some kind of \ac{UI}.
-One of the most used approch is showing some kind of virtual display with buttons so that the user can interact, for this will be using a blueprint called \verb|Widget| and will be explain in here ""INSERT CHAPTER"".
-For letting the user see exacly were the controller is pointed, when the controller is near the \verb|Widget| a trace will be shown.
-For the trace will be useda a componet called \verb|Spline Mesh|, as the name suggest, it uses various points and interpolate a mesh for creating a complex curve.
-Still our use will be siplfy by just using two points. So the algorithm is simple, each tick a funcion called \verb|InteractionPointer| will controllor for both controllers if the controller points to a \verb|Widget|, then will draw the spline.
+In a normal application we are used to managing input mainly via mouse or touch screens, in \ac{VR} we can not have that, so It's important to create some kind of \ac{UI}.
+One of the most used approach is showing some kind of virtual display with buttons so that the user can interact, for this will be using a blueprint called \verb|Widget| and will be explained in here ""INSERT CHAPTER"".
+For letting the user see exactly were the controller is pointed, when the controller is near the \verb|Widget| a trace will be shown.
+For the trace will be used a component called \verb|Spline Mesh|, as the name suggest, it uses various points and interpolate a mesh for creating a complex curve.
+Still our use will be simply by just using two points. So the algorithm is simple, each tick a function called \verb|InteractionPointer| will controller for both controllers if the controller points to a \verb|Widget|, then will draw the spline.
 
 \begin{figure}[h]
     \centering

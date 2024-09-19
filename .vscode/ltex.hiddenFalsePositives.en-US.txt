@@ -1,0 +1,2 @@
+{"rule":"ONE_OF","sentence":"^\\QOne of the most used approach is showing some kind of virtual display with buttons so that the user can interact, for this will be using a blueprint called \\E(?:Dummy|Ina|Jimmy-)[0-9]+\\Q and will be explained in here INSERT CHAPTER.\\E$"}
+{"rule":"MASS_AGREEMENT","sentence":"^\\QThe user experience.\\E$"}
