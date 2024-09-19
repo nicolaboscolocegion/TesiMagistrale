@@ -57,6 +57,13 @@ Another problem is that unreal just accept triangles and not quads, and because 
 Unreal also works in \verb|Z|-up coordinates that means that the \verb|Z| axis points up, there is another standard called \verb|Y|-up were the \verb|Y| axis points up, unfortunately the OBJ file format does not have any ways to reference scale or if the file is saved in \verb|Z|-up or \verb|Y|-up,
 so it is important to export the file in \verb|Z|-up.\\
 
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=\textwidth]{blueprints/loadingMesh.png}
+    \caption{Add mesh section blueprint node}
+    \label{fig:loadingMesh}
+\end{figure}
+\noindent
 Because when loading a big procedural mesh it could create a big loss in \ac{FPS}, for reduce this problem the model will be rendered in parts, by using the different groups found on the file. After some testing I have decided to load groups every \verb|0.6ms|. 
 
 \section{The user experience}
@@ -89,8 +96,38 @@ you need to have a file that represents the button,
 the necessary settings are: Consume input which allows you to take into account that the input has been served,
 and the type of value that in this case will be \verb|Digital (bool)|.
 
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.7\textwidth]{blueprints/InputActionExample.png}
+    \caption{Input Action example}
+    \label{fig:InputAction}
+\end{figure}
+
 \paragraph{Input Mapping Context}
 Each file represents all the inputs used by an actor, an actor could change its inputs, so they can be multiple files for different occasion,
 Here each \verb|Input Action| will be associated with the corresponding input.
 \verb|Input Mapping Context| can be used for other objects so that they can override the standard behavior of the \verb|Character|, for example by equipping a laser pointer and using the \verb|A| button for toggle it.
+Each \verb|Input Mapping Context| can be bind with differents controllers, this can be usefol if will be porting the app for another \ac{HMD}.
 For setting the \verb|Input Mapping Context| there is a function called \verb|Add Mapping Context|.
+
+\subsection{Widget Interaction}
+\noindent 
+In a normal application we are used to managing input mainly via mouse or touch screens, in \ac{VR} we can not have that, so its important to create some kind of \ac{UI}.
+One of the most used approch is showing some kind of virtual display with buttons so that the user can interact, for this will be using a blueprint called \verb|Widget| and will be explain in here ""INSERT CHAPTER"".
+For letting the user see exacly were the controller is pointed, when the controller is near the \verb|Widget| a trace will be shown.
+For the trace will be useda a componet called \verb|Spline Mesh|, as the name suggest, it uses various points and interpolate a mesh for creating a complex curve.
+Still our use will be siplfy by just using two points. So the algorithm is simple, each tick a funcion called \verb|InteractionPointer| will controllor for both controllers if the controller points to a \verb|Widget|, then will draw the spline.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=\textwidth]{blueprints/interactionPointer.png}
+    \caption{Widget Interaction code}
+    \label{fig:InteractionPointer}
+\end{figure}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.8\textwidth]{vrScreenshot/splineExample.png}
+    \caption{On the left a controller that create the spline pointing to the widget}
+    \label{fig:splineExample}
+\end{figure}
