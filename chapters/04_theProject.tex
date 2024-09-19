@@ -40,8 +40,10 @@ The software that the surgeons are using for exporting 3D models just support gr
 
 \subsection{To unreal types}
 \noindent
+\ac{UE} has some custom classes for manage thing like vectors, colors... this classes other to have useful methods they also interface with the blueprint system, we can for example expose variables or functions, so we can call them at blueprint level.
+This is very important so that we can interconnect the \cpp components with blueprints.\\
 Unreal has a component called \verb|procedural mesh|, this component has the possibility to render a 3D model given vertices and triangles, it also has more data that you can feed to the rendered mesh such us: normals, tangents, UV, vertex colors.
-We can also add collisions and changing the material of the \verb|procedural mesh|.\\
+It can also have collisions and a material.\\
 The \verb|procedural mesh| has also the possibility to load the mesh in parts, so the parser will save the different triangles in the various groups that are defined in the file.
 This will be important later for loading time.\\
 Vertices are directly read and saved in an array of \verb|FVector| and normals will be saved in the same way.
@@ -53,4 +55,6 @@ This is still a trivial problem, because there's just the need to load all the n
 UV are being manage in the same way.
 Another problem is that unreal just accept triangles and not quads, and because it is a common practice to use quads when exporting 3D models the program will convert quads in triangles, this is pretty trivial, for each quad we can divide it in two triangles.\\
 Unreal also works in \verb|Z|-up coordinates that means that the \verb|Z| axis points up, there is another standard called \verb|Y|-up were the \verb|Y| axis points up, unfortunately the OBJ file format does not have any ways to reference scale or if the file is saved in \verb|Z|-up or \verb|Y|-up,
-so it is important to export the file in \verb|Z|-up.
+so it is important to export the file in \verb|Z|-up.\\
+
+Because when loading a big procedural mesh it could create a big loss in \ac{FPS}, for reduce this problem the model will be rendered in parts, by using the different groups found on the file. After some testing I have decided to load groups every \verb|0.6ms|. 
