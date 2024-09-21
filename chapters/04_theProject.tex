@@ -40,20 +40,20 @@ The software that the surgeons are using for exporting 3D models just support gr
 
 \subsection{To unreal types}
 \noindent
-\ac{UE} has some custom classes for manage thing like vectors, colors... this classes other to have useful methods they also interface with the blueprint system, we can for example expose variables or functions, so we can call them at blueprint level.
+\ac{UE} has some custom classes formanaging things like vectors, colors... These classes also to have useful methods that also interface with the blueprint system, we can for example expose variables or functions, so we can call them at blueprint level.
 This is very important so that we can interconnect the \cpp components with blueprints.\\
-Unreal has a component called \verb|procedural mesh|, this component has the possibility to render a 3D model given vertices and triangles, it also has more data that you can feed to the rendered mesh such us: normals, tangents, UV, vertex colors.
+Unreal has a component called \verb|procedural mesh|, this component has the possibility to render a 3D model given vertices and triangles, it also has more data that you can feed to the rendered mesh such  us: normals, tangents, UV, vertex colors.
 It can also have collisions and a material.\\
-The \verb|procedural mesh| has also the possibility to load the mesh in parts, so the parser will save the different triangles in the various groups that are defined in the file.
+The \verb|procedural mesh| also has the possibility to load the mesh in parts, so the parser will save the different triangles in the various groups that are defined in the file.
 This will be important later for loading time.\\
 Vertices are directly read and saved in an array of \verb|FVector| and normals will be saved in the same way.
 Vertex colors just need to be read and put in a \verb|LinearColor| array, the object itself can be initialized with the data retrieved in the file.
 UV because are 2D vectors will be saved in an array of \verb|Vector2D|.
-Unfortunately there is a mismatch between how \ac{UE} manage correlation between vertices and normals respect the OBJ file standard.
-Unreal needs that two arrays that contains vertices and normals, so that the vertex in the array at the position \verb|i| must have its normal in the normal array at position \verb|i|. 
+Unfortunately there is a mismatch between how \ac{UE} manages correlation between vertices and normals respect the OBJ file standard.
+Unreal needs two arrays that contain vertices and normals, so that the vertex in the array at the position \verb|i| must have its normal in the normal array at position \verb|i|. 
 This is still a trivial problem, because there's just the need to load all the normals in memory and then save them again in the correct order decided by the faces.\\
-UV are being manage in the same way.
-Another problem is that unreal just accept triangles and not quads, and because it is a common practice to use quads when exporting 3D models the program will convert quads in triangles, this is pretty trivial, for each quad we can divide it in two triangles.\\
+UVs are being managed in the same way.
+Another problem is that unreal just accepts triangles and not quads, and because it is a common practice to use quads when exporting 3D models the program will convert quads in triangles, this is pretty trivial, for each quad we can divide it in two triangles.\\
 Unreal also works in \verb|Z|-up coordinates that means that the \verb|Z| axis points up, there is another standard called \verb|Y|-up were the \verb|Y| axis points up, unfortunately the OBJ file format does not have any ways to reference scale or if the file is saved in \verb|Z|-up or \verb|Y|-up,
 so it is important to export the file in \verb|Z|-up.\\
 
@@ -66,10 +66,10 @@ so it is important to export the file in \verb|Z|-up.\\
 \noindent
 Because when loading a big procedural mesh it could create a big loss in \ac{FPS}, for reduce this problem the model will be rendered in parts, by using the different groups found on the file. After some testing I have decided to load groups every \verb|0.6ms|. 
 
-\section{The user experience}
+\section{The user interface}
 \noindent
 Thanks to the VRExpansion plugin, we can use the standard \verb|VRCharater|, this \verb*|Character| has already implemented the online synchronization, and it also has the components for the controllers and camera management.
-The controllers can \verb|grip| any \verb|Actor| or \verb|Componet| that implements the interface \verb|VRGrip|, this will be used for  moving the 3D models.
+The controllers can \verb|grip| any \verb|Actor| or \verb|Component| that implements the interface \verb|VRGrip|, this will be used for  moving the 3D models.
 Other than that the \verb|VRCharater| is an empty blank, and will need to implement some functions for making it fully functional.\\
 Here are the main components to develop:
 
@@ -104,7 +104,7 @@ and the type of value that in this case will be \verb|Digital (bool)|.
 \end{figure}
 
 \paragraph{Input Mapping Context}
-Each file represents all the inputs used by an actor, an actor could change its inputs, so they can be multiple files for different occasions,
+Files represent all the inputs used by an actor, an actor could change its inputs, so they can be multiple files for different occasions,
 Here each \verb|Input Action| will be associated with the corresponding input.
 \verb|Input Mapping Context| can be used for other objects so that they can override the standard behavior of the \verb|Character|, for example by equipping a laser pointer and using the \verb|A| button for toggle it.
 Each \verb|Input Mapping Context| can be bound with different controllers, this can be useful if we will be porting the app for another \ac{HMD}.
