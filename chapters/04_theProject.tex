@@ -20,7 +20,7 @@ For understanding how \ac{UE} will show 3D models and how they will be stored, w
 \end{itemize}
 \noindent
 As we talked about in chapter \ref{chp:Requirements}, we will use the OBJ file format for storing files.
-The React Three Fiber has a native support for OBJ, and the backend server does not need to read the file but just to manage by saving, deleting and send it via \ac{HTTP}.
+The React Three Fiber has a native support for OBJ, and the backend server does not need to read the file but just to manage by saving, deleting and sending it via \ac{HTTP}.
 Unfortunately \ac{UE} does not have a OBJ file reader usable at runtime but just an importer for what it calls static meshes (3D models that don't have moving parts).
 So there is the need to build a parser OBJ to \ac{UE} custom types.\\
 First we need to understand how the OBJ file format is compose of, here a general example code:\ref{code:OBJExample}
@@ -28,9 +28,9 @@ First we need to understand how the OBJ file format is compose of, here a genera
 \lstinputlisting[float=h, language=Octave, caption=OBJ file example, label={code:OBJExample}]{code/exampleOBJ.txt}
 \noindent
 The vertices, UV and normals are simply written, instead the faces have different formats, first not always they use triangles, but also quads, this depends on how the file was exported.
-For ease of use the parser will support both. The numbers of the face are the indices of vertex, indices starts from 1.
-Then a face can have also the UV and normals corresponding for the vertex. For our use cases UV aren't needed, but for future-proof they are still been parsed correctly.\\
-Sometime is useful to divide the 3D model in multiple objects the OBJ format represent by dividing the 3D model with a "\verb|o|".
+For ease of use the parser will support both. The numbers of the face are the indices of the vertex. Indices start from 1.
+A face can also have the UV and normals corresponding for the vertex. For our use cases UV aren't needed, but for future-proof they are still being parsed correctly.\\
+Sometimes it is useful to divide the 3D model into multiple objects the OBJ format represents by dividing the 3D model with a "\verb|o|".
 OBJ can also divide the faces in groups by dividing them with a "\verb|g|".
 Here an example of how the division works: code:\ref{code:OBJgrouping}
 
@@ -68,9 +68,9 @@ Because when loading a big procedural mesh it could create a big loss in \ac{FPS
 
 \section{The user experience}
 \noindent
-Thanks to VRExpansion plugin, we can use the standard \verb|VRCharater|, this \verb*|Character| has already implemented the online synchronization, and it also has the components for the controllers and camera management.
-The controllers can \verb|grip| any \verb|Actor| or \verb|Componet| that implement the interface \verb|VRGrip|, this will be used for  moving the 3D models.
-Other than that the \verb|VRCharater| is an empty blank, will need to implement some functions for making fully functional.\\
+Thanks to the VRExpansion plugin, we can use the standard \verb|VRCharater|, this \verb*|Character| has already implemented the online synchronization, and it also has the components for the controllers and camera management.
+The controllers can \verb|grip| any \verb|Actor| or \verb|Componet| that implements the interface \verb|VRGrip|, this will be used for  moving the 3D models.
+Other than that the \verb|VRCharater| is an empty blank, and will need to implement some functions for making it fully functional.\\
 Here are the main components to develop:
 
 \begin{itemize}
@@ -85,13 +85,13 @@ Here are the main components to develop:
 
 \subsection{Input management}
 \noindent
-Input in \ac{UE} is manage by two data files: \verb|Input Action |and\verb| Input Mapping Context|.
+Input in \ac{UE} is managed by two data files: \verb|Input Action |and\verb| Input Mapping Context|.
 In the next two paragraphs will be addressed how the input works, and then will be used in the various components of \verb|VRCharater|.
 
 \paragraph{Input Action}
 Are files that are used to identify a certain input of the controller, each file should be named after an action more than the input used for making clear what they serve.
 For example:\\
-For using the \verb|A| button find in the right controller,
+For using the \verb|A| button find find in the right controller,
 you need to have a file that represents the button,
 the necessary settings are: Consume input which allows you to take into account that the input has been served,
 and the type of value that in this case will be \verb|Digital (bool)|.
@@ -104,19 +104,19 @@ and the type of value that in this case will be \verb|Digital (bool)|.
 \end{figure}
 
 \paragraph{Input Mapping Context}
-Each file represents all the inputs used by an actor, an actor could change its inputs, so they can be multiple files for different occasion,
+Each file represents all the inputs used by an actor, an actor could change its inputs, so they can be multiple files for different occasions,
 Here each \verb|Input Action| will be associated with the corresponding input.
 \verb|Input Mapping Context| can be used for other objects so that they can override the standard behavior of the \verb|Character|, for example by equipping a laser pointer and using the \verb|A| button for toggle it.
-Each \verb|Input Mapping Context| can be bind with different controllers, this can be useful if we will be porting the app for another \ac{HMD}.
+Each \verb|Input Mapping Context| can be bound with different controllers, this can be useful if we will be porting the app for another \ac{HMD}.
 For setting the \verb|Input Mapping Context| there is a function called \verb|Add Mapping Context|.
 
 \subsection{Widget Interaction}
 \noindent 
 In a normal application we are used to managing input mainly via mouse or touch screens, in \ac{VR} we can not have that, so It's important to create some kind of \ac{UI}.
-One of the most used approach is showing some kind of virtual display with buttons so that the user can interact, for this will be using a blueprint called \verb|Widget| and will be explained in here ""INSERT CHAPTER"".
-For letting the user see exactly were the controller is pointed, when the controller is near the \verb|Widget| a trace will be shown.
-For the trace will be used a component called \verb|Spline Mesh|, as the name suggest, it uses various points and interpolate a mesh for creating a complex curve.
-Still our use will be simply by just using two points. So the algorithm is simple, each tick a function called \verb|InteractionPointer| will controller for both controllers if the controller points to a \verb|Widget|, then will draw the spline.
+One of the most used approaches is showing some kind of virtual display with buttons so that the user can interact, for this will be using a blueprint called \verb|Widget| and will be explained in here ""INSERT CHAPTER"".
+For letting the user see exactly where the controller is pointed, when the controller is near the \verb|Widget| a trace will be shown.
+For the trace will be used a Component called \verb|Spline Mesh|, as the name suggests, uses various points and interpolates a mesh for creating a complex curve.
+Still our use will be simply by just using two points. So the algorithm is simple, each tick a function called \verb|InteractionPointer| will control for both controllers if the controller points to a \verb|Widget|, then will draw the spline.
 
 \begin{figure}[h]
     \centering

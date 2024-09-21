@@ -12,7 +12,7 @@ There are three main way to develop on the Meta Quest 2:
 \begin{itemize}
   \item \textbf{Native:} By using native \ac{API} that Meta provides for the \ac{HMD}.
   \item \textbf{Unity:} Is a famous game engine principally used for lightweight video games, It is pretty functional and easy to use, its programming language is \verb|C#|. 
-  \item \textbf{Unreal Engine:} Is a famous game engine used for big games, its performance is the best in the market, it uses \cpp and a graphical programming language called Blueprint. 
+  \item \textbf{Unreal Engine:} Is a famous game engine used for big games, its performance is the best in the market, it uses \cpp and a graphical programming language called Blueprint.
 \end{itemize}
 \noindent
 As we said in the non-functional requirements we will use a game engine, I have opted for \ac{UE} because of its performance, the 3D models that will use are complex (\textasciitilde1-10MBytes in size),
@@ -20,23 +20,25 @@ so it will be used for its performance, also it has a lot of tools for multiplay
 
 \section{Unreal Engine}
 \noindent
-Made by Epic Games, the project was born for the video game Unreal, now is one of the best engine that power a lot of important video games and 3D animation.
-For this project it will be used the 5.2.1 version because at the time of writing this thesis for the best compatibility with the \ac{HMD}.
-The main reason of this upgrade was for faster building time and more advanced \ac{API} of Meta.
+Made by Epic Games, the project was born for the video game Unreal,
+now it is one of the best engines that power a lot of important video games and 3D animation. 
+For this project it will use the 5.2.1 version because at the time of writing this thesis for the best compatibility with the \ac{HMD}. 
+The main reason for this upgrade was for faster building time and more advanced \ac{API} of Meta. 
 
 \paragraph{The fundamentals:}
-\ac{UE} has a 3D preview mode that let the user set the various 3D objects in the scene. 
+\ac{UE} has a 3D preview mode that lets the user set the various 3D objects in the scene.
 In unreal a scene is called "Level", each element in a level is called "Actor", Actors are made by multiple components.\\
-Each element of unreal can be build with a propriety system called Blueprint, a visual programming interface, or via \cpp, or by combine them.
-Principally Blueprint can make the developing of the project faster and easier at the cost of performance, \cpp perform better, and it has a bigger range of tools.
+Each element of unreal can be built with a proprietary system called Blueprint, a visual programming interface, or via \cpp, or by combining them.
+Principally Blueprint can make the development of the project faster and easier at the cost of performance, \cpp performs better, and it has a bigger range of tools.
 So It is important to combine both languages for having the best performance and flexibility in the project.\\
 Like a lot of game engines, \ac{UE} tries to render as much frame as much as possible, each cycle of rendering is called tick.\\
-Its important that long actions must be asynchronous respect the game ticks, and if something must be runner in the so-called "game thread", it must be as fast as possible so that the frame rate does not drop to a certain level.\\
-Another important component is the player controller, this is the instance of a player inside a level, a player controller can possess a pawn actor or a character actor. 
+It's important that long actions must be asynchronous respect the game ticks, and if something must be runner in the so-called "game thread", it must be as fast as possible so that the frame rate does not drop to a certain level.\\
+Another important component is the player controller, this is the instance of a player inside a level, a player controller can possess a pawn actor or a character actor.
+
 
 \paragraph{External library:}
-One challenge for this application is having a correctly multiplayer session between \ac{HMD}, unfortunately \ac{UE} does not provide a \verb|VRpawn| that have multiplayer functionality.
-For having a faster developing experience, it will be used a library called VRexpansion\footnote{\url{https://vreue4.com/}}, the library is open source under MIT licensing.
+One challenge for this application is having a correctly multiplayer session between \ac{HMD}, unfortunately \ac{UE} does not provide a \verb|VRpawn| that has multiplayer functionality.
+For having a faster developing experience, a library called VRexpansion\footnote{\url{https://vreue4.com/}} will help the development, the library is open source under MIT licensing.
 The main useful components are:
 \begin{itemize}
   \item \textbf{VRcharacter:} a character for \ac{VR} games, all its components can be replicated in a multiplayer session.
@@ -50,14 +52,15 @@ Events are what start the execution of code inside a Blueprint. Each blueprint h
   \item \textbf{On tick:} runs on every game tick.
 \end{itemize}
 \noindent
-But we can also create custom event with Blueprint or \cpp, they can be triggered whenever we want, they can also be replicated in clients in multiplayer sessions. 
+But we can also create custom events with Blueprint or \cpp, they can be triggered whenever we want, they can also be replicated in clients in multiplayer sessions. 
 Like functions, events can have inputs but not outputs.
 
 \paragraph{Multiplayer:}
-\ac{UE} just support a client-server configuration for manage multiplayer session, it has two main implementation: Stand-Alone server and listening server.\\
-Stand-Alone server consist in having a server that emulates the gaming session, it requires a server powerful enough to run the basic function of the game event if it does not need to render it.\\
-Listening Server does not need a Stand-Alone server, simply one device acts not only as a client but also as a server. Normally client-server is the best in performance and latency, but because this software is simple, the listening server is the right implementation.\\
-For making a good multiplayer we have some blueprints that can help with the synchronization of the data:
+\ac{UE} just supports a client-server configuration for managing multiplayer sessions, it has two main implementations: Stand-Alone server and listening server.\\
+A Stand-Alone server consists in having a server that emulates the gaming session, it requires a server powerful enough to run the basic function of the game event if it does not need to render it.\\
+A Listening Server does not need a Stand-Alone server, simply one device acts not only as a client but also as a server. Normally client-server is the best in performance and latency, but because this software is simple, the listening server is the right implementation.\\
+For making a good multiplayer we have some blueprints that can help with the synchronization of the data: 
+
 \begin{itemize}
   \item \textbf{Game Mode:} runned only inside the server, as it is called it provides the rules how the game should work, it is important for the login and log out of the players.
   \item \textbf{Game state:} it represents the state of the game, all \ac{HMD} has one, but it is always replicated by the server.
@@ -87,9 +90,9 @@ The multiplayer itself will be manage by the host \ac{HMD}
 
 
 \paragraph{The backend:}
-The backend is a simple Python program that it functions as a \ac{REST} server, were each 3D model is a resource.
-It also manages the multiplayer session by creating the session code, and save the \ac{IP} address of the listening server.
-The library used is called Flask\footnote{\url{https://flask.palletsprojects.com/en/3.0.x/}}, it simply let you run a function respect to a \ac{HTTP} response received.
+The backend is a simple Python program that functions as a \ac{REST} server, where each 3D model is a resource.
+It also manages the multiplayer session by creating the session code, and saves the \ac{IP} address of the listening server.
+The library used is called Flask\footnote{\url{https://flask.palletsprojects.com/en/3.0.x/}}, it simply lets you run a function with respect to a \ac{HTTP} response received.
 
 \paragraph{The Web UI:}
 The Web \ac{UI} is made with ReactJS, a popular framework for website, the main reason of this choice is for faster development because its community is massive, in fact will be using a UI library called MUI\footnote{\url{https://mui.com/}}
@@ -112,7 +115,7 @@ For other information look at: \cite{UEvisualStudio}
 After we set up the basic \ac{UE} environment, we have to pick the right Android studio and \ac{SDK} for building for Android \\
 Another important component is the Android \ac{NDK} that enables \ac{UE} to compile native \cpp code.
 But for installing there is a command line tool that \ac{UE} shipped with that can install the right version. 
-Because the requirements differs respect the version of \ac{UE} for more information look at Epic Games documentation: \cite{UEandroid}.\\
+Because the requirements differ with respect to the version of \ac{UE} for more information look at Epic Games documentation: \cite{UEandroid}.\\
 Other than the configuration for Android, we also need to add the right components for building for the Meta Quest 2,
 There are two other components useful for developing:
 \begin{itemize}
