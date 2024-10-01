@@ -30,8 +30,8 @@ First we need to understand how the OBJ file format is compose of, here a genera
 The vertices, UV and normals are simply written, instead the faces have different formats, first not always they use triangles, but also quads, this depends on how the file was exported.
 For ease of use the parser will support both. The numbers of the face are the indices of the vertex. Indices start from 1.
 A face can also have the UV and normals corresponding for the vertex. For our use cases UV aren't needed, but for future-proof they are still being parsed correctly.\\
-Sometimes it is useful to divide the 3D model into multiple objects the OBJ format represents by dividing the 3D model with a "\verb|o|".
-OBJ can also divide the faces in groups by dividing them with a "\verb|g|".
+Sometimes it is useful to divide the 3D model into multiple objects the OBJ format represents by dividing the 3D model with a "\texttt{o}".
+OBJ can also divide the faces in groups by dividing them with a "\texttt{g}".
 Here an example of how the division works: code:\ref{code:OBJgrouping}
 
 \lstinputlisting[float=h, language=Octave, caption=OBJ grouping, label={code:OBJgrouping}]{code/exampleOBJGrups.txt}
@@ -42,20 +42,20 @@ The software that the surgeons are using for exporting 3D models just support gr
 \noindent
 \ac{UE} has some custom classes formanaging things like vectors, colors... These classes also to have useful methods that also interface with the blueprint system, we can for example expose variables or functions, so we can call them at blueprint level.
 This is very important so that we can interconnect the \cpp components with blueprints.\\
-Unreal has a component called \verb|procedural mesh|, this component has the possibility to render a 3D model given vertices and triangles, it also has more data that you can feed to the rendered mesh such  us: normals, tangents, UV, vertex colors.
+Unreal has a component called \texttt{procedural mesh}, this component has the possibility to render a 3D model given vertices and triangles, it also has more data that you can feed to the rendered mesh such  us: normals, tangents, UV, vertex colors.
 It can also have collisions and a material.\\
-The \verb|procedural mesh| also has the possibility to load the mesh in parts, so the parser will save the different triangles in the various groups that are defined in the file.
+The \texttt{procedural mesh} also has the possibility to load the mesh in parts, so the parser will save the different triangles in the various groups that are defined in the file.
 This will be important later for loading time.\\
-Vertices are directly read and saved in an array of \verb|FVector| and normals will be saved in the same way.
-Vertex colors just need to be read and put in a \verb|LinearColor| array, the object itself can be initialized with the data retrieved in the file.
-UV because are 2D vectors will be saved in an array of \verb|Vector2D|.
+Vertices are directly read and saved in an array of \texttt{FVector} and normals will be saved in the same way.
+Vertex colors just need to be read and put in a \texttt{LinearColor} array, the object itself can be initialized with the data retrieved in the file.
+UV because are 2D vectors will be saved in an array of \texttt{Vector2D}.
 Unfortunately there is a mismatch between how \ac{UE} manages correlation between vertices and normals respect the OBJ file standard.
-Unreal needs two arrays that contain vertices and normals, so that the vertex in the array at the position \verb|i| must have its normal in the normal array at position \verb|i|. 
+Unreal needs two arrays that contain vertices and normals, so that the vertex in the array at the position \texttt{i} must have its normal in the normal array at position \texttt{i}. 
 This is still a trivial problem, because there's just the need to load all the normals in memory and then save them again in the correct order decided by the faces.\\
 UVs are being managed in the same way.
 Another problem is that unreal just accepts triangles and not quads, and because it is a common practice to use quads when exporting 3D models the program will convert quads in triangles, this is pretty trivial, for each quad we can divide it in two triangles.\\
-Unreal also works in \verb|Z|-up coordinates that means that the \verb|Z| axis points up, there is another standard called \verb|Y|-up were the \verb|Y| axis points up, unfortunately the OBJ file format does not have any ways to reference scale or if the file is saved in \verb|Z|-up or \verb|Y|-up,
-so it is important to export the file in \verb|Z|-up.\\
+Unreal also works in \texttt{Z}-up coordinates that means that the \texttt{Z} axis points up, there is another standard called \texttt{Y}-up were the \texttt{Y} axis points up, unfortunately the OBJ file format does not have any ways to reference scale or if the file is saved in \texttt{Z}-up or \texttt{Y}-up,
+so it is important to export the file in \texttt{Z}-up.\\
 
 \begin{figure}[h]
     \centering
@@ -64,13 +64,13 @@ so it is important to export the file in \verb|Z|-up.\\
     \label{fig:loadingMesh}
 \end{figure}
 \noindent
-Because when loading a big procedural mesh it could create a big loss in \ac{FPS}, for reduce this problem the model will be rendered in parts, by using the different groups found on the file. After some testing I have decided to load groups every \verb|0.6ms|. 
+Because when loading a big procedural mesh it could create a big loss in \ac{FPS}, for reduce this problem the model will be rendered in parts, by using the different groups found on the file. After some testing I have decided to load groups every \texttt{0.6ms}. 
 
 \section{The user interface}
 \noindent
-Thanks to the VRExpansion plugin, we can use the standard \verb|VRCharater|, this \verb*|Character| has already implemented the online synchronization, and it also has the components for the controllers and camera management.
-The controllers can \verb|grip| any \verb|Actor| or \verb|Component| that implements the interface \verb|VRGrip|, this will be used for  moving the 3D models.
-Other than that the \verb|VRCharater| is an empty blank, and will need to implement some functions for making it fully functional.\\
+Thanks to the VRExpansion plugin, we can use the standard \texttt{VRCharater}, this \texttt{Character} has already implemented the online synchronization, and it also has the components for the controllers and camera management.
+The controllers can \texttt{grip} any \texttt{Actor} or \texttt{Component} that implements the interface \texttt{VRGrip}, this will be used for  moving the 3D models.
+Other than that the \texttt{VRCharater} is an empty blank, and will need to implement some functions for making it fully functional.\\
 Here are the main components to develop:
 
 \begin{itemize}
@@ -85,16 +85,16 @@ Here are the main components to develop:
 
 \subsection{Input management}
 \noindent
-Input in \ac{UE} is managed by two data files: \verb|Input Action |and\verb| Input Mapping Context|.
-In the next two paragraphs will be addressed how the input works, and then will be used in the various components of \verb|VRCharater|.
+Input in \ac{UE} is managed by two data files: \texttt{Input Action }and\texttt{Input Mapping Context}.
+In the next two paragraphs will be addressed how the input works, and then will be used in the various components of \texttt{VRCharater}.
 
 \paragraph{Input Action}
 Are files that are used to identify a certain input of the controller, each file should be named after an action more than the input used for making clear what they serve.
 For example:\\
-For using the \verb|A| button find find in the right controller,
+For using the \texttt{A} button find find in the right controller,
 you need to have a file that represents the button,
 the necessary settings are: Consume input which allows you to take into account that the input has been served,
-and the type of value that in this case will be \verb|Digital (bool)|.
+and the type of value that in this case will be \texttt{Digital (bool)}.
 
 \begin{figure}[h]
     \centering
@@ -105,18 +105,20 @@ and the type of value that in this case will be \verb|Digital (bool)|.
 
 \paragraph{Input Mapping Context}
 Files represent all the inputs used by an actor, an actor could change its inputs, so they can be multiple files for different occasions,
-Here each \verb|Input Action| will be associated with the corresponding input.
-\verb|Input Mapping Context| can be used for other objects so that they can override the standard behavior of the \verb|Character|, for example by equipping a laser pointer and using the \verb|A| button for toggle it.
-Each \verb|Input Mapping Context| can be bound with different controllers, this can be useful if we will be porting the app for another \ac{HMD}.
-For setting the \verb|Input Mapping Context| there is a function called \verb|Add Mapping Context|.
+Here each \texttt{Input Action} will be associated with the corresponding input.
+\texttt{Input Mapping Context} can be used for other objects so that they can override the standard behavior of the \texttt{Character}, for example by equipping a laser pointer and using the \texttt{A} button for toggle it.
+Each \texttt{Input Mapping Context} can be bound with different controllers, this can be useful if we will be porting the app for another \ac{HMD}.
+For setting the \texttt{Input Mapping Context} there is a function called \texttt{Add Mapping Context}.
 
 \subsection{Widget Interaction}
 \noindent 
 In a normal application we are used to managing input mainly via mouse or touch screens, in \ac{VR} we can not have that, so It's important to create some kind of \ac{UI}.
-One of the most used approaches is showing some kind of virtual display with buttons so that the user can interact, for this will be using a blueprint called \verb|Widget| and will be explained in here ""INSERT CHAPTER"".
-For letting the user see exactly where the controller is pointed, when the controller is near the \verb|Widget| a trace will be shown.
-For the trace will be used a Component called \verb|Spline Mesh|, as the name suggests, uses various points and interpolates a mesh for creating a complex curve.
-Still our use will be simply by just using two points. So the algorithm is simple, each tick a function called \verb|InteractionPointer| will control for both controllers if the controller points to a \verb|Widget|, then will draw the spline.
+One of the most used approaches is showing some kind of virtual display with buttons so that the user can interact, for this will be using a blueprint called \texttt{Widget} and will be explained in here ""INSERT CHAPTER"".
+Unfortunately \texttt{Widgets} are used for 2D menus but thanks to an actor component we can use it in a 3D environment.\\
+For interacting with a \texttt{widget} in a 3D space, UE has a component called \texttt{widget interaction} that can evaluate if it is pointing to a \texttt{widget}, it can also give the world location of where it is pointing. This component will be attached to each \texttt{grip motion controller component}.
+For letting the user see exactly where the controller is pointed, when the controller is near the \texttt{Widget} a trace will be shown.
+For the trace will be used a Component called \texttt{Spline Mesh}, as the name suggests, uses various points and interpolates a mesh for creating a complex curve.
+Still our use will be simply by just using two points. So the algorithm is simple: each tick a function called \texttt{InteractionPointer} will control both controllers if the \texttt{widget interaction} points to a \texttt{Widget}, then will draw the spline.
 
 \begin{figure}[h]
     \centering
