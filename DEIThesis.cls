@@ -274,33 +274,30 @@
 
   % insert list of figures
   \phantomsection
-  \setcounter{page}{11}
   \addcontentsline{toc}{chapter}{\listfigurename}
   \listoffigures
   \cleardoublepage
 
   % insert list of tables
   \phantomsection
-  \setcounter{page}{13}
   \addcontentsline{toc}{chapter}{\listtablename}
   \listoftables
   \cleardoublepage
 
   % insert list of algorithms
   \phantomsection
-  \setcounter{page}{15}
   \addcontentsline{toc}{chapter}{\listalgorithmname}
   \listofalgorithms
+  \cleardoublepage
 
   % insert list of code snippets
   \phantomsection
-  \setcounter{page}{17}
   \addcontentsline{toc}{chapter}{\lstlistlistingname}
   \lstlistoflistings
   \cleardoublepage
 
   % insert list of abbreviations/acronyms
-  \setcounter{page}{19}
+
   \acronyms
 }
 
@@ -369,7 +366,7 @@
       \small
       \textbf{Student ID \@studentId} \hfill \textbf{\@university} \\
       % insert co-advisor if not empty
-      
+
     \end{flushleft}
 
     \vspace{\stretch{1}} \null
@@ -400,7 +397,7 @@
   \vspace{\stretch{4}} \null
   
   % insert pages for alignment
-  \cleardoublepage
+  \clearpage
 }
 
 
@@ -450,8 +447,9 @@
   \input{frontmatter/abstract}
   
   % italian version
-  
+  \clearpage
   \thispagestyle{empty}
+  \input{frontmatter/sommario}
 }
 
 
