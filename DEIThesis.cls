@@ -503,29 +503,48 @@
 
 % Colors for code snippets highlights
 \definecolor{commentsColor}{RGB}{36, 161, 156}
+\definecolor{lightBlue}{RGB}{48, 156, 140}
+\definecolor{orangeG}{RGB}{255,140,0}
+\definecolor{lightGray}{RGB}{150, 150, 150}
 \definecolor{numColor}{RGB}{71, 96, 114}
 \definecolor{stringColor}{RGB}{205, 63, 62}
 \definecolor{kwColor}{RGB}{248, 6, 204}
 \definecolor{bgCodeColor}{RGB}{255, 249, 249}
 
 % Style of code snippets
-\lstdefinestyle{codeSnippet} {
-  backgroundcolor=\color{bgCodeColor},
+\lstdefinestyle{obj} {
   commentstyle=\color{commentsColor},
   keywordstyle=\color{kwColor},
-  numberstyle=\tiny\color{numColor},
+  numberstyle=\tiny\color{black},
   stringstyle=\color{stringColor},
   basicstyle=\ttfamily\footnotesize,
-  breakatwhitespace=false,         
+  breakatwhitespace=true,         
   breaklines=true,                 
   captionpos=b,                    
   keepspaces=true,                 
-  numbers=left,                    
-  numbersep=5pt,                  
-  showspaces=false,                
+  numbers=left,                                                    
   showstringspaces=false,
   showtabs=false,                  
   tabsize=2
 }
 
-\lstset{style=codeSnippet}
+\lstdefinestyle{cpp}{
+  numberstyle=\tiny\color{black},
+  belowcaptionskip=1\baselineskip,
+  breaklines=true,
+  breakatwhitespace=true,
+  numbers=left, 
+  keepspaces=true,
+  captionpos=b,  
+  showstringspaces=false,
+  basicstyle=\ttfamily\footnotesize,
+  keywordstyle=\color{blue},
+  commentstyle=\color{lightGray},
+  rulecolor=\color{black},
+  identifierstyle=\color{lightBlue},
+  showtabs=false,
+  tabsize=2,
+  morekeywords={UFUNCTION,UPROPERTY,UCLASS,ELevelTick,FActorComponentTickFunction,FVector2D,FLinearColor,GENERATED_BODY,override,int32,TArray,FVector,DECLARE_DYNAMIC_DELEGATE_OneParam},
+  stringstyle=\color{orangeG},
+}
+
