@@ -31,8 +31,8 @@ In unreal a scene is called "Level", each element in a level is called "Actor", 
 Each element of unreal can be built with a proprietary system called Blueprint, a visual programming interface, or via \cpp, or by combining them.
 Principally Blueprint can make the development of the project faster and easier at the cost of performance, \cpp performs better, and it has a bigger range of tools.
 So It is important to combine both languages for having the best performance and flexibility in the project.\\
-Like a lot of game engines, \ac{UE} tries to render as much frame as much as possible, each cycle of rendering is called tick.\\
-It's important that long actions must be asynchronous respect the game ticks, and if something must be runner in the so-called "game thread", it must be as fast as possible so that the frame rate does not drop to a certain level.\\
+Like a lot of game engines, \ac{UE} tries to render many frames as much as possible, each cycle of rendering is called tick.\\
+It's important that long actions must be asynchronous with respect to the game ticks, and if something must be a runner in the so-called "game thread", it must be as fast as possible so that the frame rate does not drop to a certain level.\\
 Another important component is the player controller, this is the instance of a player inside a level, a player controller can possess a pawn actor or a character actor.
 
 
@@ -70,9 +70,9 @@ For making a good multiplayer we have some blueprints that can help with the syn
 \noindent
 An important feature for synchronize events between client and server are \ac{RPCs}, \ac{RPCs} are events of actors that can per reproduce in multiple device at once by following one of these rules:
 \begin{itemize}
-  \item \textbf{Client} The \ac{RPCs} is executed on the owning client connection for this actor.
-  \item \textbf{Server} The \ac{RPCs} is executed on the server, it must be called from the client that owns this actor.
-  \item \textbf{Multicast} The \ac{RPCs} is executed on the server and all currently connected clients the actor is relevant for, Multicast \ac{RPCs} are designed to be called from the server, but can be called from clients. A Multicast \ac{RPCs} called from a client only executes locally.
+  \item \textbf{Client:} The \ac{RPCs} are executed on the owning client connection for this actor.
+  \item \textbf{Server:} The \ac{RPCs} are executed on the server, it must be called from the client that owns this actor.
+  \item \textbf{Multicast:} The \ac{RPCs} are executed on the server and all currently connected clients the actor is relevant for, Multicast \ac{RPCs} are designed to be called from the server, but can be called from clients. A Multicast \ac{RPCs} called from a client only executes locally.
 \end{itemize}
 
 \section{Network Infrastructure}

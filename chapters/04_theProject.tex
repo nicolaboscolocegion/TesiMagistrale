@@ -36,11 +36,11 @@ Here an example of how the division works: code:\ref{code:OBJgrouping}
 
 \lstinputlisting[float=h, language=Octave, caption=OBJ grouping,style=obj, label={code:OBJgrouping}]{code/exampleOBJGrups.txt}
 \noindent
-The software that the surgeons are using for exporting 3D models just support groups, so will implement those, and they will become useful for rendering the model in parts.
+The software that the surgeons are using for exporting 3D models just support groups, so we will implement those, and they will become useful for rendering the model in parts.
 
 \subsection{To unreal types}
 \noindent
-\ac{UE} has some custom classes formanaging things like vectors, colors... These classes also to have useful methods that also interface with the blueprint system, we can for example expose variables or functions, so we can call them at blueprint level.
+\ac{UE} has some custom classes for managing things like vectors, colors... These classes also have useful methods that also interface with the blueprint system, we can for example expose variables or functions, so we can call them at blueprint level.
 This is very important so that we can interconnect the \cpp components with blueprints.\\
 Unreal has a component called \texttt{procedural mesh}, this component has the possibility to render a 3D model given vertices and triangles, it also has more data that you can feed to the rendered mesh such  us: normals, tangents, UV, vertex colors.
 It can also have collisions and a material.\\
@@ -101,7 +101,7 @@ In the next two paragraphs will be addressed how the input works, and then will 
 \paragraph{Input Action}
 Are files that are used to identify a certain input of the controller, each file should be named after an action more than the input used for making clear what they serve.
 For example:\\
-For using the \texttt{A} button find find in the right controller,
+For using the \texttt{A} button find in the right controller,
 you need to have a file that represents the button,
 the necessary settings are: Consume input which allows you to take into account that the input has been served,
 and the type of value that in this case will be \texttt{Digital (bool)}.
@@ -180,7 +180,7 @@ Because the menus have to do network calls, they will be able to show error mess
 \noindent
 For compatibility reasons with the \ac{HMD}, I built a blueprint function for \ac{HTTP} requests.
 Because there is an internet call there is the need to do it in background, fortunately unreal gives a special \cpp class called \text{UBlueprintAsyncActionBase},
-if we inherit it, we can create what in \ac{UE} is called \texttt{latent node} Fig[\ref{fig:HTTPrequest}], this nodes can activate their output pins without stopping the frame until they are complete. 
+if we inherit it, we can create what in \ac{UE} is called \texttt{latent node} Fig[\ref{fig:HTTPrequest}], these nodes can activate their output pins without stopping the frame until they are complete. 
 
 \begin{figure}[h]
     \centering
