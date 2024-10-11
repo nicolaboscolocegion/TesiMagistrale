@@ -66,6 +66,16 @@ so it is important to export the file in \texttt{Z}-up.\\
 \noindent
 Because when loading a big procedural mesh it could create a big loss in \ac{FPS}, for reduce this problem the model will be rendered in parts, by using the different groups found on the file. After some testing I have decided to load groups every \texttt{0.6ms}. 
 
+\subsection{3DmodelVewer actor}
+\noindent
+The \texttt{3DModelActor} is a custom actor designed to facilitate the visualization of 3D heart models that is an extension of \texttt{Grippable Actor}. This actor comprises four primary components. The first component is the Procedural Mesh, which utilizes Unreal Engine's capabilities to generate and display a heart model in real-time. 
+The second component is a Loading Indicator \texttt{Sphere} that provides visual feedback during model loading processes informing users about the ongoing operations. In addition, the \texttt{3DModelActor} features a \texttt{Text Component} that displays error messages when issues arise during the loading of the 3D models.\\
+The core functionality of the actor is driven by a custom \texttt{Model Loader}, This custom component is responsible for fetching 3D models from online sources, parsing the model data, and integrating it into the procedural mesh and it implements the OBJ parser.\\
+The \texttt{Model Loader component} can download the 3D Model from the backend thanks to the function httpFileDownload, that thanks to a delegate, can be runned in an asynchronous way thanks to \ac{UE} threads, and then notify when the execution is complete.
+Another functionality of \texttt{3DModelActor} is that it can be gripped thanks to its parent Blueprint \texttt{Grippable Actor}.
+
+\lstinputlisting[language=C++, caption=model loader header file, label={code:model loader}, linerange={12-74}, style=cpp]{code/c++/model loader.h}
+
 \section{The VR Character}
 \noindent
 Thanks to the VRExpansion plugin, we can use the standard \texttt{VRCharater}, this \texttt{Character} has already implemented the online synchronization, and it also has the components for the controllers and camera management.
@@ -110,15 +120,12 @@ Here each \texttt{Input Action} will be associated with the corresponding input.
 Each \texttt{Input Mapping Context} can be bound with different controllers, this can be useful if we will be porting the app for another \ac{HMD}.
 For setting the \texttt{Input Mapping Context} there is a function called \texttt{Add Mapping Context}.
 
-\subsection{3DmodelVewer actor}
-\noindent
-The \texttt{3DModelActor} is a custom actor designed to facilitate the visualization of 3D heart models that is an extension of \texttt{Grippable Actor}. This actor comprises four primary components. The first component is the Procedural Mesh, which utilizes Unreal Engine's capabilities to generate and display a heart model in real-time. 
-The second component is a Loading Indicator \texttt{Sphere} that provides visual feedback during model loading processes informing users about the ongoing operations. In addition, the \texttt{3DModelActor} features a \texttt{Text Component} that displays error messages when issues arise during the loading of the 3D models.\\
-The core functionality of the actor is driven by a custom \texttt{Model Loader}, This custom component is responsible for fetching 3D models from online sources, parsing the model data, and integrating it into the procedural mesh and it implements the OBJ parser.\\
-The \texttt{Model Loader component} can download the 3D Model from the backend thanks to the function httpFileDownload, that thanks to a delegate, can be runned in an asynchronous way thanks to \ac{UE} threads, and then notify when the execution is complete.
-Another functionality of \texttt{3DModelActor} is that it can be gripped thanks to its parent Blueprint \texttt{Grippable Actor}.
+\paragraph{Input animations}
+Thanks to the rigged 3D models of the controllers provided by Meta, it is possible to import them as \texttt{skeletal meshes}.\\
+A \texttt{skeletal} mesh consists of a mesh with an underlying skeleton, allowing it to flex, stretch, or rotate its bones to create animations.
+We use these models to animate the controllers, simulating the user's inputs. This allows for visual representation of buttons being pressed, sticks being tilted, and the degree to which triggers and grips are engaged.
+These animations are controlled by functions that read the input and adjust the position or rotation of the \texttt{skeletal} mesh bones accordingly.
 
-\lstinputlisting[language=C++, caption=model loader header file, label={code:model loader}, linerange={12-74}, style=cpp]{code/c++/model loader.h}
 
 \subsection{Widget Interaction}
 \noindent 
