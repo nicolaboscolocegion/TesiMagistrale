@@ -225,7 +225,8 @@
 
 
 \newcommand{\Rplus}{\protect\hspace{-.1em}\protect\raisebox{.35ex}{\smaller{\smaller\textbf{+}}}}
-\newcommand{\cpp}{\mbox{C\Rplus\Rplus}\xspace}
+%\newcommand{\cpp}{\mbox{C\Rplus\Rplus}\xspace}
+\newcommand{\cpp}{\texttt{C++}\xspace}
 
 
 % -- FRONTMATTER --

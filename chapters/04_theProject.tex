@@ -66,7 +66,7 @@ so it is important to export the file in \texttt{Z}-up.\\
 \noindent
 Because when loading a big procedural mesh it could create a big loss in \ac{FPS}, for reduce this problem the model will be rendered in parts, by using the different groups found on the file. After some testing I have decided to load groups every \texttt{0.6ms}. 
 
-\section{The user interface}
+\section{The VR Character}
 \noindent
 Thanks to the VRExpansion plugin, we can use the standard \texttt{VRCharater}, this \texttt{Character} has already implemented the online synchronization, and it also has the components for the controllers and camera management.
 The controllers can \texttt{grip} any \texttt{Actor} or \texttt{Component} that implements the interface \texttt{VRGrip}, this will be used for  moving the 3D models.
@@ -123,7 +123,7 @@ Another functionality of \texttt{3DModelActor} is that it can be gripped thanks 
 \subsection{Widget Interaction}
 \noindent 
 In a normal application we are used to managing input mainly via mouse or touch screens, in \ac{VR} we can not have that, so It's important to create some kind of \ac{UI}.
-One of the most used approaches is showing some kind of virtual display with buttons so that the user can interact, for this will be using a blueprint called \texttt{Widget} and will be explained in here ""INSERT CHAPTER"".
+One of the most used approaches is showing some kind of virtual display with buttons so that the user can interact, for this will be using a blueprint called \texttt{Widget} and will be explained in chapter \ref{sec:widgets}.
 Unfortunately \texttt{Widgets} are used for 2D menus but thanks to an actor component we can use it in a 3D environment.\\
 For interacting with a \texttt{widget} in a 3D space, \ac{UE} has a component called \texttt{widget interaction} that can evaluate if it is pointing to a \texttt{widget}, it can also give the world location of where it is pointing. This component will be attached to each \texttt{grip motion controller component}.
 For letting the user see exactly where the controller is pointed, when the controller is near the \texttt{Widget} a trace will be shown.
@@ -146,3 +146,51 @@ Still our use will be simply by just using two points Fig[\ref{fig:splineExample
     \label{fig:splineExample}
 \end{figure}
 
+
+\section{Widgets}
+\label{sec:widgets}
+\noindent
+Widgets are Blueprints used for creating User interfaces in \ac{UE}, thanks to a lot of pre-made components such as: buttons, textbox, spacers… Each widget can have its own logic built with the Blueprint system.\\
+For the app there will be 3 Menus:
+\begin{itemize}
+    \item \textbf{Main menù:} used for creating a session and joining it. It will have a number pad for inserting the code to enter a session.
+    \item \textbf{Side menù:} used as a summable menù that will be displayed over the left controller, used for exiting the session or letting the host use the centering functionality.
+    \item \textbf{3d Model picker:} used for selecting what 3D model the host wants to visualize. It will have a dynamically scroll bar section, so that it can load all the names of the models loaded in the server. 
+\end{itemize}
+\noindent
+Unfortunately, widgets are normally used for 2D interfaces, but thanks to an actor component it is possible to visualize them in a 3D space, and is it possible to interact with them thanks to the \texttt{widget interaction component}.\\
+Because the menus have to do network calls, they will be able to show error messages and have a loading animation, for cosmetic purposes, the animation will be a schema of a beating heart.
+
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=\textwidth]{blueprints/mainMenu.png}
+    \caption{Main menu widget}
+    \label{fig:mainMenu}
+\end{figure}
+
+\subsection{HTTP request}
+\noindent
+For compatibility reasons with the \ac{HMD}, I built a blueprint function for \ac{HTTP} requests.
+Because there is an internet call there is the need to do it in background, fortunately unreal gives a special \cpp class called \text{UBlueprintAsyncActionBase},
+if we inherit it, we can create what in \ac{UE} is called \texttt{latent node} Fig[\ref{fig:HTTPrequest}], this nodes can activate their output pins without stopping the frame until they are complete. 
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.4\textwidth]{blueprints/httpRequest.png}
+    \caption{HTTP request node}
+    \label{fig:HTTPrequest}
+\end{figure}
+\noindent
+Because the app does not need a full \ac{HTTP} implementation we will implement the block with this parameters an outputs:
+\begin{itemize}
+    \item POST and GET methods using an enumeration
+    \item the request headers will be in array of strings
+    \item the request body will be of string type
+    \item the content type response header will be a string type
+    \item the response code
+    \item Two output pins for knowing if it received a response or there were some kind of network error
+    \item The body response will be of string type
+\end{itemize}
+\noindent
+For ease of use there is another class called \texttt{WorldVariables} that inherits \linebreak\texttt{UBlueprintFunctionLibrary} for accessing the server \ac{URL}, this kind of functions are accessible in all Blueprints and \cpp code.
