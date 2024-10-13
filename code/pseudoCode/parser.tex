@@ -1,0 +1,52 @@
+\newcommand{\IS}{\textbf{ is }}
+\newcommand{\ADD}{\textbf{ add }}
+\newcommand{\OR}{\textbf{ or }}
+\newcommand{\IN}{\textbf{ in }}
+\newcommand{\HAS}{\textbf{ in }}
+\newcommand{\return}{\textbf{return }}
+\algrenewcommand\algorithmicindent{0.8em}
+
+
+\begin{algorithm}
+  \caption{Parser pseudo code}\label{alg:parser}
+  \begin{algorithmic}
+    \Require input file, $vertices\:colors\:normals\:UVs$ vectors, $triangles$ matrix
+    \State
+    \State $normalsTemp \gets []$ 
+    \State $UVsTemp \gets []$ 
+    \State $P \gets -1$ \Comment{part index}
+    \State
+
+    \While{file \HAS lines}
+      \State $L \gets$ file.nextLine
+      \If{$L \IS \texttt{vertex}$}
+        \State $vertices \ADD \texttt{vertex}(L)$  
+        \State $colors \ADD \texttt{color}(L)$ 
+      \EndIf
+      \If{$L \IS \texttt{normal}$}
+        \State $normalsTemp \ADD \texttt{normal}(L)$ 
+      \EndIf
+      \If{$L \IS \texttt{UV}$}
+        \State $UVsTemp \ADD \texttt{UV}(L)$ 
+      \EndIf
+      \If{$L \IS \texttt{group}$}
+        \State $P \gets P+1$
+      \EndIf
+      \If{$L \IS \texttt{triangle}$}
+        \State $I_1,I_2,I_3 \gets \Call{GetVertexIndeces}{L}$ 
+        \State $triangles[P] \ADD I_1,I_2,I_3$
+        \State $normals[I_1,I_2,I_3] \gets normalsTemp[\Call{GetNormalsIndeces}{L}]$ 
+        \State $UVs[I_1,I_2,I_3] \gets UVTemp[\Call{GetUVsIndeces}{L}]$
+      \EndIf
+      \If{$L \IS \texttt{quad}$}
+        \For{$T \IN \Call{Split}{L}}$ \Comment Splits the quad in two triangles
+          \State $I_1,I_2,I_3 \gets \Call{GetVertexIndeces}{T}$
+          \State $triangles[P] \ADD I_1,I_2,I_3$
+          \State $normals[I_1,I_2,I_3] \gets normalsTemp[\Call{GetNormalsIndeces}{T}]$
+          \State $UVs[I_1,I_2,I_3] \gets UVTemp[\Call{GetUVsIndeces}{T}]$
+        \EndFor
+      \EndIf
+    \EndWhile
+    \State \return vertices, colors, normals, UVs, triangles
+  \end{algorithmic}
+\end{algorithm}

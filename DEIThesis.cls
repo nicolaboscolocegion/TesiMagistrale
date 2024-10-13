@@ -72,7 +72,10 @@
 
 % algoritms
 \RequirePackage{algorithm}
-\RequirePackage{algorithmic}
+%\RequirePackage{algorithmic}
+\RequirePackage{algorithmicx}
+\RequirePackage{algpseudocode}
+
 
 % code snippets
 \RequirePackage{listings}

@@ -22,7 +22,7 @@ For understanding how \ac{UE} will show 3D models and how they will be stored, w
 As we talked about in chapter \ref{chp:Requirements}, we will use the OBJ file format for storing files.
 The React Three Fiber has a native support for OBJ, and the backend server does not need to read the file but just to manage by saving, deleting and sending it via \ac{HTTP}.
 Unfortunately \ac{UE} does not have a OBJ file reader usable at runtime but just an importer for what it calls static meshes (3D models that don't have moving parts).
-So there is the need to build a parser OBJ to \ac{UE} custom types.\\
+So there is the need to build a parser [\ref{alg:parser}] OBJ to \ac{UE} custom types.\\
 First we need to understand how the OBJ file format is compose of, here a general example code:\ref{code:OBJExample}
 
 \lstinputlisting[float=h, language=Octave, caption=OBJ file example,style=obj, label={code:OBJExample}]{code/exampleOBJ.txt}
@@ -38,7 +38,7 @@ Here an example of how the division works: code:\ref{code:OBJgrouping}
 \noindent
 The software that the surgeons are using for exporting 3D models just support groups, so we will implement those, and they will become useful for rendering the model in parts.
 
-\subsection{To unreal types}
+\subsection{To Unreal types}
 \noindent
 \ac{UE} has some custom classes for managing things like vectors, colors... These classes also have useful methods that also interface with the blueprint system, we can for example expose variables or functions, so we can call them at blueprint level.
 This is very important so that we can interconnect the \texttt{C++} components with blueprints.\\
@@ -56,6 +56,8 @@ UVs are being managed in the same way.
 Another problem is that unreal just accepts triangles and not quads, and because it is a common practice to use quads when exporting 3D models the program will convert quads in triangles, this is pretty trivial, for each quad we can divide it in two triangles.\\
 Unreal also works in \texttt{Z}-up coordinates that means that the \texttt{Z} axis points up, there is another standard called \texttt{Y}-up were the \texttt{Y} axis points up, unfortunately the OBJ file format does not have any ways to reference scale or if the file is saved in \texttt{Z}-up or \texttt{Y}-up,
 so it is important to export the file in \texttt{Z}-up.\\
+
+\input{code/pseudoCode/parser}
 
 \begin{figure}[h]
     \centering
@@ -180,7 +182,7 @@ The code for this action is siple, when it's decided that the actior is been res
 \begin{equation}
     \centering
     \label{math:ratio}
-    New Size=Starting Actor Size \times \frac{Controllers Distance}{Starting Contrllers Distance}
+    New Size=Starting Actor Size \frac{Controllers Distance}{Starting Contrllers Distance}
 \end{equation}
     
 
