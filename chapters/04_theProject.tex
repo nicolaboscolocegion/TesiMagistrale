@@ -180,7 +180,6 @@ For exiting this mode, one controller must relese the grip button.\\
 The code for this action is siple, when it's decided that the actior is been resized there the distance between the two controllers will be calculated and the current scale vector of the actor will be saved, afther that the size will be decided by the following formula [\ref{math:ratio}], for smoothness, it will be executed on every tick.
 
 \begin{equation}
-    \centering
     \label{math:ratio}
     New Size=Starting Actor Size \frac{Controllers Distance}{Starting Contrllers Distance}
 \end{equation}
