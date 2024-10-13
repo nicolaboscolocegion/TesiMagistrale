@@ -20,7 +20,7 @@ There are three main way to develop on the Meta Quest 2:
 \begin{itemize}
   \item \textbf{Native:} By using native \ac{API} that Meta provides for the \ac{HMD}.
   \item \textbf{Unity:} Is a famous game engine principally used for lightweight video games, It is pretty functional and easy to use, its programming language is \texttt{C\#}. 
-  \item \textbf{Unreal Engine:} Is a famous game engine used for big games, its performance is the best in the market, it uses \cpp and a graphical programming language called Blueprint.
+  \item \textbf{Unreal Engine:} Is a famous game engine used for big games, its performance is the best in the market, it uses \texttt{C++} and a graphical programming language called Blueprint.
 \end{itemize}
 \noindent
 As we said in the non-functional requirements we will use a game engine, I have opted for \ac{UE} because of its performance, the 3D models that will use are complex (\textasciitilde1-10MBytes in size),
@@ -36,8 +36,8 @@ The main reason for this upgrade was for faster building time and more advanced 
 \paragraph{The fundamentals:}
 \ac{UE} has a 3D preview mode that lets the user set the various 3D objects in the scene.
 In unreal a scene is called "Level", each element in a level is called "Actor", Actors are made by multiple components.\\
-Each element of unreal can be built with a proprietary system called Blueprint, a visual programming interface, or via \cpp, or by combining them.
-Principally Blueprint can make the development of the project faster and easier at the cost of performance, \cpp performs better, and it has a bigger range of tools.
+Each element of unreal can be built with a proprietary system called Blueprint, a visual programming interface, or via \texttt{C++}, or by combining them.
+Principally Blueprint can make the development of the project faster and easier at the cost of performance, \texttt{C++} performs better, and it has a bigger range of tools.
 So It is important to combine both languages for having the best performance and flexibility in the project.\\
 Like a lot of game engines, \ac{UE} tries to render many frames as much as possible, each cycle of rendering is called tick.\\
 It's important that long actions must be asynchronous with respect to the game ticks, and if something must be a runner in the so-called "game thread", it must be as fast as possible so that the frame rate does not drop to a certain level.\\
@@ -60,7 +60,7 @@ Events are what start the execution of code inside a Blueprint. Each blueprint h
   \item \textbf{On tick:} runs on every game tick.
 \end{itemize}
 \noindent
-We can also create custom events with Blueprint or \cpp, they can be triggered whenever we want, they can also be replicated in clients in multiplayer sessions. 
+We can also create custom events with Blueprint or \texttt{C++}, they can be triggered whenever we want, they can also be replicated in clients in multiplayer sessions. 
 Like functions, events can have inputs but not outputs.
 
 \paragraph{Multiplayer:}
@@ -118,10 +118,10 @@ The main functionality of the Web \ac{UI} will be:
 It is important to set the right development environment for this project, even if for the Web \ac{UI} and backend it is a standard NodeJS and Python environment, 
 it is not that simple for \ac{UE}\\
 First the choosing the right version is very important because Meta does not always test all \ac{UE} version, at the start of the developing of the project, the last one was 5.2.1,
-we also need Visual Studio with the right components for compile in \cpp, we could use other text editor, but Visual Studio is the most completed one for unreal.
+we also need Visual Studio with the right components for compile in \texttt{C++}, we could use other text editor, but Visual Studio is the most completed one for unreal.
 For other information look at: \cite{UEvisualStudio}
 After we set up the basic \ac{UE} environment, we have to pick the right Android studio and \ac{SDK} for building for Android \\
-Another important component is the Android \ac{NDK} that enables \ac{UE} to compile native \cpp code.
+Another important component is the Android \ac{NDK} that enables \ac{UE} to compile native \texttt{C++} code.
 But for installing there is a command line tool that \ac{UE} shipped with that can install the right version. 
 Because the requirements differ with respect to the version of \ac{UE} for more information look at Epic Games documentation: \cite{UEandroid}.\\
 Other than the configuration for Android, we also need to add the right components for building for the Meta Quest 2,

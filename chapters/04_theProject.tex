@@ -41,7 +41,7 @@ The software that the surgeons are using for exporting 3D models just support gr
 \subsection{To unreal types}
 \noindent
 \ac{UE} has some custom classes for managing things like vectors, colors... These classes also have useful methods that also interface with the blueprint system, we can for example expose variables or functions, so we can call them at blueprint level.
-This is very important so that we can interconnect the \cpp components with blueprints.\\
+This is very important so that we can interconnect the \texttt{C++} components with blueprints.\\
 Unreal has a component called \texttt{procedural mesh}, this component has the possibility to render a 3D model given vertices and triangles, it also has more data that you can feed to the rendered mesh such  us: normals, tangents, UV, vertex colors.
 It can also have collisions and a material.\\
 The \texttt{procedural mesh} also has the possibility to load the mesh in parts, so the parser will save the different triangles in the various groups that are defined in the file.
@@ -70,7 +70,7 @@ Because when loading a big procedural mesh it could create a big loss in \ac{FPS
 \noindent
 The \texttt{3DModelActor} is a custom actor designed to facilitate the visualization of 3D heart models that is an extension of \texttt{Grippable Actor}. This actor comprises four primary components. The first component is the Procedural Mesh, which utilizes Unreal Engine's capabilities to generate and display a heart model in real-time. 
 The second component is a Loading Indicator \texttt{Sphere} that provides visual feedback during model loading processes informing users about the ongoing operations. In addition, the \texttt{3DModelActor} features a \texttt{Text Component} that displays error messages when issues arise during the loading of the 3D models.\\
-The core functionality of the actor is driven by a custom \texttt{Model Loader}, This custom component is responsible for fetching 3D models from online sources, parsing the model data, and integrating it into the procedural mesh and it implements the OBJ parser.\\
+The core functionality of the actor is driven by a custom \texttt{Model Loader}, This custom component is responsible for fetching 3D models from the server, parsing the model data, and integrating it into the procedural mesh and it implements the OBJ parser.\\
 The \texttt{Model Loader component} can download the 3D Model from the backend thanks to the function httpFileDownload, that thanks to a delegate, can be runned in an asynchronous way thanks to \ac{UE} threads, and then notify when the execution is complete.
 Another functionality of \texttt{3DModelActor} is that it can be gripped thanks to its parent Blueprint \texttt{Grippable Actor}.
 
@@ -128,6 +128,7 @@ These animations are controlled by functions that read the input and adjust the 
 
 
 \subsection{Widget Interaction}
+\label{chp:widgetInteraction}
 \noindent 
 In a normal application we are used to managing input mainly via mouse or touch screens, in \ac{VR} we can not have that, so It's important to create some kind of \ac{UI}.
 One of the most used approaches is showing some kind of virtual display with buttons so that the user can interact, for this will be using a blueprint called \texttt{Widget} and will be explained in chapter \ref{sec:widgets}.
@@ -153,6 +154,11 @@ Still our use will be simply by just using two points Fig[\ref{fig:splineExample
     \label{fig:splineExample}
 \end{figure}
 
+\subsection{Laser pointer}
+\noindent
+To create an effective laser pointer, we can simply use a red spline that starts from the controller and ends on the pointed surface. The code is very similar to the \texttt{widget interaction pointer} described in Chapter [\ref{chp:widgetInteraction}]. However, to find the pointer's location, we can use the line trace function, which detects the nearest point where a geometry intersects with an input segment.\\
+The laser pointer will be an actor, and using a component called a child actor, we can attach it to the \texttt{VRCharacter} right controller. This is necessary to eliminate the latency effect caused by the tick group of the \texttt{VRCharacter}, which is set to \texttt{Pre Physic}. The laser pointer actor will stay in the \texttt{post update work}, allowing it to be ticked one frame before anything else.\\
+The final result is identical to the \texttt{widget interaction pointer} shown in Fig. [\ref{fig:splineExample}], but the color will be red, and it will be toggled using the \texttt{A button}.
 
 \section{Widgets}
 \label{sec:widgets}
@@ -179,7 +185,7 @@ Because the menus have to do network calls, they will be able to show error mess
 \subsection{HTTP request}
 \noindent
 For compatibility reasons with the \ac{HMD}, I built a blueprint function for \ac{HTTP} requests.
-Because there is an internet call there is the need to do it in background, fortunately unreal gives a special \cpp class called \text{UBlueprintAsyncActionBase},
+Because there is an internet call there is the need to do it in background, fortunately unreal gives a special \texttt{C++} class called \text{UBlueprintAsyncActionBase},
 if we inherit it, we can create what in \ac{UE} is called \texttt{latent node} Fig[\ref{fig:HTTPrequest}], these nodes can activate their output pins without stopping the frame until they are complete. 
 
 \begin{figure}[h]
@@ -200,4 +206,4 @@ Because the app does not need a full \ac{HTTP} implementation we will implement 
     \item The body response will be of string type
 \end{itemize}
 \noindent
-For ease of use there is another class called \texttt{WorldVariables} that inherits \linebreak\texttt{UBlueprintFunctionLibrary} for accessing the server \ac{URL}, this kind of functions are accessible in all Blueprints and \cpp code.
+For ease of use there is another class called \texttt{WorldVariables} that inherits \linebreak\texttt{UBlueprintFunctionLibrary} for accessing the server \ac{URL}, this kind of functions are accessible in all Blueprints and \texttt{C++} code.
