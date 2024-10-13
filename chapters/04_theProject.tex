@@ -163,6 +163,27 @@ To create an effective laser pointer, we can simply use a red spline that starts
 The laser pointer will be an actor, and using a component called a child actor, we can attach it to the \texttt{VRCharacter} right controller. This is necessary to eliminate the latency effect caused by the tick group of the \texttt{VRCharacter}, which is set to \texttt{Pre Physic}. The laser pointer actor will stay in the \texttt{post update work}, allowing it to be ticked one frame before anything else.\\
 The final result is identical to the \texttt{widget interaction pointer} shown in Fig. [\ref{fig:splineExample}], but the color will be red, and it will be toggled using the \texttt{A button}.
 
+\subsection{Grippable system}
+\noindent
+Thanks to VRExpansion, we can use a grip function that allows us to attach an actor implementing the \text{VRGripInterface}.
+The only challenge is determining which element should be gripped, but \ac{UE} provides a function called Sphere Trace for Objects, which returns the nearest actor within a specified radius.
+If the actor implements the \texttt{VRGripInterface}, it can be gripped.\\
+The grip is initiated when the controller grip button is pressed, and the object is dropped when the button is fully released.
+To avoid conflicts, if both controllers attempt to grip the same object, the object will be dropped when the second controller tries to grip it.
+
+\paragraph{Resizable actor}
+For impleming the resizable functionality, all actors that are resizable will implement the \texttt{Resizable actor} interface, that will implement the resizable event.\\
+When two controllers will try to grip the same actor, they will drop it, but if both grips are still pressed, the action of moving the controllers closer and further away will allow you to decide the new size of the actor.
+For exiting this mode, one controller must relese the grip button.\\
+The code for this action is siple, when it's decided that the actior is been resized there the distance between the two controllers will be calculated and the current scale vector of the actor will be saved, afther that the size will be decided by the following formula [\ref{math:ratio}], for smoothness, it will be executed on every tick.
+
+\begin{equation}
+    \centering
+    \label{math:ratio}
+    New Size=Starting Actor Size \times \frac{Controllers Distance}{Starting Contrllers Distance}
+\end{equation}
+    
+
 \section{Widgets}
 \label{sec:widgets}
 \noindent
