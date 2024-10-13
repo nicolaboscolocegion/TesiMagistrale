@@ -60,12 +60,12 @@ so it is important to export the file in \texttt{Z}-up.\\
 \begin{figure}[h]
     \centering
     \includegraphics[width=\textwidth]{blueprints/loadingMesh.png}
-    \caption{Add mesh section blueprint node}
+    \caption{Loading mesh funcion}
     \label{fig:loadingMesh}
 \end{figure}
 \noindent
-Because when loading a big procedural mesh it could create a big loss in \ac{FPS}, for reduce this problem the model will be rendered in parts, by using the different groups found on the file. After some testing I have decided to load groups every \texttt{0.6ms}. 
-
+To load the mesh, I created a recursive function Fig.[\ref{fig:loadingMesh}] that loads each mesh group every 0.5 ms. A delay is necessary because some 3D models are large and can significantly impact performance during loading, and this helps to mitigate that. The function needs to be recursive because \ac{UE} loops do not allow delays within them.
+After all the mesh groups are loaded, another similar function is called to change the material and display the 3D mesh colors.
 \subsection{3DmodelVewer actor}
 \noindent
 The \texttt{3DModelActor} is a custom actor designed to facilitate the visualization of 3D heart models that is an extension of \texttt{Grippable Actor}. This actor comprises four primary components. The first component is the Procedural Mesh, which utilizes Unreal Engine's capabilities to generate and display a heart model in real-time. 
@@ -75,6 +75,9 @@ The \texttt{Model Loader component} can download the 3D Model from the backend t
 Another functionality of \texttt{3DModelActor} is that it can be gripped thanks to its parent Blueprint \texttt{Grippable Actor}.
 
 \lstinputlisting[language=C++, caption=model loader header file, label={code:model loader}, linerange={12-74}, style=cpp]{code/c++/model loader.h}
+
+\paragraph{Resizable functionality}
+As specified in the requirements, the 3D models must be resizable. Therefore, the actor needs an event that allows its size to be changed. This event must be an \ac{RPCs} that is executed on the server, ensuring that the action is replicated across all clients.
 
 \section{The VR Character}
 \noindent
