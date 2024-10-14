@@ -223,10 +223,10 @@ if we inherit it, we can create what in \ac{UE} is called \texttt{latent node} F
 Because the app does not need a full \ac{HTTP} implementation we will implement the block with this parameters an outputs:
 \begin{itemize}
     \item POST and GET methods using an enumeration
-    \item the request headers will be in array of strings
-    \item the request body will be of string type
-    \item the content type response header will be a string type
-    \item the response code
+    \item The request headers will be in array of strings
+    \item The request body will be of string type
+    \item The content type response header will be a string type
+    \item The response code
     \item Two output pins for knowing if it received a response or there were some kind of network error
     \item The body response will be of string type
 \end{itemize}
@@ -235,6 +235,13 @@ For ease of use there is another class called \texttt{WorldVariables} that inher
 
 \section{The backend}
 \noindent
+The backend will be built in Python using a library called Flask. This library allows associating a function with a specific \ac{URL}.
+Since the app is expected to run in a secure local environment for now, no security measures will be implemented, however, this will change in future developments.\\
+This table explains all the \ac{API} endpoints [\ref{tab:API}].\\
+Primarily, the server maintains a list of open sessions, each associated with a timestamp and the host's \ac{IP} address, with the \ac{IP} adress the client can connect to the host.
+If necessary, a new session can be opened. When a session is initiated, a 5 digit code is generated and sent to the host.
+If a client submits the correct code, the server will provide the host's IP address.\\
+Sessions must be refreshed by the server. Every minute, a thread checks for expired sessions and deletes them.
 
 \begin{table}
 
@@ -244,13 +251,13 @@ For ease of use there is another class called \texttt{WorldVariables} that inher
         row{1}={font=\bfseries}
       }
     \hline
-    URL                                  & Methods & Description                                                                  & {Response\\codes}\\ \hline
+    URL                                            & Methods          & Description                                                                                & {Response\\codes}\\ \hline
     /create\_session                               & POST             & Creates a session if an IP addres is provvided in the JSON                                 & 200 400\\ \hline
     /join\_session                                 & POST             & Returns the IP addres of the host if the code in the JSON corrisponding to an open session & 200 404 \\ \hline
     /update\_session/\textless{}code\textgreater{} & GET              & Updates timestamp for session                                                              & 200 404\\ \hline
     /list\_files                                   & GET              & Rturns a JSON array with all OBJ files names                                               & 200\\ \hline
-    /get\_file/\textless{}filename\textgreater{}  & {GET\\DELETE}      & Returns the OBJ file if exist, or delete it                                  & {200 403\\404}\\ \hline
-    /upload                                        & {GET\\OPTIONS}     & {Uploads the OBJ to the server, OPTIONS is needed for JS}                      & 200 400\\ \hline
+    /get\_file/\textless{}filename\textgreater{}  & {GET\\DELETE}      & Returns the OBJ file if exist, or delete it                                               & {200 403\\404}\\ \hline
+    /upload                                        & {GET\\OPTIONS}     & {Uploads the OBJ to the server, OPTIONS is needed for JS}                                & 200 400\\ \hline
     \end{tblr}
     \caption{API endpoint}
     \label{tab:API}
