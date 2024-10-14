@@ -80,6 +80,7 @@
 % code snippets
 \RequirePackage{listings}
 
+
 % plots, drawings etc...
 \RequirePackage{tikz}
 \usetikzlibrary{shapes.geometric, arrows.meta}
@@ -89,6 +90,14 @@
 \RequirePackage[backend=biber]{biblatex}
 \addbibresource{references.bib}
 
+%tabeles
+\RequirePackage[rgb]{xcolor}
+
+\selectcolormodel{natural}
+\RequirePackage{ninecolors}
+\selectcolormodel{rgb}
+\RequirePackage{tabularray}
+\RequirePackage{makecell}
 
 
 % -- DEFINITIONS --
@@ -167,6 +176,8 @@
 \RequirePackage{verbatimbox}
 \RequirePackage{tcolorbox}
 \RequirePackage{wrapfig}
+\RequirePackage{tabularx}
+
 
 
 

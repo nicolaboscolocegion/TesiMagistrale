@@ -233,6 +233,28 @@ Because the app does not need a full \ac{HTTP} implementation we will implement 
 \noindent
 For ease of use there is another class called \texttt{WorldVariables} that inherits \linebreak\texttt{UBlueprintFunctionLibrary} for accessing the server \ac{URL}, this kind of functions are accessible in all Blueprints and \texttt{C++} code.
 
+\section{The backend}
+\noindent
+
+\begin{table}
+
+    \begin{tblr}{
+        colspec = {|l|l|X|l|},
+        rows={valign=m},
+        row{1}={font=\bfseries}
+      }
+    \hline
+    URL                                  & Methods & Description                                                                  & {Response\\codes}\\ \hline
+    /create\_session                               & POST             & Creates a session if an IP addres is provvided in the JSON                                 & 200 400\\ \hline
+    /join\_session                                 & POST             & Returns the IP addres of the host if the code in the JSON corrisponding to an open session & 200 404 \\ \hline
+    /update\_session/\textless{}code\textgreater{} & GET              & Updates timestamp for session                                                              & 200 404\\ \hline
+    /list\_files                                   & GET              & Rturns a JSON array with all OBJ files names                                               & 200\\ \hline
+    /get\_file/\textless{}filename\textgreater{}  & {GET\\DELETE}      & Returns the OBJ file if exist, or delete it                                  & {200 403\\404}\\ \hline
+    /upload                                        & {GET\\OPTIONS}     & {Uploads the OBJ to the server, OPTIONS is needed for JS}                      & 200 400\\ \hline
+    \end{tblr}
+    \caption{API endpoint}
+    \label{tab:API}
+\end{table}
 
 \section{Multiplayer functionality}
 \noindent
