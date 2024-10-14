@@ -83,6 +83,11 @@ An important feature for synchronize events between client and server are \ac{RP
   \item \textbf{Multicast:} The \ac{RPCs} are executed on the server and all currently connected clients the actor is relevant for, Multicast \ac{RPCs} are designed to be called from the server, but can be called from clients. A Multicast \ac{RPCs} called from a client only executes locally.
 \end{itemize}
 
+\paragraph{Multiplayer}
+Since multiplayer is one of the fundamentals of modern gaming, \ac{UE} provides a suite of tools to help achieve it.
+Unfortunately, some of these tools will be unusable because, at this time, we cannot publish the app to the Meta Quest store.
+This limitation will restrict the multiplayer capabilities, allowing us to create only a LAN-based multiplayer mode, meaning that the \ac{HMD}s must be connected to the same local network.
+
 \section{Network Infrastructure}
 \noindent
 The Network Infrastructure [fig:\ref{fig:NetworkSchema}] it is simple, a server will be hosted in the IT department of the hospital that will host the \ac{REST} server for managing 3D Models and multiplayer sessions,
