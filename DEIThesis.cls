@@ -98,6 +98,7 @@
 \selectcolormodel{rgb}
 \RequirePackage{tabularray}
 \RequirePackage{makecell}
+\RequirePackage{svg}
 
 
 % -- DEFINITIONS --
