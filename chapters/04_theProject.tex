@@ -265,9 +265,26 @@ Sessions must be refreshed by the server. Every minute, a thread checks for expi
 
 \section{Multiplayer functionality}
 \noindent
+Thanks to \ac{UE} and the VRExpansion plugin, it is relatively simple to establish and maintain consistency between the host and clients.
+Initially, the host will create a session so that clients can join. Afterward, the professor using the host \ac{HMD} will announce the session code, which students can enter.
+Behind the widget logic, Unreal will attempt to check if the provided \ac{IP} address has an open session on port 7777.
+Once connected, the host will decide where to spawn the client, with the location chosen randomly. This logic will run on the \texttt{Game mode} blueprint\\
+During the session, it is important to replicate the following:
+
+\begin{itemize}
+    \item The location of the controllers and \ac{HMD}, managed by VRExpansion.
+    \item The location of the 3D model, managed by Unreal. Since clients can also manipulate the model, it is crucial to allow clients to be authoritative so that the 3D model remains synchronized across all \ac{HMD}s.
+    \item The toggle state of the laser pointer, so that all players can see it. However, it is unnecessary to replicate the laser spline, as it can be calculated directly on the device.
+    \item Clients teleportation is another important aspect. When the host decides to enter center mode, clients will be teleported to the center. Since only the owning player controller can replicate their own character, the owning clients are responsible for teleporting their characters to the center or to predefined steps.
+\end{itemize}
+
 
 \begin{figure}[h]
     \includegraphics[width =\textwidth]{diagramTimeNetwork.eps}
     \caption{Network time diagram}
     \label{fig:networkTime}
 \end{figure}
+
+\paragraph{About center mode}
+Center mode can be enabled by the host via the side menu. This will teleport all players to the center and disable the visualization of controllers and \ac{HMD} meshes for non-owning players. Additionally, it is important to teleport the clients to the same location on the classroom steps to avoid creating confusion among students.
+To achieve this, when a new player joins the session, their starting point will be saved in their own \texttt{player controller}, making it easily accessible.
