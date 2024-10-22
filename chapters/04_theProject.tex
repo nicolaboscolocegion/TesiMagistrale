@@ -141,7 +141,7 @@ Unfortunately \texttt{Widgets} are used for 2D menus but thanks to an actor comp
 For interacting with a \texttt{widget} in a 3D space, \ac{UE} has a component called \texttt{widget interaction} that can evaluate if it is pointing to a \texttt{widget}, it can also give the world location of where it is pointing. This component will be attached to each \texttt{grip motion controller component}.
 For letting the user see exactly where the controller is pointed, when the controller is near the \texttt{Widget} a trace will be shown.
 For the trace will be used a Component called \texttt{Spline Mesh}, as the name suggests, uses various points and interpolates a mesh for creating a complex curve.
-Still our use will be simply by just using two points Fig[\ref{fig:splineExample}]. So the algorithm is simple: each tick a function called \texttt{InteractionPointer} will control both controllers if the \texttt{widget interaction} points to a \texttt{Widget}, then will draw the spline.
+Still our use will be simply by just using two points Fig.[\ref{fig:splineExample}]. So the algorithm is simple: each tick a function called \texttt{InteractionPointer} will control both controllers if the \texttt{widget interaction} points to a \texttt{Widget}, then will draw the spline.
 
 
 
@@ -163,7 +163,7 @@ Still our use will be simply by just using two points Fig[\ref{fig:splineExample
 \noindent
 To create an effective laser pointer, we can simply use a red spline that starts from the controller and ends on the pointed surface. The code is very similar to the \texttt{widget interaction pointer} described in Chapter [\ref{chp:widgetInteraction}]. However, to find the pointer's location, we can use the line trace function, which detects the nearest point where a geometry intersects with an input segment.\\
 The laser pointer will be an actor, and using a component called a child actor, we can attach it to the \texttt{VRCharacter} right controller. This is necessary to eliminate the latency effect caused by the tick group of the \texttt{VRCharacter}, which is set to \texttt{Pre Physic}. The laser pointer actor will stay in the \texttt{post update work}, allowing it to be ticked one frame before anything else.\\
-The final result is identical to the \texttt{widget interaction pointer} shown in Fig. [\ref{fig:splineExample}], but the color will be red, and it will be toggled using the \texttt{A button}.
+The final result is identical to the \texttt{widget interaction pointer} shown in Fig.[\ref{fig:splineExample}], but the color will be red, and it will be toggled using the \texttt{A button}.
 
 \subsection{Grippable system}
 \noindent
@@ -211,7 +211,7 @@ Because the menus have to do network calls, they will be able to show error mess
 \noindent
 For compatibility reasons with the \ac{HMD}, I built a blueprint function for \ac{HTTP} requests.
 Because there is an internet call there is the need to do it in background, fortunately unreal gives a special \texttt{C++} class called \text{UBlueprintAsyncActionBase},
-if we inherit it, we can create what in \ac{UE} is called \texttt{latent node} Fig[\ref{fig:HTTPrequest}], these nodes can activate their output pins without stopping the frame until they are complete. 
+if we inherit it, we can create what in \ac{UE} is called \texttt{latent node} Fig.[\ref{fig:HTTPrequest}], these nodes can activate their output pins without stopping the frame until they are complete. 
 
 \begin{figure}[h]
     \centering
@@ -286,8 +286,37 @@ During the session, it is important to replicate the following:
 \end{figure}
 
 \paragraph{About center mode}
-Center mode can be enabled by the host via the side menu. This will teleport all players to the center and disable the visualization of controllers and \ac{HMD} meshes for non-owning players. Additionally, it is important to teleport the clients to the same location on the classroom steps to avoid creating confusion among students.
+Center mode can be enabled by the host via the side menu. This will teleport all players to the center and disable the visualization of controllers and \ac{HMD} meshes for non-owning players. Additionally, it is important to teleport the clients to the same location on the lecture hall steps to avoid creating confusion among students.
 To achieve this, when a new player joins the session, their starting point will be saved in their own \texttt{player controller}, making it easily accessible.
 
 
 \section{Virtual Environment Development}
+\noindent
+Creating a 3D virtual environment is a complex task that requires the collaboration of multiple individuals with diverse skill sets, such as level designers, concept artists, and 3D artists.
+An easier solution is to use freely available assets from the Unreal Marketplace. The asset pack I found, called Assetsville Town\footnote{\url{https://www.fab.com/listings/fd558d8c-bd7e-461f-8449-a7cc9c277078}}.
+These assets are ideal for use with the \ac{HMD} due to their low-poly nature, including models such as chairs, books, blackboards, general office appliances and tile sets for creating various environments.
+Additionally, the pack provides a wide range of materials and textures for further customization.
+In the following sections, I will explain the two environments developed for the application.
+
+\subsection{Main menu}
+\noindent
+The main menu Fig.[\ref{fig:mainmenuRoom}] is the first interface the user encounters upon entering the application. A table in the virtual environment will display the main menu \ac{UI} widget, allowing the user to create or join sessions.
+Beside it, another table will host the \texttt{3DModelPicker} widget, enabling users to interact with individual 3D models.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width =\textwidth]{mainmenu.png}
+    \caption{Main menu screenshots PLACEHOLDER}
+    \label{fig:mainmenuRoom}
+\end{figure}
+\subsection{Classroom}
+\noindent
+The classroom Fig.[\ref{fig:classroom}] will be designed as a lecture hall, with students seated on steps to ensure a clear view of the 3D models, while the professor will be positioned in the middle.
+A blackboard at the center will display the session's code, and the bottom-right corner will indicate whether the center mode is enabled.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width =\textwidth]{classroom.png}
+    \caption{Classroom screenshots PLACEHOLDER}
+    \label{fig:classroom}
+\end{figure}
