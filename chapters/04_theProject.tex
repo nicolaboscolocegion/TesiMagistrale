@@ -135,7 +135,7 @@ These animations are controlled by functions that read the input and adjust the 
 \subsection{Widget Interaction}
 \label{chp:widgetInteraction}
 \noindent 
-In a normal application we are used to managing input mainly via mouse or touch screens, in \ac{VR} we can not have that, so It's important to create some kind of \ac{UI}.
+In a normal application we are used to managing input mainly via mouse or touch screens, in \ac{VR} we can not have that, so It is important to create some kind of \ac{UI}.
 One of the most used approaches is showing some kind of virtual display with buttons so that the user can interact, for this will be using a blueprint called \texttt{Widget} and will be explained in chapter \ref{sec:widgets}.
 Unfortunately \texttt{Widgets} are used for 2D menus but thanks to an actor component we can use it in a 3D environment.\\
 For interacting with a \texttt{widget} in a 3D space, \ac{UE} has a component called \texttt{widget interaction} that can evaluate if it is pointing to a \texttt{widget}, it can also give the world location of where it is pointing. This component will be attached to each \texttt{grip motion controller component}.
@@ -177,13 +177,23 @@ To avoid conflicts, if both controllers attempt to grip the same object, the obj
 For impleming the resizable functionality, all actors that are resizable will implement the \texttt{Resizable actor} interface, that will implement the resizable event.\\
 When two controllers will try to grip the same actor, they will drop it, but if both grips are still pressed, the action of moving the controllers closer and further away will allow you to decide the new size of the actor.
 For exiting this mode, one controller must relese the grip button.\\
-The code for this action is siple, when it's decided that the actior is been resized there the distance between the two controllers will be calculated and the current scale vector of the actor will be saved, afther that the size will be decided by the following formula [\ref{math:ratio}], for smoothness, it will be executed on every tick.
+The code for this action is siple, when it is decided that the actior is been resized there the distance between the two controllers will be calculated and the current scale vector of the actor will be saved, afther that the size will be decided by the following formula [\ref{math:ratio}], for smoothness, it will be executed on every tick.
 
 \begin{equation}
     \label{math:ratio}
     New Size=Starting Actor Size \frac{Controllers Distance}{Starting Contrllers Distance}
 \end{equation}
-    
+
+\subsection{Fade camera}
+\noindent
+As we will explain in Chapter [\ref{chp:performance}], the average \ac{VR} user can be very susceptible to sudden movements, such as teleportation or moving in 3D space using the analog stick.
+To mitigate the discomfort caused by sudden teleportation, every time a \texttt{VRCharacter} is teleported or loaded into another level, a fade-in and fade-out animation is applied.\\
+This effect would be relatively simple to achieve using post-processing. However, for mobile development, post-processing is generally discouraged due to its high resource consumption. Therefore, it is important to adopt a less resource-intensive solution. Fortunately, \ac{UE} materials can be manipulated in real time.
+By using a sphere with a specific material that has \texttt{depth test} disabled (so it renders on top of everything), and by animating the fade effect through a parameter controlling opacity.\\
+The code will be implemented directly in the \texttt{VRCharacter}. The sphere will be spawned and destroyed as needed, and the animation will be controlled by a built-in function that changes the opacity value over a specified animation time.\\
+Another minor issue is that when the player enters a new session, they will initially spawn at coordinates \texttt{X=0, Y=0, Z=0}, where code execution may not yet be possible. To address this, a sphere similar to the one used for the fade effect will be placed at those coordinates in multiplayer levels.\\
+This sphere will be destroyed once the player has been relocated to the correct position. This sphere can been seen in Fig.[\ref{fig:classroom}].
+
 
 \section{Widgets}
 \label{sec:widgets}
@@ -191,8 +201,8 @@ The code for this action is siple, when it's decided that the actior is been res
 Widgets are Blueprints used for creating User interfaces in \ac{UE}, thanks to a lot of pre-made components such as: buttons, textbox, spacers… Each widget can have its own logic built with the Blueprint system.\\
 For the app there will be 3 Menus:
 \begin{itemize}
-    \item \textbf{Main menù:} used for creating a session and joining it. It will have a number pad for inserting the code to enter a session.
-    \item \textbf{Side menù:} used as a summable menù that will be displayed over the left controller, used for exiting the session or letting the host use the centering functionality.
+    \item \textbf{Main menu:} used for creating a session and joining it. It will have a number pad for inserting the code to enter a session.
+    \item \textbf{Side menu:} used as a summable menù that will be displayed over the left controller, used for exiting the session or letting the host use the centering functionality.
     \item \textbf{3d Model picker:} used for selecting what 3D model the host wants to visualize. It will have a dynamically scroll bar section, so that it can load all the names of the models loaded in the server. 
 \end{itemize}
 \noindent
@@ -289,7 +299,6 @@ During the session, it is important to replicate the following:
 Center mode can be enabled by the host via the side menu. This will teleport all players to the center and disable the visualization of controllers and \ac{HMD} meshes for non-owning players. Additionally, it is important to teleport the clients to the same location on the lecture hall steps to avoid creating confusion among students.
 To achieve this, when a new player joins the session, their starting point will be saved in their own \texttt{player controller}, making it easily accessible.
 
-
 \section{Virtual Environment Development}
 \noindent
 Creating a 3D virtual environment is a complex task that requires the collaboration of multiple individuals with diverse skill sets, such as level designers, concept artists, and 3D artists.
@@ -320,3 +329,4 @@ A blackboard at the center will display the session's code, and the bottom-right
     \caption{Classroom screenshots PLACEHOLDER}
     \label{fig:classroom}
 \end{figure}
+
