@@ -21,6 +21,8 @@
   headheight=2cm,
   top=3.5cm,
   bottom=3.5cm,
+  outer=2.5cm,
+  inner=3cm,
   footskip=1.5cm,
   footnotesep=1cm,
   twoside,

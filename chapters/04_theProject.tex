@@ -25,7 +25,7 @@ Unfortunately \ac{UE} does not have a OBJ file reader usable at runtime but just
 So there is the need to build a parser [\ref{alg:parser}] OBJ to \ac{UE} custom types.\\
 First we need to understand how the OBJ file format is compose of, here a general example code:\ref{code:OBJExample}
 
-\lstinputlisting[float=h, language=Octave, caption=OBJ file example,style=obj, label={code:OBJExample}]{code/exampleOBJ.txt}
+\lstinputlisting[float=ht, language=Octave, caption=OBJ file example,style=obj, label={code:OBJExample}]{code/exampleOBJ.txt}
 \noindent
 The vertices, UV and normals are simply written, instead the faces have different formats, first not always they use triangles, but also quads, this depends on how the file was exported.
 For ease of use the parser will support both. The numbers of the face are the indices of the vertex. Indices start from 1.
@@ -34,7 +34,7 @@ Sometimes it is useful to divide the 3D model into multiple objects the OBJ form
 OBJ can also divide the faces in groups by dividing them with a "\texttt{g}".
 Here an example of how the division works: code:\ref{code:OBJgrouping}
 
-\lstinputlisting[float=h, language=Octave, caption=OBJ grouping,style=obj, label={code:OBJgrouping}]{code/exampleOBJGrups.txt}
+\lstinputlisting[float=ht, language=Octave, caption=OBJ grouping,style=obj, label={code:OBJgrouping}]{code/exampleOBJGrups.txt}
 \noindent
 The software that the surgeons are using for exporting 3D models just support groups, so we will implement those, and they will become useful for rendering the model in parts.
 
@@ -59,7 +59,7 @@ so it is important to export the file in \texttt{Z}-up.\\
 
 \input{code/pseudoCode/parser}
 
-\begin{figure}[h]
+\begin{figure}[ht]
     \centering
     \includegraphics[width=\textwidth]{blueprints/loadingMesh.png}
     \caption{Loading mesh funcion}
@@ -100,7 +100,7 @@ Here are the main components to develop:
 
 \subsection{Input management}
 \noindent
-Input in \ac{UE} is managed by two data files: \texttt{Input Action }and\texttt{Input Mapping Context}.
+Input in \ac{UE} is managed by two data files: \texttt{Input Action }and \texttt{Input Mapping Context}.
 In the next two paragraphs will be addressed how the input works, and then will be used in the various components of \texttt{VRCharater}.
 
 \paragraph{Input Action}
@@ -111,7 +111,7 @@ you need to have a file that represents the button,
 the necessary settings are: Consume input which allows you to take into account that the input has been served,
 and the type of value that in this case will be \texttt{Digital (bool)}.
 
-\begin{figure}[h]
+\begin{figure}[ht]
     \centering
     \includegraphics[width=0.7\textwidth]{blueprints/InputActionExample.png}
     \caption{Input Action example}
@@ -145,14 +145,14 @@ Still our use will be simply by just using two points Fig.[\ref{fig:splineExampl
 
 
 
-\begin{figure}[h]
+\begin{figure}[ht]
     \centering
     \includegraphics[width=\textwidth]{blueprints/interactionPointer.png}
     \caption{Widget Interaction code}
     \label{fig:InteractionPointer}
 \end{figure}
 
-\begin{figure}[h]
+\begin{figure}[ht]
     \centering
     \includegraphics[width=0.8\textwidth]{vrScreenshot/splineExample.png}
     \caption{On the left a controller that create the spline pointing to the widget}
@@ -210,7 +210,7 @@ Unfortunately, widgets are normally used for 2D interfaces, but thanks to an act
 Because the menus have to do network calls, they will be able to show error messages and have a loading animation, for cosmetic purposes, the animation will be a schema of a beating heart.
 
 
-\begin{figure}[h]
+\begin{figure}[ht]
     \centering
     \includegraphics[width=\textwidth]{blueprints/mainMenu.png}
     \caption{Main menu widget}
@@ -223,7 +223,7 @@ For compatibility reasons with the \ac{HMD}, I built a blueprint function for \a
 Because there is an internet call there is the need to do it in background, fortunately unreal gives a special \texttt{C++} class called \text{UBlueprintAsyncActionBase},
 if we inherit it, we can create what in \ac{UE} is called \texttt{latent node} Fig.[\ref{fig:HTTPrequest}], these nodes can activate their output pins without stopping the frame until they are complete. 
 
-\begin{figure}[h]
+\begin{figure}[ht]
     \centering
     \includegraphics[width=0.4\textwidth]{blueprints/httpRequest.png}
     \caption{HTTP request node}
@@ -289,7 +289,7 @@ During the session, it is important to replicate the following:
 \end{itemize}
 
 
-\begin{figure}[h]
+\begin{figure}[ht]
     \includegraphics[width =\textwidth]{diagramTimeNetwork.eps}
     \caption{Network time diagram}
     \label{fig:networkTime}
@@ -312,7 +312,7 @@ In the following sections, I will explain the two environments developed for the
 The main menu Fig.[\ref{fig:mainmenuRoom}] is the first interface the user encounters upon entering the application. A table in the virtual environment will display the main menu \ac{UI} widget, allowing the user to create or join sessions.
 Beside it, another table will host the \texttt{3DModelPicker} widget, enabling users to interact with individual 3D models.
 
-\begin{figure}[h]
+\begin{figure}[ht]
     \centering
     \includegraphics[width =\textwidth]{mainmenu.png}
     \caption{Main menu screenshots PLACEHOLDER}
@@ -323,7 +323,7 @@ Beside it, another table will host the \texttt{3DModelPicker} widget, enabling u
 The classroom Fig.[\ref{fig:classroom}] will be designed as a lecture hall, with students seated on steps to ensure a clear view of the 3D models, while the professor will be positioned in the middle.
 A blackboard at the center will display the session's code, and the bottom-right corner will indicate whether the center mode is enabled.
 
-\begin{figure}[h]
+\begin{figure}[ht]
     \centering
     \includegraphics[width =\textwidth]{classroom.png}
     \caption{Classroom screenshots PLACEHOLDER}
