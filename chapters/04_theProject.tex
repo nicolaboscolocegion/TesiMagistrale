@@ -22,7 +22,7 @@ For understanding how \ac{UE} will show 3D models and how they will be stored, w
 As we talked about in chapter \ref{chp:Requirements}, we will use the OBJ file format for storing files.
 The React Three Fiber has a native support for OBJ, and the backend server does not need to read the file but just to manage by saving, deleting and sending it via \ac{HTTP}.
 Unfortunately \ac{UE} does not have a OBJ file reader usable at runtime but just an importer for what it calls static meshes (3D models that don't have moving parts).
-So there is the need to build a parser [\ref{alg:parser}] OBJ to \ac{UE} custom types.\\
+So there is the need to build a parser Alg.[\ref{alg:parser}] OBJ to \ac{UE} custom types.\\
 First we need to understand how the OBJ file format is compose of, here a general example code:\ref{code:OBJExample}
 
 \lstinputlisting[float=ht, language=Octave, caption=OBJ file example,style=obj, label={code:OBJExample}]{code/exampleOBJ.txt}
@@ -248,7 +248,7 @@ For ease of use there is another class called \texttt{WorldVariables} that inher
 \noindent
 The backend will be built in Python using a library called Flask. This library allows associating a function with a specific \ac{URL}.
 Since the app is expected to run in a secure local environment for now, no security measures will be implemented, however, this will change in future developments.\\
-This table explains all the \ac{API} endpoints [\ref{tab:API}].\\
+This table explains all the \ac{API} endpoints Tab.[\ref{tab:API}].\\
 Primarily, the server maintains a list of open sessions, each associated with a timestamp and the host's \ac{IP} address, with the \ac{IP} adress the client can connect to the host.
 If necessary, a new session can be opened. When a session is initiated, a 5 digit code is generated and sent to the host.
 If a client submits the correct code, the server will provide the host's IP address.\\
@@ -331,7 +331,7 @@ A blackboard at the center will display the session's code, and the bottom-right
     \label{fig:classroom}
 \end{figure}
 
-\subsection{Web app}
+\section{Web app}
 \noindent
 As described in the requirements, there is a need to display different 3D models from time to time. This functionality will be achieved through a React web app build.\\
 The main functionalities are:

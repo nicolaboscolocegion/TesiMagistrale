@@ -276,7 +276,7 @@
   \def\abstractname{Abstract}
   \def\abstractnameit{Sommario}
 
-  \renewcommand{\bibname}{References}
+  \renewcommand{\bibname}{Bibliography}
 
   \def\acknowledgmentsname{Acknowledgments}
 

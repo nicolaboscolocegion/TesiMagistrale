@@ -46,7 +46,7 @@ Another important component is the player controller, this is the instance of a 
 
 \paragraph{External library:}
 One challenge for this application is having a correctly multiplayer session between \ac{HMD}, unfortunately \ac{UE} does not provide a \texttt{VRpawn} that has multiplayer functionality.
-For having a faster developing experience, a library called VRexpansion\footnote{\url{https://vreue4.com/}} will help the development, the library is open source under MIT licensing.
+For having a faster developing experience, a library called VRexpansion\footnote{\url{https://vreue4.com}} will help the development, the library is open source under MIT licensing.
 The main useful components are:
 \begin{itemize}
   \item \textbf{VRcharacter:} a character for \ac{VR} games, all its components can be replicated in a multiplayer session.
@@ -105,10 +105,10 @@ The multiplayer itself will be manage by the host \ac{HMD}
 \paragraph{The backend:}
 The backend is a simple Python program that functions as a \ac{REST} server, where each 3D model is a resource.
 It also manages the multiplayer session by creating the session code, and saves the \ac{IP} address of the listening server.
-The library used is called Flask\footnote{\url{https://flask.palletsprojects.com/en/3.0.x/}}, it simply lets you run a function with respect to a \ac{HTTP} response received.
+The library used is called Flask\footnote{\url{https://flask.palletsprojects.com/en/3.0.x}}, it simply lets you run a function with respect to a \ac{HTTP} response received.
 
 \paragraph{The Web UI:}
-The Web \ac{UI} is made with ReactJS, a popular framework for website, the main reason of this choice is for faster development because its community is massive, in fact will be using a UI library called MUI\footnote{\url{https://mui.com/}}
+The Web \ac{UI} is made with ReactJS, a popular framework for website, the main reason of this choice is for faster development because its community is massive, in fact will be using a UI library called MUI\footnote{\url{https://mui.com}}
 and a 3D library for rendering 3D models called React Three Fiber\footnote{\url{https://r3f.docs.pmnd.rs/getting-started/introduction}}.\\
 The main functionality of the Web \ac{UI} will be:
 \begin{itemize}
