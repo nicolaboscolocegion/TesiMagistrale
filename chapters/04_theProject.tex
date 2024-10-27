@@ -67,7 +67,8 @@ so it is important to export the file in \texttt{Z}-up.\\
 \end{figure}
 \noindent
 To load the mesh, I created a recursive function Fig.[\ref{fig:loadingMesh}] that loads each mesh group every 0.5 ms. A delay is necessary because some 3D models are large and can significantly impact performance during loading, and this helps to mitigate that. The function needs to be recursive because \ac{UE} loops do not allow delays within them.
-After all the mesh groups are loaded, another similar function is called to change the material and display the 3D mesh colors.
+After all the mesh groups are loaded, another similar function is called to change the material and display the 3D mesh colors.\\
+The final result can be seen in the first chapter in Fig.[\ref{fig:heart}].
 \subsection{3DmodelVewer actor}
 \noindent
 The \texttt{3DModelActor} is a custom actor designed to facilitate the visualization of 3D heart models that is an extension of \texttt{Grippable Actor}. This actor comprises four primary components. The first component is the Procedural Mesh, which utilizes Unreal Engine's capabilities to generate and display a heart model in real-time. 
@@ -330,3 +331,25 @@ A blackboard at the center will display the session's code, and the bottom-right
     \label{fig:classroom}
 \end{figure}
 
+\subsection{Web app}
+\noindent
+As described in the requirements, there is a need to display different 3D models from time to time. This functionality will be achieved through a React web app build.\\
+The main functionalities are:
+
+\begin{itemize}
+    \item Upload 3D models
+    \item Visualize already uploaded models
+    \item Delete 3D models
+    \item Responsive design
+\end{itemize}
+\noindent
+The UI will be built using MUI\footnote{\url{https://mui.com}}, along with a free template provided by them.\\
+For 3D visualization, there is a library called React Three Fiber\footnote{\url{https://r3f.docs.pmnd.rs}}, which is essentially a wrapper around Three.js\footnote{\url{https://threejs.org}}.
+React Three Fiber was chosen because it easily supports the visualization and caching of 3D models, as well as vertex colors for OBJ files. The only issue is that it natively displays OBJ models with \texttt{Y-up} orientation. To resolve this, the model simply needs to be rotated on the \texttt{X} axis by -90°.
+
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width =\textwidth]{mockups.png}
+    \caption{Web app mockups}
+    \label{fig:mockups}
+\end{figure}
