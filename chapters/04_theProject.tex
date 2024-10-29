@@ -84,9 +84,9 @@ As specified in the requirements, the 3D models must be resizable. Therefore, th
 
 \section{The VR Character}
 \noindent
-Thanks to the VRExpansion plugin, we can use the standard \texttt{VRCharater}, this \texttt{Character} has already implemented the online synchronization, and it also has the components for the controllers and camera management.
+Thanks to the VRExpansion plugin, we can use the standard \texttt{VR Character}, this \texttt{Character} has already implemented the online synchronization, and it also has the components for the controllers and camera management.
 The controllers can \texttt{grip} any \texttt{Actor} or \texttt{Component} that implements the interface \texttt{VRGrip}, this will be used for  moving the 3D models.
-Other than that the \texttt{VRCharater} is an empty blank, and will need to implement some functions for making it fully functional.\\
+Other than that the \texttt{VR Character} is an empty blank, and will need to implement some functions for making it fully functional.\\
 Here are the main components to develop:
 
 \begin{itemize}
@@ -101,8 +101,8 @@ Here are the main components to develop:
 
 \subsection{Input management}
 \noindent
-Input in \ac{UE} is managed by two data files: \texttt{Input Action }and \texttt{Input Mapping Context}.
-In the next two paragraphs will be addressed how the input works, and then will be used in the various components of \texttt{VRCharater}.
+Input in \ac{UE} is managed by two data files: \texttt{Input Action}and \texttt{Input Mapping Context}.
+In the next two paragraphs will be addressed how the input works, and then will be used in the various components of \texttt{VR Character}.
 
 \paragraph{Input Action}
 Are files that are used to identify a certain input of the controller, each file should be named after an action more than the input used for making clear what they serve.
@@ -163,7 +163,7 @@ Still our use will be simply by just using two points Fig.[\ref{fig:splineExampl
 \subsection{Laser pointer}
 \noindent
 To create an effective laser pointer, we can simply use a red spline that starts from the controller and ends on the pointed surface. The code is very similar to the \texttt{widget interaction pointer} described in Chapter [\ref{chp:widgetInteraction}]. However, to find the pointer's location, we can use the line trace function, which detects the nearest point where a geometry intersects with an input segment.\\
-The laser pointer will be an actor, and using a component called a child actor, we can attach it to the \texttt{VRCharacter} right controller. This is necessary to eliminate the latency effect caused by the tick group of the \texttt{VRCharacter}, which is set to \texttt{Pre Physic}. The laser pointer actor will stay in the \texttt{post update work}, allowing it to be ticked one frame before anything else.\\
+The laser pointer will be an actor, and using a component called a child actor, we can attach it to the \texttt{VR Character} right controller. This is necessary to eliminate the latency effect caused by the tick group of the \texttt{VR Character}, which is set to \texttt{Pre Physic}. The laser pointer actor will stay in the \texttt{post update work}, allowing it to be ticked one frame before anything else.\\
 The final result is identical to the \texttt{widget interaction pointer} shown in Fig.[\ref{fig:splineExample}], but the color will be red, and it will be toggled using the \texttt{A button}.
 
 \subsection{Grippable system}
@@ -189,10 +189,10 @@ The code for this action is siple, when it is decided that the actior is been re
 \label{Chp:fade}
 \noindent
 As we will explain in Chapter [\ref{chp:performance}], the average \ac{VR} user can be very susceptible to sudden movements, such as teleportation or moving in 3D space using the analog stick.
-To mitigate the discomfort caused by sudden teleportation, every time a \texttt{VRCharacter} is teleported or loaded into another level, a fade-in and fade-out animation is applied.\\
+To mitigate the discomfort caused by sudden teleportation, every time a \texttt{VR Character} is teleported or loaded into another level, a fade-in and fade-out animation is applied.\\
 This effect would be relatively simple to achieve using post-processing. However, for mobile development, post-processing is generally discouraged due to its high resource consumption. Therefore, it is important to adopt a less resource-intensive solution. Fortunately, \ac{UE} materials can be manipulated in real time.
 By using a sphere with a specific material that has \texttt{depth test} disabled (so it renders on top of everything), and by animating the fade effect through a parameter controlling opacity.\\
-The code will be implemented directly in the \texttt{VRCharacter}. The sphere will be spawned and destroyed as needed, and the animation will be controlled by a built-in function that changes the opacity value over a specified animation time.\\
+The code will be implemented directly in the \texttt{VR Character}. The sphere will be spawned and destroyed as needed, and the animation will be controlled by a built-in function that changes the opacity value over a specified animation time.\\
 Another minor issue is that when the player enters a new session, they will initially spawn at coordinates \texttt{X=0, Y=0, Z=0}, where code execution may not yet be possible. To address this, a sphere similar to the one used for the fade effect will be placed at those coordinates in multiplayer levels.\\
 This sphere will be destroyed once the player has been relocated to the correct position. This sphere can been seen in Fig.[\ref{fig:classroom}].
 
