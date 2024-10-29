@@ -2,3 +2,63 @@
 
 \chapter{Performance and optimization}
 \label{chp:performance}
+\noindent
+Running a \ac{VR} application is highly resource-intensive. Not only must the processor handle all sensor data, but it also has to run a 3D application that is rendered on two screens, aiming to achieve at least a stable 72 \ac{FPS} experience.
+On top of that, the Meta Quest 2 has limited mobile hardware Tab.[\ref{tab:specs}]. This chapter will explain all the optimizations necessary to run the application at 90 \ac{FPS}, as well as demonstrate the performance of the OBJ parser build.
+
+
+\begin{table}
+  \centering
+  \begin{tblr}{
+      colspec = {|l|l|},
+      rows={valign=m},
+      row{1}={font=\bfseries}
+    }
+  \hline
+  Charateristic & Specs                                                          \\ \hline
+  Chipset       & Qualcomm Snapdragon XR2                                       \\ \hline
+  CPU           & Octa-core Kryo 585 (1$\times$2.84 GHz, 3$\times$2.42 GHz, 4$\times$1.8 GHz)  \\ \hline
+  GPU           & Adreno 650                                                    \\ \hline
+  RAM           & 6 GB LPDDR5                                                    \\ \hline
+
+  \end{tblr}
+  \caption{Meta Quest 2 specs}
+  \label{tab:specs}
+\end{table}
+
+\section{Meta XR performance check}
+\noindent
+Thanks to the Meta XR plugin, Meta directly suggests certain options to enable or disable. The most important aspects will be explained in the next paragraphs.
+
+\paragraph{Post-processing}
+must be disabled because it can be very demanding on the device. As discussed in Chapter \ref{Chp:fade}, mobile HDR is already turned off, however, \ac{UE} still enables lens flares by default. 
+To disable it, we need to place a \texttt{Post Process Volume} in the scene and set the lens flare intensity to \texttt{0}.
+
+\paragraph{Dynamic lighting}
+must be disabled. This option is probably the most impactful. When enabled, the app runs at less than 60 \ac{FPS}, but with it disabled, performance reaches a stable 90 \ac{FPS}, yielding an improvement of over 30 \ac{FPS} and providing a more stable experience overall.
+Unfortunately, dynamic lights can enhance immersion, however, the only moving elements are the \texttt{VR Characters} and the \texttt{3D Model Viewer}, so the absence of dynamic lighting will not be very noticeable.\\
+Static lighting will still be used, allowing the environment to have shadows cast by a directional light that simulates the sun, as well as by rectangular and point lights used for building interiors.
+
+\paragraph{Half precision float for materials and shaders.}
+As is well known, using smaller float values can improve system performance by sacrificing some precision, though fortunately, the side effects are often negligible.
+However, in our case, this optimization has limited impact because the majority of materials used are static.
+
+\subsection{Other optimizations for Meta quest}
+\noindent
+In addition to the previously described options, there are some additional settings that can help boost performance. These are simple Android manifest tags that enable the \ac{HMD} to activate additional functionality:
+
+\begin{itemize}
+  \item \textbf{Suggested CPU and GPU levels:} This setting allows the \ac{HMD} to operate at maximum performance levels.
+  \item \textbf{Processor favor:} This option lets us choose whether the \ac{HMD} should prioritize maximum performance for either the GPU or CPU. This is useful because the device has limited power and heat dissipation, preventing it from running at 100\% performance continuously without the risk of throttling.
+  \item \textbf{Enable dual core:} Normally, the \ac{HMD} uses only one core for the foreground app, but a meta tag enables a second core for background activities and parallel operations. This is particularly beneficial for the parser and asynchronous operations needed by \ac{UE}.
+\end{itemize}
+
+\section{Optimizations for Unreal engine VR}
+\noindent
+In addition to the options provided by the Meta XR performance check, there are settings within \ac{UE} (Ref.\cite{UEperformance}) that can further optimize the app for the \ac{HMD}.These optimizations are explained in the following paragraphs.
+
+\paragraph{Instanced stereo}
+When rendering a frame for an \ac{HMD}, the screens are typically managed as two separate entities. This is demanding for the GPU, as it has to render two frames simultaneously.
+However, with Instanced Stereo, we can generate both views in a single pass. \ac{UE} achieves this by applying a small transformation to the loaded vertices, correcting the view difference between the left and right eyes. Additionally, this transformation is applied to shaders as well.
+This rendering method relies on low-level \ac{API}s that enable it, the Meta Quest 2 uses the Vulkan graphics \ac{API}, which supports this feature.
+
