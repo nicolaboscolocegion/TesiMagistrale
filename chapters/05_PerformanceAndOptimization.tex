@@ -74,7 +74,9 @@ Normally, the standard shading rate is 1:1, meaning one pixel shader invocation 
 \paragraph{\ac{FFR}}
 is a technique that utilizes \ac{VRS} to determine which parts of the screen can be rendered at a lower resolution.
 Studies, such as Bib.\cite{eye}, have shown that when viewing a screen, the eye typically focuses on the center.
-This allows for lower resolution rendering in the peripheral areas. Consequently, as the distance from the center increases, we can apply a lower shading rate, conserving resources without noticeably impacting visual quality.
+This allows for lower resolution rendering in the peripheral areas. Consequently, as the distance from the center increases, we can apply a lower shading rate, conserving resources without noticeably impacting visual quality.\\
+An example of FFR zones is in figure Fig.\ref{fig:FFR} where the darker blue represents the lowest rate shading zone.
+
 
 \begin{figure}[ht]
   \includegraphics[width =\textwidth]{FFR.png}
@@ -86,7 +88,7 @@ This allows for lower resolution rendering in the peripheral areas. Consequently
 As expected, \ac{FFR} is not an optimal approach, as the eye occasionally shifts to the periphery of the \ac{HMD} display.
 In the future, \ac{HMD}s are likely to be equipped with eye-tracking modules, allowing \ac{FFR} to be replaced by dynamic foveated rendering, which adjusts rendering zones based on where the user is looking.
 
-\section{General \ac{UE} performance optimizations}
+\section{General engine performance optimizations}
 \noindent
 \ac{UE} is one of the most important game engines on the market, offering many standardized features to optimize various types of games.
 
@@ -95,3 +97,8 @@ were created to reduce the number of vertices and triangles in a scene.
 The concept is straightforward: small or distant objects do not require as much detail as closer or larger ones. 
 Based on their position and size in the scene, each mesh has different \ac{LOD} levels that load according to the scene's requirements.
 \ac{LOD} levels can be generated programmatically or model by a 3D artist, naturally, manual creation leads to more accurate \ac{LOD}.
+
+\paragraph{Removing opacity:}
+Opacity is one of the heaviest options in shading, so for reducing GPU overhead it will be removed.
+
+\paragraph{Clever level design}
