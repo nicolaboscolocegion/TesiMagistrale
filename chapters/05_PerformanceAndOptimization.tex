@@ -80,7 +80,7 @@ An example of FFR zones is in figure Fig.\ref{fig:FFR} where the darker blue rep
 
 \begin{figure}[ht]
   \includegraphics[width =\textwidth]{FFR.png}
-  \caption{Ecample of FFR zones}
+  \caption{Example of FFR zones}
   \label{fig:FFR}
 \end{figure}
 
@@ -103,12 +103,20 @@ Opacity is one of the heaviest options in shading, so for reducing GPU overhead 
 
 \paragraph{Clever level design:}
 When watching 3D animations or playing video games, we might assume that every environment is fully constructed with maximum detail.
-This is not the case. For example, in this case study, it’s unnecessary to build parts like the exterior of a building or create a second floor.
+This is not the case. For example, in this case study, it's unnecessary to build parts like the exterior of a building or create a second floor.
 Similarly, distant mountains may appear to have realistic depth, but they are often floating in empty space and are not actually far away.
 This approach prevents the engine from loading hidden models, which would otherwise waste resources.\\
 For the same reason, shaders are applied only to one side of a triangle.
 For example, shading the inner side of thick building walls is unnecessary and would only consume resources without adding to the visual quality.\\
-These triks can been seen in Fig.[]
+These triks can been seen in Fig.[\ref{fig:design}]
+
+
+
+\begin{figure}[ht]
+  \includegraphics[width =\textwidth]{./vrScreenshot/design.png}
+  \caption{Exterior of buildings}
+  \label{fig:design}
+\end{figure}
 
 \section{General performance}
 
