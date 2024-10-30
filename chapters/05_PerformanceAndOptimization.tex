@@ -55,10 +55,43 @@ In addition to the previously described options, there are some additional setti
 
 \section{Optimizations for Unreal engine VR}
 \noindent
-In addition to the options provided by the Meta XR performance check, there are settings within \ac{UE} (Ref.\cite{UEperformance}) that can further optimize the app for the \ac{HMD}.These optimizations are explained in the following paragraphs.
+In addition to the options provided by the Meta XR performance check, there are settings within \ac{UE} (Bib.\cite{UEperformance}) that can further optimize the app for the \ac{HMD}.These optimizations are explained in the following paragraphs.
 
 \paragraph{Instanced stereo}
 When rendering a frame for an \ac{HMD}, the screens are typically managed as two separate entities. This is demanding for the GPU, as it has to render two frames simultaneously.
 However, with Instanced Stereo, we can generate both views in a single pass. \ac{UE} achieves this by applying a small transformation to the loaded vertices, correcting the view difference between the left and right eyes. Additionally, this transformation is applied to shaders as well.
 This rendering method relies on low-level \ac{API}s that enable it, the Meta Quest 2 uses the Vulkan graphics \ac{API}, which supports this feature.
 
+\subsection{Variable Rate Shading and Fixed Foveated Rendering}
+\noindent
+We don’t always need to shade each material with maximum precision, so \ac{UE} provides tools to help mitigate this.
+
+\paragraph{\ac{VRS}}
+is a technique allows shaders to render at a lower resolution in specific situations.
+Normally, the standard shading rate is 1:1, meaning one pixel shader invocation corresponds to one pixel target on the screen.
+\ac{UE} offers various shading rates, for instance, applying a shading rate of 2x2 means that a single shader invocation will cover a 2x2 pixel area, resulting in one shading calculation for every 4 pixels.
+
+\paragraph{\ac{FFR}}
+is a technique that utilizes \ac{VRS} to determine which parts of the screen can be rendered at a lower resolution.
+Studies, such as Bib.\cite{eye}, have shown that when viewing a screen, the eye typically focuses on the center.
+This allows for lower resolution rendering in the peripheral areas. Consequently, as the distance from the center increases, we can apply a lower shading rate, conserving resources without noticeably impacting visual quality.
+
+\begin{figure}[ht]
+  \includegraphics[width =\textwidth]{FFR.png}
+  \caption{Ecample of FFR zones}
+  \label{fig:FFR}
+\end{figure}
+
+\noindent
+As expected, \ac{FFR} is not an optimal approach, as the eye occasionally shifts to the periphery of the \ac{HMD} display.
+In the future, \ac{HMD}s are likely to be equipped with eye-tracking modules, allowing \ac{FFR} to be replaced by dynamic foveated rendering, which adjusts rendering zones based on where the user is looking.
+
+\section{General \ac{UE} performance optimizations}
+\noindent
+\ac{UE} is one of the most important game engines on the market, offering many standardized features to optimize various types of games.
+
+\paragraph{\ac{LOD}}
+were created to reduce the number of vertices and triangles in a scene.
+The concept is straightforward: small or distant objects do not require as much detail as closer or larger ones. 
+Based on their position and size in the scene, each mesh has different \ac{LOD} levels that load according to the scene's requirements.
+\ac{LOD} levels can be generated programmatically or model by a 3D artist, naturally, manual creation leads to more accurate \ac{LOD}.
