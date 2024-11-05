@@ -127,14 +127,19 @@ These triks can been seen in Fig.[\ref{fig:design}]
 \begin{table}
   \centering
   \begin{tblr}{
-      colspec = {|l|l|l|},
+      colspec = {|l|l|l|l|},
       rows={valign=m},
       row{1}={font=\bfseries}
     }
     \hline
-    Vertices & Triangles & Parsing time avg \\ \hline
-         &           &                  \\ \hline
-         &           &                  \\ \hline
+    Vertices & Triangles & Parsing time avg & Dowload time avg\\ \hline
+    60333& 120774 &             &     \\ \hline %Test4.obj
+    38207&  77474 &             &     \\ \hline %Thorax.obj
+    10968&  21968 &             &     \\ \hline %Sternum.obj
+    1284&  2568 &               &   \\ \hline %RCA.obj
+    60333&  120774 &            &      \\ \hline %Esempio.obj
+    60333&  120774 &            &      \\ \hline %Test3.obj
+    1856&  3704 &             &     \\ \hline %Steel.obj
 
   \end{tblr}
   \caption{Parser loading time}
