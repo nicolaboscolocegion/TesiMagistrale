@@ -222,7 +222,7 @@ Because the menus have to do network calls, they will be able to show error mess
 \subsection{HTTP request}
 \noindent
 For compatibility reasons with the \ac{HMD}, I built a blueprint function for \ac{HTTP} requests.
-Because there is an internet call there is the need to do it in background, fortunately unreal gives a special \texttt{C++} class called \text{UBlueprintAsyncActionBase},
+Because there is an internet call there is the need to do it in background, fortunately unreal gives a special \texttt{C++} class called \texttt{UBlueprintAsyncActionBase},
 if we inherit it, we can create what in \ac{UE} is called \texttt{latent node} Fig.[\ref{fig:HTTPrequest}], these nodes can activate their output pins without stopping the frame until they are complete. 
 
 \begin{figure}[ht]

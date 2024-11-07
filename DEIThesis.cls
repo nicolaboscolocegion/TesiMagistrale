@@ -71,6 +71,8 @@
 
 % graphics
 \RequirePackage{graphicx}
+\RequirePackage{subcaption }
+
 
 % algoritms
 \RequirePackage{algorithm}
