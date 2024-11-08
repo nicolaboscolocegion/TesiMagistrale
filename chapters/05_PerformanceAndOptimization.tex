@@ -64,7 +64,7 @@ This rendering method relies on low-level \ac{API}s that enable it, the Meta Que
 
 \subsection{Variable Rate Shading and Fixed Foveated Rendering}
 \noindent
-We don’t always need to shade each material with maximum precision, so \ac{UE} provides tools to help mitigate this.
+We don't always need to shade each material with maximum precision, so \ac{UE} provides tools to help mitigate this.
 
 \paragraph{\ac{VRS}}
 is a technique allows shaders to render at a lower resolution in specific situations.
@@ -88,7 +88,7 @@ An example of \ac{FFR} zones is in Fig.[\ref{fig:FFR}] where the darker blue rep
 As expected, \ac{FFR} is not an optimal approach, as the eye occasionally shifts to the periphery of the \ac{HMD} display.
 In the future, \ac{HMD}s are likely to be equipped with eye-tracking modules, allowing \ac{FFR} to be replaced by dynamic foveated rendering, which adjusts rendering zones based on where the user is looking.
 
-\section{General engine performance optimizations}
+\section{General engine optimizations}
 \noindent
 \ac{UE} is one of the most important game engines on the market, offering many standardized features to optimize various types of games.
 
@@ -97,7 +97,7 @@ were created to reduce the number of vertices and triangles in a scene.
 The concept is straightforward: small or distant objects do not require as much detail as closer or larger ones. 
 Based on their position and size in the scene, each mesh has different \ac{LOD} levels that load according to the scene's requirements.
 \ac{LOD} levels can be generated programmatically or model by a 3D artist, naturally, manual creation leads to more accurate \ac{LOD}.\\
-\ac{LOD}s can modify materials or reduce the number of triangles and vertices. An example of programmatically generated LODs that reduce polygon count can be found in Fig.[\ref{fig:lods}].
+\ac{LOD}s can modify materials or reduce the number of triangles and vertices. An example of programmatically generated \ac{LOD}s that reduce polygon count can be found in Fig.[\ref{fig:lods}].
 
 \captionsetup[subfigure]{labelformat=empty}
 \begin{figure}[h]
@@ -145,26 +145,36 @@ These triks can been seen in Fig.[\ref{fig:design}]
 \section{General performance}
 
 
-\section{Parser performance}
+\section{Parser performance}\noindent
+The parser performance must be efficient enough to avoid making the user wait too long. Fortunately, there is a generous upper time limit, as the models need to be downloaded first.
+Ideally, parser performance should be $O(n)$, however for cleaner code, we are using a function called \texttt{ParseIntoArrayLines}, which returns the file as an array of its rows.
+According to the \ac{UE} documentation\footnote{\url{https://dev.epicgames.com/documentation/en-us/unreal-engine/API/Runtime/Core/Containers/FString/ParseIntoArrayLines?application_version=5.2}}, this function is expected to have $O(n^2)$ complexity in terms of allocation.
+However, my results suggest this may not be accurate—likely due to processor cache compensating for access speed.
 
+\paragraph{Banchmark}
+Table Tab.[\ref{tab:banchmark}] presents benchmark results showing the parser's performance alongside the network time required to download it.
+The test was conducted using a developer build of the app with all functionalities enabled. The connection was Wi-Fi 5 (up to 866 Mbps), with the access point approximately 2 meters from the \ac{HMD}.
+The router was connected to a 1 Gbps fiber line, providing ideal network conditions.
+As shown, the time to download the model is nearly double the time required to parse it. In real-world conditions, however, the \ac{HMD} may not benefit from such optimal network connectivity.\\
+Thus, we can conclude that the parser's performance is adequate for these use cases.
 
 \begin{table}
   \centering
   \begin{tblr}{
-      colspec = {|l|l|l|l|},
+      colspec = {|l|l|l|l|l|},
       rows={valign=m},
       row{1}={font=\bfseries}
     }
     \hline
-    Vertices & Triangles & Parsing time avg & Dowload time avg\\ \hline
-    60333& 120774 &             &     \\ \hline %Test4.obj
-    38207&  77474 &             &     \\ \hline %Thorax.obj
-    10968&  21968 &             &     \\ \hline %Sternum.obj
-    1284&  2568 &               &   \\ \hline %RCA.obj
-    60333&  120774 &            &      \\ \hline %Esempio.obj
-    60333&  120774 &            &      \\ \hline %Test3.obj
-    1856&  3704 &             &     \\ \hline %Steel.obj
-
+    Size&Vertices & Triangles & Parsing time avg & Dowload time avg\\ \hline
+    188kB&1284&  2568 &0.013700s &   0.160968s \\ \hline %RCA.obj
+    276kB&1856&  3704 &0.020405s&  0.198955s   \\ \hline %Steel.obj
+    540kB&3590&7192&0.037820s&0.215038s\\ \hline %LSA.obj
+    724kB&4768&9564&0.050700s&0.230261s\\ \hline % RSA.obj
+    1.7MB&10968&  21968 &0.116693s&   0.324465s  \\ \hline %Sternum.obj
+    6.2MB&38207&  77474 &0.412519s&0.732149s\\ \hline %Thorax.obj
+    9.7MB&60333&  120774 &0.630291s&0.985465s\\ \hline %Esempio.obj
+    11MB&62674&126376&0.670590s&1.120609s\\ \hline %heart.obj
   \end{tblr}
   \caption{Parser loading time}
   \label{tab:banchmark}
