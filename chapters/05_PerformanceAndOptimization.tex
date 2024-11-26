@@ -15,7 +15,7 @@ On top of that, the Meta Quest 2 has limited mobile hardware Tab.[\ref{tab:specs
       row{1}={font=\bfseries}
     }
   \hline
-  Charateristic & Specs                                                          \\ \hline
+  Characteristic & Specs                                                          \\ \hline
   Chipset       & Qualcomm Snapdragon XR2                                       \\ \hline
   CPU           & Octa-core Kryo 585 (1$\times$2.84 GHz, 3$\times$2.42 GHz, 4$\times$1.8 GHz)  \\ \hline
   GPU           & Adreno 650                                                    \\ \hline
@@ -67,7 +67,7 @@ This rendering method relies on low-level \ac{API}s that enable it, the Meta Que
 We don't always need to shade each material with maximum precision, so \ac{UE} provides tools to help mitigate this.
 
 \paragraph{\ac{VRS}}
-is a technique allows shaders to render at a lower resolution in specific situations.
+is a technique that allows shaders to render at a lower resolution in specific situations.
 Normally, the standard shading rate is 1:1, meaning one pixel shader invocation corresponds to one pixel target on the screen.
 \ac{UE} offers various shading rates, for instance, applying a shading rate of 2x2 means that a single shader invocation will cover a 2x2 pixel area, resulting in one shading calculation for every 4 pixels.
 
@@ -97,7 +97,7 @@ In the future, \ac{HMD}s are likely to be equipped with eye-tracking modules, al
 were created to reduce the number of vertices and triangles in a scene.
 The concept is straightforward: small or distant objects do not require as much detail as closer or larger ones. 
 Based on their position and size in the scene, each mesh has different \ac{LOD} levels that load according to the scene's requirements.
-\ac{LOD} levels can be generated programmatically or model by a 3D artist, naturally, manual creation leads to more accurate \ac{LOD}.\\
+\ac{LOD} levels can be generated programmatically or modeled by a 3D artist, naturally, manual creation leads to more accurate \ac{LOD}.\\
 \ac{LOD}s can modify materials or reduce the number of triangles and vertices. An example of programmatically generated \ac{LOD}s that reduce polygon count can be found in Fig.[\ref{fig:lods}].
 
 \captionsetup[subfigure]{labelformat=empty}
@@ -133,7 +133,7 @@ Similarly, distant mountains may appear to have realistic depth, but they are of
 This approach prevents the engine from loading hidden models, which would otherwise waste resources.\\
 For the same reason, shaders are applied only to one side of a triangle.
 For example, shading the inner side of thick building walls is unnecessary and would only consume resources without adding to the visual quality.\\
-These triks can been seen in Fig.[\ref{fig:design}]
+These tricks can been seen in Fig.[\ref{fig:design}]
 
 
 
@@ -164,8 +164,8 @@ Ideally, parser performance should be $O(n)$, however for cleaner code, we are u
 According to the \ac{UE} documentation\footnote{\url{https://dev.epicgames.com/documentation/en-us/unreal-engine/API/Runtime/Core/Containers/FString/ParseIntoArrayLines?application_version=5.2}}, this function is expected to have $O(n^2)$ complexity in terms of allocation.
 However, my results suggest this may not be accurate—likely due to processor cache compensating for access speed.
 
-\paragraph{Banchmark}
-Table Tab.[\ref{tab:banchmark}] presents benchmark results showing the parser performance alongside the network time required to download it.
+\paragraph{Benchmark}
+Table Tab.[\ref{tab:benchmark}] presents benchmark results showing the parser performance alongside the network time required to download it.
 The test was conducted using a developer build of the app with all functionalities enabled. The connection was Wi-Fi 5 (up to 866 Mbps), with the access point approximately 2 meters from the \ac{HMD}.
 The router was connected to a 1 Gbps fiber line, providing ideal network conditions.
 As shown, the time to download the model is the real bottleneck and in real-world conditions, however, the \ac{HMD} may not benefit from such optimal network connectivity.\\
@@ -179,7 +179,7 @@ Thus, we can conclude that the parser performance is adequate for these use case
       row{1}={font=\bfseries}
     }
     \hline
-    Size&Vertices & Triangles & Parsing time avg & Dowload time avg\\ \hline
+    Size&Vertices & Triangles & Parsing time avg & Download time avg\\ \hline
     188kB&1284&  2568 &0.013700s &   0.160968s \\ \hline %RCA.obj
     276kB&1856&  3704 &0.020405s&  0.198955s   \\ \hline %Steel.obj
     540kB&3590&7192&0.037820s&0.215038s\\ \hline %LSA.obj
@@ -190,5 +190,5 @@ Thus, we can conclude that the parser performance is adequate for these use case
     11MB&62674&126376&0.670590s&1.120609s\\ \hline %heart.obj
   \end{tblr}
   \caption{Parser loading time}
-  \label{tab:banchmark}
+  \label{tab:benchmark}
 \end{table}

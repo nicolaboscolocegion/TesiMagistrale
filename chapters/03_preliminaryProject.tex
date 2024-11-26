@@ -9,7 +9,7 @@ The user experience in the \ac{VR} app will be designed to be intuitive, there w
 Professors will have the ability to create a virtual classroom. Students can join these rooms by entering a unique code provided to them. Once inside, the professor will guide the lecture by showcasing 3D models of different hearts.
 They can manipulate these models by moving, resizing, and using a laser pointer to highlight specific areas of interest. 
 \paragraph{WEB UI}
-The Web app will let the professor to upload any OBJ models needed for the lecture by a simple form, and the web app will allow to view 3D models.
+The Web app will let the professor upload any OBJ models needed for the lecture by a simple form, and the web app will allow users to view 3D models.
 
 \section{The VR APP}
 \noindent
@@ -39,7 +39,7 @@ In unreal a scene is called "Level", each element in a level is called "Actor", 
 Each element of unreal can be built with a proprietary system called Blueprint, a visual programming interface, or via \texttt{C++}, or by combining them.
 Principally Blueprint can make the development of the project faster and easier at the cost of performance, \texttt{C++} performs better, and it has a bigger range of tools.
 So It is important to combine both languages for having the best performance and flexibility in the project.\\
-Like a lot of game engines, \ac{UE} tries to render many frames as much as possible, each cycle of rendering is called tick.\\
+Like a lot of game engines, \ac{UE} tries to render as many frames as possible, each cycle of rendering is called tick.\\
 It's important that long actions must be asynchronous with respect to the game ticks, and if something must be a runner in the so-called "game thread", it must be as fast as possible so that the frame rate does not drop to a certain level.\\
 Another important component is the player controller, this is the instance of a player inside a level, a player controller can possess a pawn actor or a character actor.
 
@@ -73,7 +73,7 @@ For making a good multiplayer we have some blueprints that can help with the syn
   \item \textbf{Game Mode:} runned only inside the server, as it is called it provides the rules how the game should work, it is important for the login and log out of the players.
   \item \textbf{Game state:} it represents the state of the game, all \ac{HMD} has one, but it is always replicated by the server.
   \item \textbf{Player controller:} runned in every \ac{HMD}, it represents the player using the \ac{HMD}.
-  \item \textbf{Player state:} it has all the data of a player like the username, its replicated.
+  \item \textbf{Player state:} it has all the data of a player like the username, it's replicated.
 \end{itemize}
 \noindent
 An important feature for synchronize events between client and server are \ac{RPCs}, \ac{RPCs} are events of actors that can per reproduce in multiple device at once by following one of these rules:
