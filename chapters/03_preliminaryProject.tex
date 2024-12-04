@@ -1,19 +1,19 @@
 %!TEX root = ../main.tex
 
-\chapter{Preliminary project}
+\chapter{Preliminary project} %design
 \noindent
-The project is made by three main components: \ac{VR} APP, backend, Web \ac{UI}. This chapter will talk about them.
+The project is made by three main components: \ac{VR} APP, backend, web app. This chapter will talk about them.
 \section{The user experience}
-\paragraph{VR APP}
+\paragraph{VR app}
 The user experience in the \ac{VR} app will be designed to be intuitive, there will be two types of users: professors and students.
 Professors will have the ability to create a virtual classroom. Students can join these rooms by entering a unique code provided to them. Once inside, the professor will guide the lecture by showcasing 3D models of different hearts.
 They can manipulate these models by moving, resizing, and using a laser pointer to highlight specific areas of interest. 
-\paragraph{WEB UI}
-The Web app will let the professor upload any OBJ models needed for the lecture by a simple form, and the web app will allow users to view 3D models.
+\paragraph{Web app}
+The web app will let the professor upload any OBJ models needed for the lecture by a simple form, and the web app will allow users to view 3D models.
 
-\section{The VR APP}
+\section{The VR app}
 \noindent
-This section will explain the main choices behind the \ac{VR} APP
+This section will explain the main choices behind the \ac{VR} app
 \paragraph{The development environment:} 
 There are three main way to develop on the Meta Quest 2:
 
@@ -64,9 +64,9 @@ We can also create custom events with Blueprint or \texttt{C++}, they can be tri
 Like functions, events can have inputs but not outputs.
 
 \paragraph{Multiplayer:}
-\ac{UE} just supports a client-server configuration for managing multiplayer sessions, it has two main implementations: Stand-Alone server and listening server.\\
+\ac{UE} just supports a client-server configuration for managing multiplayer sessions, it has two main implementations: Stand-Alone server and listen server.\\
 A Stand-Alone server consists in having a server that emulates the gaming session, it requires a server powerful enough to run the basic function of the game event if it does not need to render it.\\
-A Listening Server does not need a Stand-Alone server, simply one device acts not only as a client but also as a server. Normally client-server is the best in performance and latency, but because this software is simple, the listening server is the right implementation.\\
+A listen Server does not need a Stand-Alone server, simply one device acts not only as a client but also as a server. Normally client-server is the best in performance and latency, but because this software is simple, the listen server is the right implementation.\\
 For making a good multiplayer we have some blueprints that can help with the synchronization of the data: 
 
 \begin{itemize}
@@ -91,7 +91,7 @@ This limitation will restrict the multiplayer capabilities, allowing us to creat
 \section{Network Infrastructure}
 \noindent
 The Network Infrastructure Fig.[\ref{fig:NetworkSchema}] it is simple, a server will be hosted in the IT department of the hospital that will host the \ac{REST} server for managing 3D Models and multiplayer sessions,
-and in the same server will host via NodeJS the Web Portal for managing the 3DModels.
+and in the same server will host via NodeJS the wen app for managing the 3DModels.
 The multiplayer itself will be manage by the host \ac{HMD}
 
 \begin{figure}[ht]
@@ -104,13 +104,13 @@ The multiplayer itself will be manage by the host \ac{HMD}
 
 \paragraph{The backend:}
 The backend is a simple Python program that functions as a \ac{REST} server, where each 3D model is a resource.
-It also manages the multiplayer session by creating the session code, and saves the \ac{IP} address of the listening server.
+It also manages the multiplayer session by creating the session code, and saves the \ac{IP} address of the listen server.
 The library used is called Flask\footnote{\url{https://flask.palletsprojects.com/en/3.0.x}}, it simply lets you run a function with respect to a \ac{HTTP} response received.
 
-\paragraph{The Web UI:}
-The Web \ac{UI} is made with ReactJS, a popular framework for website, the main reason of this choice is for faster development because its community is massive, in fact will be using a UI library called MUI\footnote{\url{https://mui.com}}
+\paragraph{The web app:}
+The web app is made with ReactJS, a popular framework for website, the main reason of this choice is for faster development because its community is massive, in fact will be using a \ac{UI} library called MUI\footnote{\url{https://mui.com}}
 and a 3D library for rendering 3D models called React Three Fiber\footnote{\url{https://r3f.docs.pmnd.rs/getting-started/introduction}}.\\
-The main functionality of the Web \ac{UI} will be:
+The main functionality of the web app will be:
 \begin{itemize}
   \item previewing 3D models with the right colors 
   \item upload 3D models
@@ -120,7 +120,7 @@ The main functionality of the Web \ac{UI} will be:
 
 \section{Development environment}
 \noindent
-It is important to set the right development environment for this project, even if for the Web \ac{UI} and backend it is a standard NodeJS and Python environment, 
+It is important to set the right development environment for this project, even if for the web app and backend it is a standard NodeJS and Python environment, 
 it is not that simple for \ac{UE}\\
 First the choosing the right version is very important because Meta does not always test all \ac{UE} version, at the start of the developing of the project, the last one was 5.2.1,
 we also need Visual Studio with the right components for compile in \texttt{C++}, we could use other text editor, but Visual Studio is the most completed one for unreal.
