@@ -1,8 +1,8 @@
 %!TEX root = ../main.tex
 
-\chapter{Preliminary project} %design
+\chapter{Design} %design
 \noindent
-The project is made by three main components: \ac{VR} APP, backend, web app. This chapter will talk about them.
+The software is made by three main components: \ac{VR} APP, backend, web app. This chapter will talk about the design and implementation choices driven by the requirements described in the previous chapter.
 \section{The user experience}
 \paragraph{VR app}
 The user experience in the \ac{VR} app will be designed to be intuitive, there will be two types of users: professors and students.
@@ -28,17 +28,17 @@ so it will be used for its performance, also it has a lot of tools for multiplay
 
 \section{Unreal Engine}
 \noindent
-Made by Epic Games, the project was born for the video game Unreal,
+Made by Epic Games, the software was born for the video game Unreal,
 now it is one of the best engines that power a lot of important video games and 3D animation. 
-For this project it will use the 5.2.1 version because at the time of writing this thesis for the best compatibility with the \ac{HMD}. 
+For this software it will use the 5.2.1 version because at the time of writing this thesis for the best compatibility with the \ac{HMD}. 
 The main reason for this upgrade was for faster building time and more advanced \ac{API} of Meta. 
 
 \paragraph{The fundamentals:}
 \ac{UE} has a 3D preview mode that lets the user set the various 3D objects in the scene.
 In unreal a scene is called "Level", each element in a level is called "Actor", Actors are made by multiple components.\\
 Each element of unreal can be built with a proprietary system called Blueprint, a visual programming interface, or via \texttt{C++}, or by combining them.
-Principally Blueprint can make the development of the project faster and easier at the cost of performance, \texttt{C++} performs better, and it has a bigger range of tools.
-So It is important to combine both languages for having the best performance and flexibility in the project.\\
+Principally Blueprint can make the development of the software faster and easier at the cost of performance, \texttt{C++} performs better, and it has a bigger range of tools.
+So It is important to combine both languages for having the best performance and flexibility in the software.\\
 Like a lot of game engines, \ac{UE} tries to render as many frames as possible, each cycle of rendering is called tick.\\
 It's important that long actions must be asynchronous with respect to the game ticks, and if something must be a runner in the so-called "game thread", it must be as fast as possible so that the frame rate does not drop to a certain level.\\
 Another important component is the player controller, this is the instance of a player inside a level, a player controller can possess a pawn actor or a character actor.
@@ -120,9 +120,9 @@ The main functionality of the web app will be:
 
 \section{Development environment}
 \noindent
-It is important to set the right development environment for this project, even if for the web app and backend it is a standard NodeJS and Python environment, 
+It is important to set the right development environment for this software, even if for the web app and backend it is a standard NodeJS and Python environment, 
 it is not that simple for \ac{UE}\\
-First the choosing the right version is very important because Meta does not always test all \ac{UE} version, at the start of the developing of the project, the last one was 5.2.1,
+First the choosing the right version is very important because Meta does not always test all \ac{UE} version, at the start of the developing of the software, the last one was 5.2.1,
 we also need Visual Studio with the right components for compile in \texttt{C++}, we could use other text editor, but Visual Studio is the most completed one for unreal.
 For other information look at: Bib.\cite{UEvisualStudio}
 After we set up the basic \ac{UE} environment, we have to pick the right Android studio and \ac{SDK} for building for Android \\
@@ -132,7 +132,7 @@ Because the requirements differ with respect to the version of \ac{UE} for more 
 Other than the configuration for Android, we also need to add the right components for building for the Meta Quest 2,
 There are two other components useful for developing:
 \begin{itemize}
-  \item \textbf{MetaXRPlugin:} plugin for: sideload, publish and setting the project for the \ac{HMD}, this component is already implemented in the \ac{UE} fork of META.
+  \item \textbf{MetaXRPlugin:} plugin for: sideload, publish and setting the software for the \ac{HMD}, this component is already implemented in the \ac{UE} fork of META.
   \item \textbf{MetaXRSimulator:} simulator for the \ac{HMD}, this is extremely important because the compile time of the \ac{APK} is slow. The simulator uses a PC instance of the game, and it overlays it.
 \end{itemize}
 \noindent
