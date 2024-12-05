@@ -5,13 +5,20 @@
 
 \section{Case introduction}
 \noindent
-The pediatric cardiac surgery unit of the university hospital of Padova is an important center, handling more than 300\footnote{\url{https://www.aopd.veneto.it/Cardiochirurgia-Pediatrica}} cases per year. The center specializes in surgical treatment of simple and complex congenital heart disease, at any age.
+The pediatric cardiac surgery unit of the University hospital of Padova is an important center, handling more than 300\footnote{\url{https://www.aopd.veneto.it/Cardiochirurgia-Pediatrica}} cases per year. The center specializes in surgical treatment of simple and complex congenital heart disease, at any age.
 The need to teach and visualize the case of operation is very important. \\
 Thanks to \ac{MRI} and \ac{CT} scans, surgeons can not only view detailed images of the heart, but also create 3D models Fig.[\ref{fig:heart}], as explained in this thesis Bib.\cite{thesisFrancesco}. These images are essential for pre-operative planning and understanding the patient's condition.
 In special cases, 3D models can further enhance understanding of patients with particularly complex heart problems.
 3D models can also be used to create molds for producing silicone replicas, allowing surgeons to practice the procedure before performing it on the patient, as explained in Bib.\cite{thesisFabio}.
 This approach is typically reserved for special cases, but it can be extremely valuable for future procedures and educational purposes.\\
-The application discussed in this thesis will use these 3D models for only training purposes without any simulation.\\
+In recent years, the pediatric cardiac surgery unit has set up a complete pipeline for the production of 3D printed models.
+The pipeline covers all the steps from the imaging to the segmentation and preparation of the models to the 3D printing.
+The models are currently used as a tactile medium to better visualize the morphology of the heart as a support for study, pre-operatory preparation but also to explain to the parents of the patients the pathology of the child.\\
+A collection of the 3D models have been published in a text book, with a companion app that allows the readers to visualize the 3D model on their mobile.
+A stand alone app has also been developed: Cardiology AR is an augmented reality app that allows the user to visualize in the space a selection of 3D models of hearts with congenital diseases.\\
+Both the text book and the AR app however are meant to be used by a single person and, due to the limited selection of models and the inherent technology limitations, lack the functionalities needed to be used successfully as a learning tool during a lesson.\\
+This thesis will discuss the design, development and testing of a software solution that overcomes these limitations and allows the visualization of these 3D models in a classroom.
+The software exploits Virtual Reality to offer an immersive visualization, and implements functions specifically designed for the use in a teacher to students learning environment.
 
 \begin{figure}[ht]
   \centering
