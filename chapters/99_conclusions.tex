@@ -6,32 +6,41 @@
 In this thesis, we successfully designed, developed, and tested a comprehensive software solution that meets all the requirements specified by the surgeons.\\
 As with any software development software, there is always room for additional features and refinements. The following paragraphs outline potential future work to enhance the functionality and overall outcome of this software.
 
-\section{Publication in the store}
+\subsection{Publication in the store}
 \noindent
 The software is still in its prototype stage, so it requires further attention before it can be published on the Meta Quest Store.
 The server is currently in its prototype stage and needs to implement user authentication. It must also be deployed in a public domain to allow users outside the university to access the software.
 Additionally, it should be scalable, so it can manage a number of users that the server is currently unable to support.
+To make this software more desirable to a larger audience, it could be enhanced with additional features, as explained in the following sections.
 
 
-\section{Future features}
+
+\subsection{Slicing 3D models}
 \noindent
-The software could benefit from additional features that are described in this section.
+At present the app allows viewing the model from the exterior.
+To view it from the interior, the user must "walk" inside the model, to improve this experience a special cut out model should be created and loaded so that different parts of the heart can be seen individually.
+Another useful way to view the inside of models could be a tool operated by the teacher or user that allows to slice the model along planes so that surgeons could gain deeper insights from the 3D model if it could be sliced along planes, like \ac{CT} scans and \ac{MRI}, this could be done locally thanks to \ac{UE} functions.
 
-\paragraph{Slicing 3D models}
-so that surgeons could gain deeper insights from the 3D model if it could be sliced along planes, similar to \ac{CT} scans and \ac{MRI}.
+\subsection{Real time coloring}
+\noindent
+At present, the app supports colored models, but the colors need to be set before the rendering and, as described before, they are encoded in the model itself.
+As heart models can be quite complex, a real time coloring tool could be a useful tool during a lecture, to highlight some surfaces of the heart by coloring them to emphasize particular areas.
 
-\paragraph{Real time coloring}
-could be done during a lecture, to highlight specific surfaces of the heart by coloring them to emphasize particular areas.
+\subsection{Visualization of other media}
+\noindent
+By leveraging the capabilities of \ac{VR} to display various types of media, it will be beneficial to include images or videos of \ac{CT} scans and \ac{MRI}, providing surgeons with multiple resources to work with.
+Thanks to \ac{VR} this media can be shown in very different ways, we could build a simple virtual monitor to see them but also be more creative by recreating in \ac{VR} devices like tablets or smartphones.
 
-\paragraph{Visualization of other media}
-by leveraging the capabilities of \ac{VR} to display various types of media, it will be beneficial to include images or videos of \ac{CT} scans and \ac{MRI}, providing surgeons with multiple resources to work with.
+\subsection{Procedural \ac{LOD} for 3D models}
+\noindent
+Because the 3D models used are quite demanding in terms of the number of vertices and triangles. If the backend could dynamically generate \ac{LOD}s, the \ac{HMD} would benefit from significant performance gains.
+The algorithms required for creating \ac{LOD}s are quite demanding in time execution, this is why it should be done on the server.
+Additionally, the OBJ file format is not suitable for storing such data, so transitioning to a more advanced file format like FBX or GLB would be advisable.
 
-\paragraph{Procedural \ac{LOD} for 3D models}
-because the 3D models used are quite demanding in terms of the number of vertices and triangles. If the backend could dynamically generate \ac{LOD}s, the \ac{HMD} would benefit from significant performance gains.
-
-\paragraph{3D models caching}
-because lectures can be highly dynamic, requiring the display of various heart models. Additionally, previously used 3D models could be downloaded and cached on the \ac{HMD}, reducing the time needed to load and display them.
-
+\subsection{3D models caching}
+\noindent
+Because lectures can be highly dynamic, requiring the display of various heart models. Additionally, previously used 3D models could be downloaded and cached on the \ac{HMD}, reducing the time needed to load and display them.
+To implement it, we need to create some caching rules and update the server \ac{API}s for enabling this functionality.
 
 \chapter{Conclusions}
 \noindent
