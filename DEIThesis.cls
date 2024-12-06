@@ -115,6 +115,8 @@
 
 % academic Year
 \def\academicYear#1{\gdef\@academicYear{#1}}
+\def\ProcamationDate#1{\gdef\@date{#1}}
+
 
 % student ID
 \def\studentId#1{\gdef\@studentId{#1}}
@@ -352,7 +354,7 @@
   }
 
   % set academic year in footer
-  \cfoot{\normalsize\textsc{Academic Year \\ \@academicYear}}
+  \cfoot{\normalsize\textsc{Academic Year \\ \@academicYear \\ Graduation Date \\ \@date}}
 
   % set brands in header
   \lhead{
@@ -368,6 +370,7 @@
     % master name
     \null \vspace{\stretch{2}}
     \normalsize\textsc{
+      Department of Information Engineering\\
       Master Thesis in \@mastername
     } \\
 

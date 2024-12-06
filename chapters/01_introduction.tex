@@ -2,8 +2,6 @@
 
 \chapter{Introduction}
 \label{chp:intro}
-
-\section{Case introduction}
 \noindent
 The pediatric cardiac surgery unit of the University hospital of Padova is an important center, handling more than 300\footnote{\url{https://www.aopd.veneto.it/Cardiochirurgia-Pediatrica}} cases per year. The center specializes in surgical treatment of simple and complex congenital heart disease, at any age.
 The need to teach and visualize the case of operation is very important. \\
@@ -14,11 +12,21 @@ This approach is typically reserved for special cases, but it can be extremely v
 In recent years, the pediatric cardiac surgery unit has set up a complete pipeline for the production of 3D printed models.
 The pipeline covers all the steps from the imaging to the segmentation and preparation of the models to the 3D printing.
 The models are currently used as a tactile medium to better visualize the morphology of the heart as a support for study, pre-operatory preparation but also to explain to the parents of the patients the pathology of the child.\\
-A collection of the 3D models have been published in a text book, with a companion app that allows the readers to visualize the 3D model on their mobile.
+A collection of the 3D models have been published in a book Bib.\cite{book}, with a companion app that allows the readers to visualize the 3D model on their mobile\footnote{\url{https://www.uqido.com/progetti/cardiology-ar/}}.
 A stand alone app has also been developed: Cardiology AR is an augmented reality app that allows the user to visualize in the space a selection of 3D models of hearts with congenital diseases.\\
 Both the text book and the AR app however are meant to be used by a single person and, due to the limited selection of models and the inherent technology limitations, lack the functionalities needed to be used successfully as a learning tool during a lesson.\\
 This thesis will discuss the design, development and testing of a software solution that overcomes these limitations and allows the visualization of these 3D models in a classroom.
 The software exploits Virtual Reality to offer an immersive visualization, and implements functions specifically designed for the use in a teacher to students learning environment.
+
+\section{Case introduction}
+\noindent
+As previously mentioned, the \ac{AOUPD} pediatric cardiac surgery unit has long been equipped with a facility for printing cardiac models, which serve as a valuable teaching tool for studying cardiac anomalies.
+However, printing models is a time-consuming process and, while suitable for examining individual cases, it is impractical for studying multiple cases, as this would require printing numerous models.
+Additionally, although physical models offer the advantage of immediate usability, they have significant limitations.
+These limitations include the inability to support remote study, as students must be physically present with the model, and their inherent static nature, which makes them impractical for certain use cases (e.g., resizing the model requires reprinting it).\\
+A solution to these limitations can be the use of virtual reality to view the 3D model.
+This idea was tested using existing technology and existing software. The experimental setting and the outcomes are described in the following section.
+The lessons learnt from this experiment made the case for the development of a bespoke app. 
 
 \begin{figure}[ht]
   \centering
@@ -26,13 +34,27 @@ The software exploits Virtual Reality to offer an immersive visualization, and i
   \caption{3D model of an heart}
   \label{fig:heart}
 \end{figure}
-\subsection{Existing hardware}
 
-The equipment: The University of Padua has some Meta quest 2 Fig.[\ref{fig:metaQuest2}] a \ac{HMD} for \ac{VR}.\\ 
-The Meta Quest 2 is a standalone \ac{HMD}, this means that it doesn't need other peripherals like an external console or \ac{PC} for working.\\
+\section{Current technologies tested}
+\noindent
+As part of this study, a group of surgeons tested an application called ShapeXR using a Meta Quest 2 headset to conduct a virtual reality-based lesson.
+The surgeons engaged with the application to evaluate its functionality, usability, and effectiveness in a realistic educational context.
+The outcomes of this experience, and the hardware and software used will be explained in the following sections.
+
+\subsection{VR hardware}
+\noindent
+The University of Padua has some Meta quest 2 Fig.[\ref{fig:metaQuest2}] a \ac{HMD} for \ac{VR}.\\ 
+The Meta Quest 2 is a standalone \ac{HMD}, which means that it doesn't need other peripherals like an external console or \ac{PC} for working.\\
+The Meta Quest 2 utilizes an \ac{IMU} to track the user's head movements and a camera array to determine their position in space, eliminating the need for external beacons.
+The cameras also support a pass-through feature; however, this is limited by low resolution and a black-and-white display.
 For user interaction, the Meta Quest 2 uses two wireless controllers, but it also has the possibility to use hand-tracking, to let the user navigate the interfaces by using his/her own hands.
 The tracking of the user in the real-world environment is achieved using 4 infrared cameras and other sensors like multi axes gyroscopes and accelerometers.\\
-They use a custom version of the Android \ac{OS}, this can give a certain degree of liberty in creating APPs for the device.
+They use a custom version of the Android \ac{OS}, this can give a certain degree of liberty in creating APPs for the device.\\
+The Meta Quest 2, successor to the Oculus Quest, has established itself as one of the best-selling devices on the market due to its extensive feature set and competitive price point, which positions it among the most affordable options available.
+Recently, it has been succeeded by two newer models, the Meta Quest 3 and Meta Quest 3s.
+Both models maintain compatibility with their predecessor while introducing new features, such as color pass-through, which effectively classifies them as \ac{XR} devices.
+Their competitive pricing is likely to make them the new standard in the industry.
+
 
 \begin{figure}[ht]
   \centering
@@ -41,29 +63,32 @@ They use a custom version of the Android \ac{OS}, this can give a certain degree
   \label{fig:metaQuest2}
 \end{figure}
 
-\paragraph{Use cases of VR:}
-Principally the surgeons are using VR equipment for training and showing critical health conditions of different patients' hearts.
-They are using an app called Shapes XR, this app has a web app for uploading 3D models and then showing them on the \ac{HMD}.
-The app has a multiplayer functionality so that multiple people can look at the 3D models in the environment, even if the developers recommend at max 8 people, they tested with 14 users connected and there weren't any problems.
 
-\subsection{Existing software}
-
-Shapes XR lets you create rooms, accessible via a code, where multiple people can create 3D models with basic tools like 3D brushes and standard shapes like cubes, pyramids and so on.
+\subsection{VR software}
+\noindent
+Surgeons are using an app called ShapesXR, this app has a web app for uploading 3D models and then showing them on the \ac{HMD}.
+The app has a multiplayer functionality so that multiple people can look at the 3D models in the environment, even if the developers recommend at max 8 people, they tested with 14 users connected and there weren't any problems.\\
+ShapesXR lets you create rooms, accessible via a code, where multiple people can create 3D models with basic tools like 3D brushes and standard shapes like cubes, pyramids and so on.
 It also lets you upload a 3D model file on their own website, so that in the home you can download it and start to work on it.
 It lets you also create your own avatar.
 This is the main feature that the surgeons are using for show the 3D Models
 
-\paragraph{The Problems:}
-Unfortunately Shapes XR is principally used for 3D modeling, so the app has a lot of features like changing the scale of the world or brushes for modeling the objects that aren't useful for the surgeons,
+\subsection{Experiment results}
+\noindent
+Experimenting with the hardware and the software highlighted some problems with this technology, mostly linked to the usability aspects of the app. Testing the solution during a lesson allowed us to collect feedback from the users, both from the teacher and the students point of view.
+
+\paragraph{Software problems:}
+Unfortunately ShapesXR is principally used for 3D modeling, so the app has a lot of features like changing the scale of the world or brushes for modeling the objects that aren't useful for the surgeons,
 and quite distracting because for a lot of people it is the first time using a \ac{HMD}.\\
 The user experience is extremely important in \ac{VR} because it is difficult to tutoring the user while using the \ac{HMD}.
-Then Shapes XR positions the user in an empty 3D plane with little to none point of reference so If a user accidentally uses the teleport function, they may find themselves somewhere far away from the scene they are supposed to be watching.
+Then ShapesXR positions the user in an empty 3D plane with little to none point of reference so If a user accidentally uses the teleport function, they may find themselves somewhere far away from the scene they are supposed to be watching.
 
-\paragraph{Feedbacks from surgeons and nurses:}
-
-There was a lesson on 12/12/2023 with the integration of the Quest 2 and Shapes XR. First it was pretty chaotic, a lot of people did not even know how to use the controllers,
+\subsection{Feedbacks from surgeons and nurses:}
+\noindent
+There was a lesson on 12/12/2023 with the integration of the Quest 2 and ShapesXR. First it was pretty chaotic, a lot of people did not even know how to use the controllers,
 and they had problems even putting in the code for entering the session. Unfortunately we did not have time to make a nice lesson for teaching how to use the HMD,
 the tutorial made by Meta approximates takes 15 min to complete, even more if the user wants to try the mini-games, so we did not have the time to show it. The main critical points were: 
+
 
 \begin{itemize}
   \item Inadequate tutoring for teaching how to use the \ac{HMD}
@@ -71,5 +96,10 @@ the tutorial made by Meta approximates takes 15 min to complete, even more if th
   \item Difficulty at moving in the room
   \item Some people avatar were blocking the visual of some people
 \end{itemize}
+
+\subsection{Conclusions}
 \noindent
-How we can see a new app for this use case could be useful, and this is the main reason why this software exists. 
+The tests conducted using the Oculus Quest 2 and the Shapes XR app confirmed that visualizing 3D models in virtual reality provides a highly valuable educational experience.
+However, they also revealed critical issues within the app that render it ineffective as a teaching tool.\\
+The experience gained has resulted in identifying a series of essential features that a VR app must possess to be effectively used in this educational context.
+These features will be discussed in Chp.[\ref{chp:Requirements}]. The challenge of finding an existing app with these capabilities highlighted the need to develop a custom software, which will be described in Chp.[\ref{chp:design}] and its development in Chp.[\ref{chp:project}].
