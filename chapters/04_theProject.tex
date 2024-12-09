@@ -66,9 +66,9 @@ so it is important to export the file in \texttt{Z}-up.\\
     \label{fig:loadingMesh}
 \end{figure}
 \noindent
-To load the mesh, I created a recursive function Fig.[\ref{fig:loadingMesh}] that loads each mesh group every 0.5 ms. A delay is necessary because some 3D models are large and can significantly impact performance during loading, and this helps to mitigate that. The function needs to be recursive because \ac{UE} loops do not allow delays within them.
+To load the mesh, I created a recursive function figure[\ref{fig:loadingMesh}] that loads each mesh group every 0.5 ms. A delay is necessary because some 3D models are large and can significantly impact performance during loading, and this helps to mitigate that. The function needs to be recursive because \ac{UE} loops do not allow delays within them.
 After all the mesh groups are loaded, another similar function is called to change the material and display the 3D mesh colors.\\
-The final result can be seen in the first chapter in Fig.[\ref{fig:heart}].
+The final result can be seen in the first chapter in figure[\ref{fig:heart}].
 \subsection{3DmodelVewer actor}
 \noindent
 The \texttt{3DModelActor} is a custom actor designed to facilitate the visualization of 3D heart models that is an extension of \texttt{Grippable Actor}. This actor comprises four primary components. The first component is the Procedural Mesh, which utilizes Unreal Engine's capabilities to generate and display a heart model in real-time. 
@@ -142,7 +142,7 @@ Unfortunately \texttt{Widgets} are used for 2D menus but thanks to an actor comp
 For interacting with a \texttt{widget} in a 3D space, \ac{UE} has a component called \texttt{widget interaction} that can evaluate if it is pointing to a \texttt{widget}, it can also give the world location of where it is pointing. This component will be attached to each \texttt{grip motion controller component}.
 For letting the user see exactly where the controller is pointed, when the controller is near the \texttt{Widget} a trace will be shown.
 For the trace will be used a Component called \texttt{Spline Mesh}, as the name suggests, uses various points and interpolates a mesh for creating a complex curve.
-Still our use will be simply by just using two points Fig.[\ref{fig:splineExample}]. So the algorithm is simple: each tick a function called \texttt{InteractionPointer} will control both controllers if the \texttt{widget interaction} points to a \texttt{Widget}, then will draw the spline.
+Still our use will be simply by just using two points figure[\ref{fig:splineExample}]. So the algorithm is simple: each tick a function called \texttt{InteractionPointer} will control both controllers if the \texttt{widget interaction} points to a \texttt{Widget}, then will draw the spline.
 
 
 
@@ -164,7 +164,7 @@ Still our use will be simply by just using two points Fig.[\ref{fig:splineExampl
 \noindent
 To create an effective laser pointer, we can simply use a red spline that starts from the controller and ends on the pointed surface. The code is very similar to the \texttt{widget interaction pointer} described in Chapter [\ref{chp:widgetInteraction}]. However, to find the pointer's location, we can use the line trace function, which detects the nearest point where a geometry intersects with an input segment.\\
 The laser pointer will be an actor, and using a component called a child actor, we can attach it to the \texttt{VR Character} right controller. This is necessary to eliminate the latency effect caused by the tick group of the \texttt{VR Character}, which is set to \texttt{Pre Physic}. The laser pointer actor will stay in the \texttt{post update work}, allowing it to be ticked one frame before anything else.\\
-The final result is identical to the \texttt{widget interaction pointer} shown in Fig.[\ref{fig:splineExample}], but the color will be red, and it will be toggled using the \texttt{A button}.
+The final result is identical to the \texttt{widget interaction pointer} shown in figure[\ref{fig:splineExample}], but the color will be red, and it will be toggled using the \texttt{A button}.
 
 \subsection{Grippable system}
 \noindent
@@ -194,7 +194,7 @@ This effect would be relatively simple to achieve using post-processing. However
 By using a sphere with a specific material that has \texttt{depth test} disabled (so it renders on top of everything), and by animating the fade effect through a parameter controlling opacity.\\
 The code will be implemented directly in the \texttt{VR Character}. The sphere will be spawned and destroyed as needed, and the animation will be controlled by a built-in function that changes the opacity value over a specified animation time.\\
 Another minor issue is that when the player enters a new session, they will initially spawn at coordinates \texttt{X=0, Y=0, Z=0}, where code execution may not yet be possible. To address this, a sphere similar to the one used for the fade effect will be placed at those coordinates in multiplayer levels.\\
-This sphere will be destroyed once the player has been relocated to the correct position. This sphere can be seen in Fig.[\ref{fig:classroom}].
+This sphere will be destroyed once the player has been relocated to the correct position. This sphere can be seen in figure[\ref{fig:classroom}].
 
 
 \section{Widgets}
@@ -223,7 +223,7 @@ Because the menus have to do network calls, they will be able to show error mess
 \noindent
 For compatibility reasons with the \ac{HMD}, I built a blueprint function for \ac{HTTP} requests.
 Because there is an internet call there is the need to do it in background, fortunately unreal gives a special \texttt{C++} class called \texttt{UBlueprintAsyncActionBase},
-if we inherit it, we can create what in \ac{UE} is called \texttt{latent node} Fig.[\ref{fig:HTTPrequest}], these nodes can activate their output pins without stopping the frame until they are complete. 
+if we inherit it, we can create what in \ac{UE} is called \texttt{latent node} figure[\ref{fig:HTTPrequest}], these nodes can activate their output pins without stopping the frame until they are complete. 
 
 \begin{figure}[ht]
     \centering
@@ -249,7 +249,7 @@ For ease of use there is another class called \texttt{WorldVariables} that inher
 \noindent
 The backend will be built in Python using a library called Flask. This library allows associating a function with a specific \ac{URL}.
 Since the app is expected to run in a secure local environment for now, no security measures will be implemented, however, this will change in future developments.\\
-This table explains all the \ac{API} endpoints Tab.[\ref{tab:API}].\\
+This table explains all the \ac{API} endpoints table[\ref{tab:API}].\\
 Primarily, the server maintains a list of open sessions, each associated with a timestamp and the host's \ac{IP} address, with the \ac{IP} address the client can connect to the host.
 If necessary, a new session can be opened. When a session is initiated, a 5 digit code is generated and sent to the host.
 If a client submits the correct code, the server will provide the host's IP address.\\
@@ -311,7 +311,7 @@ In the following sections, I will explain the two environments developed for the
 
 \subsection{Main menu}
 \noindent
-The main menu Fig.[\ref{fig:mainmenuRoom}] is the first interface the user encounters upon entering the application. A table in the virtual environment will display the main menu \ac{UI} widget, allowing the user to create or join sessions.
+The main menu figure[\ref{fig:mainmenuRoom}] is the first interface the user encounters upon entering the application. A table in the virtual environment will display the main menu \ac{UI} widget, allowing the user to create or join sessions.
 Beside it, another table will host the \texttt{3DModelPicker} widget, enabling users to interact with individual 3D models.
 
 \begin{figure}[ht]
@@ -322,7 +322,7 @@ Beside it, another table will host the \texttt{3DModelPicker} widget, enabling u
 \end{figure}
 \subsection{Classroom}
 \noindent
-The classroom Fig.[\ref{fig:classroom}] will be designed as a lecture hall, with students seated on steps to ensure a clear view of the 3D models, while the professor will be positioned in the middle.
+The classroom figure[\ref{fig:classroom}] will be designed as a lecture hall, with students seated on steps to ensure a clear view of the 3D models, while the professor will be positioned in the middle.
 A blackboard at the center will display the session's code, and the bottom-right corner will indicate whether the center mode is enabled.
 
 \begin{figure}[ht]

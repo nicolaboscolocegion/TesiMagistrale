@@ -4,7 +4,7 @@
 \label{chp:performance}
 \noindent
 Running a \ac{VR} application is highly resource-intensive. Not only must the processor handle all sensor data, but it also has to run a 3D application that is rendered on two screens, aiming to achieve at least a stable 72 \ac{FPS} experience.
-On top of that, the Meta Quest 2 has limited mobile hardware Tab.[\ref{tab:specs}]. This chapter will explain all the optimizations necessary to run the application at 90 \ac{FPS}, as well as demonstrate the performance of the OBJ parser build.
+On top of that, the Meta Quest 2 has limited mobile hardware table[\ref{tab:specs}]. This chapter will explain all the optimizations necessary to run the application at 90 \ac{FPS}, as well as demonstrate the performance of the OBJ parser build.
 
 
 \begin{table}
@@ -43,7 +43,7 @@ Static lighting will still be used, allowing the environment to have shadows cas
 As is well known, using smaller float values can improve system performance by sacrificing some precision, though fortunately, the side effects are often negligible.
 However, in our case, this optimization has limited impact because the majority of materials used are static.
 
-\subsection{Other optimizations for Meta quest}
+\subsection{Other optimizations for Meta Quest}
 \noindent
 In addition to the previously described options, there are some additional settings that can help boost performance. These are simple Android manifest tags that enable the \ac{HMD} to activate additional functionality:
 
@@ -55,7 +55,7 @@ In addition to the previously described options, there are some additional setti
 
 \section{Optimizations for Unreal engine VR}
 \noindent
-In addition to the options provided by the Meta XR performance check, there are settings within \ac{UE} Bib.\cite{UEperformance} that can further optimize the app for the \ac{HMD}.These optimizations are explained in the following paragraphs.
+In addition to the options provided by the Meta XR performance check, there are settings within \ac{UE} bibliography\cite{UEperformance} that can further optimize the app for the \ac{HMD}.These optimizations are explained in the following paragraphs.
 
 \paragraph{Instanced stereo}
 When rendering a frame for an \ac{HMD}, the screens are typically managed as two separate entities. This is demanding for the GPU, as it has to render two frames simultaneously.
@@ -73,9 +73,9 @@ Normally, the standard shading rate is 1:1, meaning one pixel shader invocation 
 
 \paragraph{\ac{FFR}}
 is a technique that utilizes \ac{VRS} to determine which parts of the screen can be rendered at a lower resolution.
-Studies, such as Bib.\cite{eye}, have shown that when viewing a screen, the eye typically focuses on the center.
+Studies, such as bibliography\cite{eye}, have shown that when viewing a screen, the eye typically focuses on the center.
 This allows for lower resolution rendering in the peripheral areas. Consequently, as the distance from the center increases, we can apply a lower shading rate, conserving resources without noticeably impacting visual quality.\\
-An example of \ac{FFR} zones is in Fig.[\ref{fig:FFR}] where the darker blue represents the lowest rate shading zone.
+An example of \ac{FFR} zones is in figure[\ref{fig:FFR}] where the darker blue represents the lowest rate shading zone.
 
 
 \begin{figure}[ht]
@@ -98,7 +98,7 @@ were created to reduce the number of vertices and triangles in a scene.
 The concept is straightforward: small or distant objects do not require as much detail as closer or larger ones. 
 Based on their position and size in the scene, each mesh has different \ac{LOD} levels that load according to the scene's requirements.
 \ac{LOD} levels can be generated programmatically or modeled by a 3D artist, naturally, manual creation leads to more accurate \ac{LOD}.\\
-\ac{LOD}s can modify materials or reduce the number of triangles and vertices. An example of programmatically generated \ac{LOD}s that reduce polygon count can be found in Fig.[\ref{fig:lods}].
+\ac{LOD}s can modify materials or reduce the number of triangles and vertices. An example of programmatically generated \ac{LOD}s that reduce polygon count can be found in figure[\ref{fig:lods}].
 
 \captionsetup[subfigure]{labelformat=empty}
 \begin{figure}[h]
@@ -133,7 +133,7 @@ Similarly, distant mountains may appear to have realistic depth, but they are of
 This approach prevents the engine from loading hidden models, which would otherwise waste resources.\\
 For the same reason, shaders are applied only to one side of a triangle.
 For example, shading the inner side of thick building walls is unnecessary and would only consume resources without adding to the visual quality.\\
-These tricks can been seen in Fig.[\ref{fig:design}]
+These tricks can been seen in figure[\ref{fig:design}]
 
 
 
@@ -146,10 +146,10 @@ These tricks can been seen in Fig.[\ref{fig:design}]
 
 \section{General performance}
 \noindent
-One of the primary requirements was for the application to run at 90 \ac{FPS} for optimal comfort, and this target was achieved. As shown in Fig.[\ref{fig:performance}],
+One of the primary requirements was for the application to run at 90 \ac{FPS} for optimal comfort, and this target was achieved. As shown in figure[\ref{fig:performance}],
 the app maintains a stable 90 \ac{FPS}, with minor performance drops occurring mainly during rendering and manipulation of 3D models.\\
 To minimize these performance drops further, reducing the polygon count of the 3D models may be necessary to lighten their GPU load.
-Fig.[\ref{fig:performance}] also illustrates that the bottleneck lies with the GPU, which handles rendering and manipulation of the 3D models.
+figure[\ref{fig:performance}] also illustrates that the bottleneck lies with the GPU, which handles rendering and manipulation of the 3D models.
 
 \begin{figure}[ht]
   \centering
@@ -165,7 +165,7 @@ According to the \ac{UE} documentation\footnote{\url{https://dev.epicgames.com/d
 However, my results suggest this may not be accurate—likely due to processor cache compensating for access speed.
 
 \paragraph{Benchmark}
-Table Tab.[\ref{tab:benchmark}] presents benchmark results showing the parser performance alongside the network time required to download it.
+Table[\ref{tab:benchmark}] presents benchmark results showing the parser performance alongside the network time required to download it.
 The test was conducted using a developer build of the app with all functionalities enabled. The connection was Wi-Fi 5 (up to 866 Mbps), with the access point approximately 2 meters from the \ac{HMD}.
 The router was connected to a 1 Gbps fiber line, providing ideal network conditions.
 As shown, the time to download the model is the real bottleneck and in real-world conditions, however, the \ac{HMD} may not benefit from such optimal network connectivity.\\

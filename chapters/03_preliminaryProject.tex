@@ -91,7 +91,7 @@ This limitation will restrict the multiplayer capabilities, allowing us to creat
 
 \section{Network Infrastructure}
 \noindent
-The Network Infrastructure Fig.[\ref{fig:NetworkSchema}] it is simple, a server will be hosted in the IT department of the hospital that will host the \ac{REST} server for managing 3D Models and multiplayer sessions,
+The Network Infrastructure figure[\ref{fig:NetworkSchema}] it is simple, a server will be hosted in the IT department of the hospital that will host the \ac{REST} server for managing 3D Models and multiplayer sessions,
 and in the same server will host via NodeJS the wen app for managing the 3DModels.
 The multiplayer itself will be manage by the host \ac{HMD}
 
@@ -125,11 +125,11 @@ It is important to set the right development environment for this software, even
 it is not that simple for \ac{UE}\\
 First the choosing the right version is very important because Meta does not always test all \ac{UE} version, at the start of the developing of the software, the last one was 5.2.1,
 we also need Visual Studio with the right components for compile in \texttt{C++}, we could use other text editor, but Visual Studio is the most completed one for unreal.
-For other information look at: Bib.\cite{UEvisualStudio}
+For other information look at: bibliography\cite{UEvisualStudio}
 After we set up the basic \ac{UE} environment, we have to pick the right Android studio and \ac{SDK} for building for Android \\
 Another important component is the Android \ac{NDK} that enables \ac{UE} to compile native \texttt{C++} code.
 But for installing there is a command line tool that \ac{UE} shipped with that can install the right version. 
-Because the requirements differ with respect to the version of \ac{UE} for more information look at Epic Games documentation: Bib.\cite{UEandroid}.\\
+Because the requirements differ with respect to the version of \ac{UE} for more information look at Epic Games documentation: bibliography\cite{UEandroid}.\\
 Other than the configuration for Android, we also need to add the right components for building for the Meta Quest 2,
 There are two other components useful for developing:
 \begin{itemize}
@@ -137,5 +137,5 @@ There are two other components useful for developing:
   \item \textbf{MetaXRSimulator:} simulator for the \ac{HMD}, this is extremely important because the compile time of the \ac{APK} is slow. The simulator uses a PC instance of the game, and it overlays it.
 \end{itemize}
 \noindent
-For more information look at: Bib.\cite{MetaSetup}
+For more information look at: bibliography\cite{MetaSetup}
 

@@ -125,6 +125,8 @@
 \def\advisor#1{\gdef\@advisor{#1}}
 
 % co-advisor (if one)
+\def\coadvisor#1{\gdef\@coadvisor{#1}}
+\def\coadvisorsUniversity#1{\gdef\@coadvisorsUniversity{#1}}
 
 % university of Padova color
 \definecolor{UniPDColor}{RGB}{155, 0, 20}
@@ -389,6 +391,14 @@
       \small
       \textbf{Student ID \@studentId} \hfill \textbf{\@university} \\
       % insert co-advisor if not empty
+
+      \ifx\@coadvisor\empty \else
+        \hfill \\
+        \hfill \textsc{Co-supervisor} \\
+        \hfill \large{\textbf{\@coadvisor}} \\
+        \small
+        \hfill \textbf{\@coadvisorsUniversity} \\
+      \fi
 
     \end{flushleft}
 
