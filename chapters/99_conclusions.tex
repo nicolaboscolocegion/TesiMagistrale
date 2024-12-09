@@ -31,13 +31,13 @@ Thanks to \ac{VR} this media can be shown in very different ways, we could build
 
 \subsection{Procedural LODs for 3D models}
 \noindent
-Because the 3D models used are quite demanding in terms of the number of vertices and triangles. If the backend could dynamically generate \ac{LOD}s, the \ac{HMD} would benefit from significant performance gains.
+The 3D models used are quite demanding in terms of the number of vertices and triangles. If the backend could dynamically generate \ac{LOD}s, the \ac{HMD} would benefit from significant performance gains.
 The algorithms required for creating \ac{LOD}s are quite demanding in time execution, this is why it should be done on the server.
 Additionally, the OBJ file format is not suitable for storing such data, so there is the need to transition to a more advanced file format like FBX or GLB.
 
 \subsection{3D models caching}
 \noindent
-Because lectures can be highly dynamic, requiring the display of various heart models. Additionally, previously used 3D models could be downloaded and cached on the \ac{HMD}, reducing the time needed to load and display them.
+Lectures can be highly dynamic, requiring the display of various heart models. Additionally, previously used 3D models could be downloaded and cached on the \ac{HMD}, reducing the time needed to load and display them.
 To implement it, we need to create some caching rules and update the server \ac{API}s for enabling this functionality.
 
 \chapter{Conclusions}
